@@ -11,6 +11,9 @@ using Windows.Storage;
 
 namespace DesktopAssistant.Services;
 
+/// <summary>
+/// ユーザーが設定したローカル設定を読み書きするサービスを表します。
+/// </summary>
 public class LocalSettingsService : ILocalSettingsService
 {
     private const string _defaultApplicationDataFolder = "DesktopAssistant/ApplicationData";
@@ -20,8 +23,8 @@ public class LocalSettingsService : ILocalSettingsService
     private readonly LocalSettingsOptions _options;
 
     private readonly string _localApplicationData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-    private readonly string _applicationDataFolder;
-    private readonly string _localsettingsFile;
+    private readonly string _applicationDataFolder; // 実際のアプリケーションフォルダ
+    private readonly string _localsettingsFile; // 実際に保存しているjsonファイル
 
     private IDictionary<string, object> _settings;
 
@@ -69,7 +72,7 @@ public class LocalSettingsService : ILocalSettingsService
 
         return default;
     }
-
+    // 画面で設定変更時に呼び出される。ラジオボタンなどを切り替えたらすぐにファイルに保存している。
     public async Task SaveSettingAsync<T>(string key, T value)
     {
         if (RuntimeHelper.IsMSIX)

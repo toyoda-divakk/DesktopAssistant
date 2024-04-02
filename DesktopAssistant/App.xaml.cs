@@ -57,7 +57,7 @@ public partial class App : Application
             // Other Activation Handlers
 
             // Services
-            services.AddSingleton<ILocalSettingsService, LocalSettingsService>();
+            services.AddSingleton<ILocalSettingsService, LocalSettingsService>();   // 設定内容を保存
             services.AddSingleton<IThemeSelectorService, ThemeSelectorService>();
             services.AddTransient<INavigationViewService, NavigationViewService>();
 
