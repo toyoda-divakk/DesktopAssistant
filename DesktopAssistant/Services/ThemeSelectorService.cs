@@ -5,6 +5,10 @@ using Microsoft.UI.Xaml;
 
 namespace DesktopAssistant.Services;
 
+// これって値1個読み書きするだけだよね…。
+/// <summary>
+/// テーマの選択を管理するサービスを表します。
+/// </summary>
 public class ThemeSelectorService : IThemeSelectorService
 {
     private const string SettingsKey = "AppBackgroundRequestedTheme";
@@ -29,7 +33,7 @@ public class ThemeSelectorService : IThemeSelectorService
         Theme = theme;
 
         await SetRequestedThemeAsync();
-        await SaveThemeInSettingsAsync(Theme);
+        await SaveThemeInSettingsAsync(Theme);  // 切り替えたらすぐにファイル保存
     }
 
     public async Task SetRequestedThemeAsync()
