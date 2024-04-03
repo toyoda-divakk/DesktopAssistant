@@ -32,7 +32,7 @@ public partial class App : Application
     {
         if ((App.Current as App)!.Host.Services.GetService(typeof(T)) is not T service)
         {
-            throw new ArgumentException($"{typeof(T)} needs to be registered in ConfigureServices within App.xaml.cs.");
+            throw new ArgumentException($"{typeof(T)} はApp.xaml.cs内のConfigureServicesに登録する必要がある。");
         }
 
         return service;
@@ -51,26 +51,27 @@ public partial class App : Application
         UseContentRoot(AppContext.BaseDirectory).
         ConfigureServices((context, services) =>
         {
-            // Default Activation Handler
-            services.AddTransient<ActivationHandler<LaunchActivatedEventArgs>, DefaultActivationHandler>();
+            // ActivationHandlerを登録して、起動時の処理を設定する
+            services.AddTransient<ActivationHandler<LaunchActivatedEventArgs>, DefaultActivationHandler>(); // 実行条件と実行内容を設定したら、起動時にやってくれる
 
-            // Other Activation Handlers
+            // 他に Activation Handlers があればここに追加する
 
             // Services
             services.AddSingleton<ILocalSettingsService, LocalSettingsService>();   // 設定内容を保存
-            services.AddSingleton<IThemeSelectorService, ThemeSelectorService>();
-            services.AddTransient<INavigationViewService, NavigationViewService>();
+            services.AddSingleton<IThemeSelectorService, ThemeSelectorService>();   // テーマの変更と保存
+            services.AddTransient<INavigationViewService, NavigationViewService>(); // NavigationViewの操作を補助する
 
-            services.AddSingleton<IActivationService, ActivationService>();
-            services.AddSingleton<IPageService, PageService>();
-            services.AddSingleton<INavigationService, NavigationService>();
+            services.AddSingleton<IActivationService, ActivationService>(); // アプリケーション起動時の処理を行う
+            services.AddSingleton<IPageService, PageService>();             // ★画面追加すると、ここも更新されるみたい
+            services.AddSingleton<INavigationService, NavigationService>(); // 画面遷移を行う
 
             // Core Services
-            services.AddSingleton<ISampleDataService, SampleDataService>();
-            services.AddSingleton<IFileService, FileService>();
+            services.AddSingleton<ISampleDataService, SampleDataService>(); // サンプルデータを提供する
+            services.AddSingleton<IFileService, FileService>();             // ファイルの読み書きを行う
 
+            // ★画面追加すると、ここも更新されるみたい
             // Views and ViewModels
-            services.AddTransient<CharactorSettingsDetailViewModel>();
+            services.AddTransient<CharactorSettingsDetailViewModel>();      // キャラクター設定の詳細画面のViewModel
             services.AddTransient<CharactorSettingsDetailPage>();
             services.AddTransient<CharactorSettingsViewModel>();
             services.AddTransient<CharactorSettingsPage>();
@@ -88,7 +89,7 @@ public partial class App : Application
             services.AddTransient<ShellViewModel>();
 
             // Configuration
-            services.Configure<LocalSettingsOptions>(context.Configuration.GetSection(nameof(LocalSettingsOptions)));
+            services.Configure<LocalSettingsOptions>(context.Configuration.GetSection(nameof(LocalSettingsOptions)));   // 開発者が設定する固定の設定内容
         }).
         Build();
 
@@ -97,10 +98,15 @@ public partial class App : Application
 
     private void App_UnhandledException(object sender, Microsoft.UI.Xaml.UnhandledExceptionEventArgs e)
     {
-        // TODO: Log and handle exceptions as appropriate.
+        // TODO: 例外を記録し、適切に処理する。
         // https://docs.microsoft.com/windows/windows-app-sdk/api/winrt/microsoft.ui.xaml.application.unhandledexception.
     }
 
+    /// <summary>
+    /// 起動時処理
+    /// 登録されているIActivationServiceを実行する
+    /// </summary>
+    /// <param name="args"></param>
     protected async override void OnLaunched(LaunchActivatedEventArgs args)
     {
         base.OnLaunched(args);

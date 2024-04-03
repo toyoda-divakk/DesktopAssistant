@@ -11,8 +11,6 @@ using Microsoft.UI.Xaml.Navigation;
 
 namespace DesktopAssistant.Services;
 
-// For more information on navigation between pages see
-// https://github.com/microsoft/TemplateStudio/blob/main/docs/WinUI/navigation.md
 public class NavigationService : INavigationService
 {
     private readonly IPageService _pageService;
@@ -66,6 +64,10 @@ public class NavigationService : INavigationService
         }
     }
 
+    /// <summary>
+    /// 戻る
+    /// </summary>
+    /// <returns></returns>
     public bool GoBack()
     {
         if (CanGoBack)
@@ -83,6 +85,13 @@ public class NavigationService : INavigationService
         return false;
     }
 
+    /// <summary>
+    /// 指定した画面に遷移
+    /// </summary>
+    /// <param name="pageKey">遷移先の画面を識別するためのキー</param>
+    /// <param name="parameter">遷移先の画面に渡すパラメータ</param>
+    /// <param name="clearNavigation">遷移前にナビゲーション履歴をクリアするか</param>
+    /// <returns></returns>
     public bool NavigateTo(string pageKey, object? parameter = null, bool clearNavigation = false)
     {
         var pageType = _pageService.GetPageType(pageKey);
@@ -107,6 +116,11 @@ public class NavigationService : INavigationService
         return false;
     }
 
+    /// <summary>
+    /// 遷移時の処理
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void OnNavigated(object sender, NavigationEventArgs e)
     {
         if (sender is Frame frame)

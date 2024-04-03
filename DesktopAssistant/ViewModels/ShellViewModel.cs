@@ -36,12 +36,15 @@ public partial class ShellViewModel : ObservableRecipient
     {
         IsBackEnabled = NavigationService.CanGoBack;
 
+        // 現在選択されているものを設定する
         if (e.SourcePageType == typeof(SettingsPage))
         {
+            // 設定画面の場合
+            // ナビゲーションビューの設定アイテムを選択
             Selected = NavigationViewService.SettingsItem;
             return;
         }
-
+        // 設定画面ではない場合
         var selectedItem = NavigationViewService.GetSelectedItem(e.SourcePageType);
         if (selectedItem != null)
         {

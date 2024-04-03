@@ -3,8 +3,8 @@ using DesktopAssistant.Core.Models;
 
 namespace DesktopAssistant.Core.Services;
 
-// This class holds sample data used by some generated pages to show how they can be used.
-// TODO: The following classes have been created to display sample data. Delete these files once your app is using real data.
+// このクラスは生成されたページがどのように使用できるかを示すために使用されるサンプルデータを保持します。
+// TODO: 以下のクラスはサンプルデータを表示するために作られました。アプリが実際のデータを使うようになったら、これらのファイルを削除してください。
 // 1. Contracts/Services/ISampleDataService.cs
 // 2. Services/SampleDataService.cs
 // 3. Models/SampleCompany.cs

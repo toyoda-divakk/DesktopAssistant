@@ -1,6 +1,6 @@
 ﻿namespace DesktopAssistant.Core.Models;
 
-// Model for the SampleDataService. Replace with your own model.
+// SampleDataServiceのモデル。独自のモデルに置き換えてください。
 public class SampleOrder
 {
     public long OrderID
