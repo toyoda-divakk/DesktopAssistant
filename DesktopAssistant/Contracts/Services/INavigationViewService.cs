@@ -2,6 +2,9 @@
 
 namespace DesktopAssistant.Contracts.Services;
 
+/// <summary>
+/// ナビゲーションビューのサービスを提供します。
+/// </summary>
 public interface INavigationViewService
 {
     IList<object>? MenuItems

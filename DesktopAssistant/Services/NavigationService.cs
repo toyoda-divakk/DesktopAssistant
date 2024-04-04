@@ -11,6 +11,9 @@ using Microsoft.UI.Xaml.Navigation;
 
 namespace DesktopAssistant.Services;
 
+/// <summary>
+/// 画面遷移の操作を補助するサービス
+/// </summary>
 public class NavigationService : INavigationService
 {
     private readonly IPageService _pageService;

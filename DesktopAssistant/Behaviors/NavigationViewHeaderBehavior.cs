@@ -7,6 +7,10 @@ using Microsoft.Xaml.Interactivity;
 
 namespace DesktopAssistant.Behaviors;
 
+/// <summary>
+/// NavigationViewコントロールのヘッダーを制御する
+/// ナビゲーションメニューのヘッダーを動的に更新するためのロジックを提供する
+/// </summary>
 public class NavigationViewHeaderBehavior : Behavior<NavigationView>
 {
     private static NavigationViewHeaderBehavior? _current;
@@ -48,6 +52,10 @@ public class NavigationViewHeaderBehavior : Behavior<NavigationView>
     public static readonly DependencyProperty HeaderTemplateProperty =
         DependencyProperty.RegisterAttached("HeaderTemplate", typeof(DataTemplate), typeof(NavigationViewHeaderBehavior), new PropertyMetadata(null, (d, e) => _current!.UpdateHeaderTemplate()));
 
+    /// <summary>
+    /// ナビゲーションサービスのNavigatedイベントにイベントハンドラを追加し
+    /// ページのナビゲーションが行われたときにヘッダーを更新するための処理
+    /// </summary>
     protected override void OnAttached()
     {
         base.OnAttached();
@@ -77,6 +85,9 @@ public class NavigationViewHeaderBehavior : Behavior<NavigationView>
         }
     }
 
+    /// <summary>
+    /// 現在表示されているページのヘッダーモードを取得し、それに基づいてヘッダーの表示を制御します。
+    /// </summary>
     private void UpdateHeader()
     {
         if (_currentPage != null)
@@ -84,11 +95,13 @@ public class NavigationViewHeaderBehavior : Behavior<NavigationView>
             var headerMode = GetHeaderMode(_currentPage);
             if (headerMode == NavigationViewHeaderMode.Never)
             {
+                // ヘッダーを非表示にし、AlwaysShowHeaderプロパティをfalseに設定
                 AssociatedObject.Header = null;
                 AssociatedObject.AlwaysShowHeader = false;
             }
             else
             {
+                // Never, Always以外の場合、ページから取得したヘッダーコンテキストがあればそれを表示し、なければデフォルトのヘッダーを表示します。
                 var headerFromPage = GetHeaderContext(_currentPage);
                 if (headerFromPage != null)
                 {
@@ -101,6 +114,7 @@ public class NavigationViewHeaderBehavior : Behavior<NavigationView>
 
                 if (headerMode == NavigationViewHeaderMode.Always)
                 {
+                    // ヘッダーを常に表示するためにAlwaysShowHeaderプロパティをtrueに設定
                     AssociatedObject.AlwaysShowHeader = true;
                 }
                 else
@@ -111,6 +125,10 @@ public class NavigationViewHeaderBehavior : Behavior<NavigationView>
         }
     }
 
+    /// <summary>
+    /// 現在表示されているページからヘッダーテンプレートを取得し、それをNavigationViewコントロールのHeaderTemplateプロパティに設定します。
+    /// テンプレートがない場合は、デフォルトのヘッダーテンプレートを使用します。
+    /// </summary>
     private void UpdateHeaderTemplate()
     {
         if (_currentPage != null)

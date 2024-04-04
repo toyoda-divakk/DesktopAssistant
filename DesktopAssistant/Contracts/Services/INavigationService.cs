@@ -3,6 +3,9 @@ using Microsoft.UI.Xaml.Navigation;
 
 namespace DesktopAssistant.Contracts.Services;
 
+/// <summary>
+/// 画面遷移サービスのインターフェース
+/// </summary>
 public interface INavigationService
 {
     event NavigatedEventHandler Navigated;

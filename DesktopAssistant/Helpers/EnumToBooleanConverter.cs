@@ -3,6 +3,9 @@ using Microsoft.UI.Xaml.Data;
 
 namespace DesktopAssistant.Helpers;
 
+/// <summary>
+/// 列挙型をbool値に変換するコンバーター
+/// </summary>
 public class EnumToBooleanConverter : IValueConverter
 {
     public EnumToBooleanConverter()

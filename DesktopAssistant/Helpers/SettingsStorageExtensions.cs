@@ -5,8 +5,8 @@ using Windows.Storage.Streams;
 
 namespace DesktopAssistant.Helpers;
 
-// Use these extension methods to store and retrieve local and roaming app data
-// More details regarding storing and retrieving app data at https://docs.microsoft.com/windows/apps/design/app-settings/store-and-retrieve-app-data
+// ローカルおよびローミングアプリのデータを保存および取得するには、以下の拡張メソッドを使用します。
+// https://docs.microsoft.com/windows/apps/design/app-settings/store-and-retrieve-app-data
 public static class SettingsStorageExtensions
 {
     private const string FileExtension = ".json";

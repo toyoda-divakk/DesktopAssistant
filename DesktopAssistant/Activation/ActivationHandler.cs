@@ -1,14 +1,16 @@
 ﻿namespace DesktopAssistant.Activation;
 
-// Extend this class to implement new ActivationHandlers. See DefaultActivationHandler for an example.
-// https://github.com/microsoft/TemplateStudio/blob/main/docs/WinUI/activation.md
+/// <summary>
+/// 起動時処理を行うためのインターフェース
+/// </summary>
+/// <typeparam name="T"></typeparam>
 public abstract class ActivationHandler<T> : IActivationHandler
     where T : class
 {
-    // Override this method to add the logic for whether to handle the activation.
+    // このメソッドをオーバーライドして、アクティベーションを処理するかどうかのロジックを追加します。
     protected virtual bool CanHandleInternal(T args) => true;
 
-    // Override this method to add the logic for your activation handler.
+    // このメソッドをオーバーライドして、起動ハンドラのロジックを追加します。
     protected abstract Task HandleInternalAsync(T args);
 
     public bool CanHandle(object args) => args is T && CanHandleInternal((args as T)!);

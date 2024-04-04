@@ -2,6 +2,9 @@
 
 namespace DesktopAssistant.Contracts.Services;
 
+/// <summary>
+/// テーマの選択を提供
+/// </summary>
 public interface IThemeSelectorService
 {
     ElementTheme Theme

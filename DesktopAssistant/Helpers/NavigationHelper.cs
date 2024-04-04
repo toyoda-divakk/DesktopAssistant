@@ -3,7 +3,7 @@ using Microsoft.UI.Xaml.Controls;
 
 namespace DesktopAssistant.Helpers;
 
-// Helper class to set the navigation target for a NavigationViewItem.
+// NavigationViewItemのナビゲーションターゲットを設定するヘルパークラスです。
 //
 // Usage in XAML:
 // <NavigationViewItem x:Uid="Shell_Main" Icon="Document" helpers:NavigationHelper.NavigateTo="AppName.ViewModels.MainViewModel" />
@@ -16,6 +16,9 @@ public class NavigationHelper
 
     public static void SetNavigateTo(NavigationViewItem item, string value) => item.SetValue(NavigateToProperty, value);
 
+    /// <summary>
+    /// XAMLまたはコードからNavigationViewItemのナビゲーションターゲットを指定するための依存関係プロパティです。
+    /// </summary>
     public static readonly DependencyProperty NavigateToProperty =
         DependencyProperty.RegisterAttached("NavigateTo", typeof(string), typeof(NavigationHelper), new PropertyMetadata(null));
 }

@@ -8,6 +8,9 @@ using Microsoft.UI.Xaml.Controls;
 
 namespace DesktopAssistant.Services;
 
+/// <summary>
+/// ページの型を取得するサービス
+/// </summary>
 public class PageService : IPageService
 {
     private readonly Dictionary<string, Type> _pages = new();
