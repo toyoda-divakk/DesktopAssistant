@@ -2,7 +2,7 @@
 
 namespace DesktopAssistant.Core.Contracts.Services;
 
-// Remove this class once your pages/features are using your data.
+// サンプルデータを取得するサービスなので、自分のデータを作成するようになったら削除すること
 public interface ISampleDataService
 {
     Task<IEnumerable<SampleOrder>> GetContentGridDataAsync();

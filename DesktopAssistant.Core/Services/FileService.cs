@@ -6,6 +6,9 @@ using Newtonsoft.Json;
 
 namespace DesktopAssistant.Core.Services;
 
+/// <summary>
+/// ファイルの読み書きを行うサービス
+/// </summary>
 public class FileService : IFileService
 {
     public T Read<T>(string folderPath, string fileName)

@@ -2,6 +2,9 @@
 
 namespace DesktopAssistant.Core.Helpers;
 
+/// <summary>
+/// Jsonの読み書きを行うヘルパー
+/// </summary>
 public static class Json
 {
     public static async Task<T> ToObjectAsync<T>(string value)
