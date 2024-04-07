@@ -1,4 +1,11 @@
-﻿# ローカライズ
+﻿# CommunityToolkitについて
+https://qiita.com/hqf00342/items/d12bb669d1ac6fed6ab6
+https://shikaku-sh.hatenablog.com/entry/c-sharp-communitytoolkit-mvvm-statup-820
+
+## サンプル
+https://github.com/CommunityToolkit/MVVM-Samples
+
+# ローカライズ
 Stringクラスに拡張メソッドがある。
 $"{"AppDisplayName".GetLocalized()}" // AppDisplayNameのローカライズ
 
