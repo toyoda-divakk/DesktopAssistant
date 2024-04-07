@@ -1,14 +1,14 @@
 ﻿*Recommended Markdown Viewer: [Markdown Editor](https://marketplace.visualstudio.com/items?itemName=MadsKristensen.MarkdownEditor2)*
 
-## Getting Started
+## はじめに
 
-[Get started with unit testing](https://docs.microsoft.com/visualstudio/test/getting-started-with-unit-testing?view=vs-2022&tabs=dotnet%2Cmstest), [Use the MSTest framework in unit tests](https://docs.microsoft.com/visualstudio/test/using-microsoft-visualstudio-testtools-unittesting-members-in-unit-tests), and [Run unit tests with Test Explorer](https://docs.microsoft.com/visualstudio/test/run-unit-tests-with-test-explorer) provide an overview of the MSTest framework and Test Explorer.
+[ユニットテストを始める](https://docs.microsoft.com/visualstudio/test/getting-started-with-unit-testing?view=vs-2022&tabs=dotnet%2Cmstest)、 [ユニットテストで MSTest フレームワークを使う](https://docs.microsoft.com/visualstudio/test/using-microsoft-visualstudio-testtools-unittesting-members-in-unit-tests)、 [Test Explorer でユニットテストを実行する](https://docs.microsoft.com/visualstudio/test/run-unit-tests-with-test-explorer) は、 MSTest フレームワークと Test Explorer の概要を提供します。
 
-## Testing UI Controls
+## UI コントロールのテスト
 
-Unit tests that exercise UI controls must run on the WinUI UI thread or they will throw an exception. To run a test on the WinUI UI thread, mark the test method with `[UITestMethod]` instead of `[TestMethod]`. During test execution, the test host will launch the app and dispatch the test to the app's UI thread.
+UIコントロールを実行するユニットテストは、WinUI UIスレッドで実行しなければなりません。WinUI UIスレッドでテストを実行するには、テストメソッドに `[TestMethod]` の代わりに `[UITestMethod]` を付けてください。テスト実行中、テストホストはアプリを起動し、アプリのUIスレッドにテストをディスパッチします。
 
-The below example creates a `new Grid()` and then validates that its `ActualWidth` is `0`.
+以下の例では `new Grid()` を作成し、その `ActualWidth` が `0` であることを検証している。
 
 ```csharp
 [UITestMethod]
@@ -18,13 +18,13 @@ public void UITestMethod()
 }
 ```
 
-## Dependency Injection and Mocking
+## 依存性の注入とモッキング
 
-Template Studio uses [dependency injection](https://docs.microsoft.com/dotnet/core/extensions/dependency-injection) which means class dependencies implement interfaces and those dependencies are injected via class constructors.
+Template Studio では [依存性の注入](https://docs.microsoft.com/dotnet/core/extensions/dependency-injection) を使っています。これはクラスの依存性がインターフェイスを実装しており、クラスのコンストラクタ経由で依存性が注入されることを意味します。
 
-One of the many benefits of this approach is improved testability, since tests can produce mock implementations of the interfaces and pass them into the object being tested, isolating the object being tested from its dependencies. To mock an interface, create a class that implements the interface, create stub implementations of the interface members, then pass an instance of the class into the object constructor.
+この方法の多くの利点のひとつは、テストのしやすさが向上することです。テストはインターフェースのモック実装を作成し、それをテスト対象のオブジェクトに渡すことで、テスト対象のオブジェクトを依存関係から切り離すことができます。インターフェイスをモックするには、インターフェイスを実装したクラスを作成し、インターフェイスメンバのスタブ実装を作成し、そのクラスのインスタンスをオブジェクトのコンストラクタに渡します。
 
-The below example demonstrates testing the ViewModel for the Settings page. `SettingsViewModel` depends on `IThemeSelectorService`, so a `MockThemeSelectorService` class is introduced that implements the interface with stub implementations, and then an instance of that class is passed into the `SettingsViewModel` constructor. The `VerifyVersionDescription` test then validates that the `VersionDescription` property of the `SettingsViewModel` returns the expected value.
+以下の例では、設定ページの ViewModel をテストしています。SettingsViewModel` は `IThemeSelectorService` に依存しているので、インターフェイスを実装した `MockThemeSelectorService` クラスをスタブ実装とともに導入し、そのクラスのインスタンスを `SettingsViewModel` のコンストラクタに渡す。VerifyVersionDescription` テストでは、`SettingsViewModel` の `VersionDescription` プロパティが期待通りの値を返すかどうかを検証する。
 
 ```csharp
 // SettingsViewModelTests.cs
@@ -62,6 +62,6 @@ internal class MockThemeSelectorService : IThemeSelectorService
 }
 ```
 
-## CI Pipelines
+## CIパイプライン
 
-See [README.md](https://github.com/microsoft/TemplateStudio/blob/main/docs/WinUI/pipelines/README.md) for guidance on building and testing projects in CI pipelines.
+CIパイプラインでのプロジェクトのビルドとテストについては、[README.md](https://github.com/microsoft/TemplateStudio/blob/main/docs/WinUI/pipelines/README.md)を参照してください。
