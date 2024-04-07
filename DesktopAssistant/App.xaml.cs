@@ -6,8 +6,9 @@ using DesktopAssistant.Helpers;
 using DesktopAssistant.Models;
 using DesktopAssistant.Services;
 using DesktopAssistant.ViewModels;
+using DesktopAssistant.ViewModels.Popup;
 using DesktopAssistant.Views;
-
+using DesktopAssistant.Views.Popup;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.UI.Xaml;
@@ -66,11 +67,14 @@ public partial class App : Application
             services.AddSingleton<INavigationService, NavigationService>(); // 画面遷移を行う
 
             // Core Services
+            services.AddSingleton<ISampleDataService, SampleDataService>();
             services.AddSingleton<ISampleDataService, SampleDataService>(); // サンプルデータを提供する
             services.AddSingleton<IFileService, FileService>();             // ファイルの読み書きを行う
 
             // ★画面追加すると、ここも更新されるみたい
             // Views and ViewModels
+            services.AddTransient<ToDoListViewModel>();
+            services.AddTransient<ToDoListPage>();
             services.AddTransient<CharactorSettingsDetailViewModel>();      // キャラクター設定の詳細画面のViewModel
             services.AddTransient<CharactorSettingsDetailPage>();
             services.AddTransient<CharactorSettingsViewModel>();
