@@ -37,6 +37,7 @@ AzureOpenAI, OpenAI, Claude
 ## キャラクター詳細
 ## キャラクター設定
 ## Todoリスト一覧
+- Todoリストの作成
 ## Todoリスト詳細
 - Todoリストの編集
 - Todoにコメントや進捗を付ける
