@@ -9,7 +9,9 @@
     mc:Ignorable="d">
 
     <Grid x:Name="ContentArea">
-        <!--  モードレスでToDoリストウィンドウを開くボタン  ShowToDoListCommandとバインドする  -->
-        <Button Command="{x:Bind ViewModel.ShowToDoListCommand}" Content="Show ToDo List" />
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Button Command="{x:Bind ViewModel.ShowToDoListCommand}" Content="Show ToDo List" />
+            <Button Command="{x:Bind ViewModel.CloseCommand}" Content="Close" />
+        </StackPanel>
     </Grid>
 </Page>

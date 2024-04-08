@@ -31,6 +31,10 @@ namespace DesktopAssistant.Helpers;
 // 将来的には、プラットフォームAPIでこれをサポートしたい。
 public class WindowHelper
 {
+    /// <summary>
+    /// Windowを作成し、追跡を行う
+    /// </summary>
+    /// <returns></returns>
     public static Window CreateWindow()
     {
         var newWindow = new Window
@@ -41,6 +45,10 @@ public class WindowHelper
         return newWindow;
     }
 
+    /// <summary>
+    /// 作成したWindowに対して追跡を行う
+    /// </summary>
+    /// <param name="window">作成したWindow</param>
     public static void TrackWindow(Window window)
     {
         window.Closed += (sender, args) => {
@@ -49,6 +57,11 @@ public class WindowHelper
         _activeWindows.Add(window);
     }
 
+    /// <summary>
+    /// WindowからAppWindowを取得する
+    /// </summary>
+    /// <param name="window"></param>
+    /// <returns></returns>
     public static AppWindow GetAppWindow(Window window)
     {
         var hWnd = WindowNative.GetWindowHandle(window);
@@ -56,12 +69,19 @@ public class WindowHelper
         return AppWindow.GetFromWindowId(wndId);
     }
 
+    /// <summary>
+    /// アプリが任意のUIElementを含むウィンドウを見つける
+    /// これを行うために、すべてのアクティブなWindowsを追跡します。
+    /// </summary>
+    /// <param name="element">対象のUIElement</param>
+    /// <returns></returns>
     public static Window? GetWindowForElement(UIElement element)
     {
         if (element.XamlRoot != null)
         {
             foreach (var window in _activeWindows)
             {
+                // XamlRootが一致するWindowが探しているWindowということになる
                 if (element.XamlRoot == window.Content.XamlRoot)
                 {
                     return window;
@@ -86,6 +106,9 @@ public class WindowHelper
         return 0.0;
     }
 
+    /// <summary>
+    /// 現在アクティブなウィンドウのリスト
+    /// </summary>
     public static List<Window> ActiveWindows => _activeWindows;
 
     private static readonly List<Window> _activeWindows = new();
