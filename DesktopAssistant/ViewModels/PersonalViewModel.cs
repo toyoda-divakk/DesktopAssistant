@@ -16,7 +16,7 @@ public partial class PersonalViewModel : ObservableRecipient, INavigationAware
     private readonly INavigationService _navigationService;
     private readonly ISampleDataService _sampleDataService;
 
-    public ObservableCollection<SampleOrder> Source { get; } = new ObservableCollection<SampleOrder>();
+    public ObservableCollection<Character> Source { get; } = new ObservableCollection<Character>();
 
     public PersonalViewModel(INavigationService navigationService, ISampleDataService sampleDataService)
     {
@@ -29,7 +29,7 @@ public partial class PersonalViewModel : ObservableRecipient, INavigationAware
         Source.Clear();
 
         // TODO: Replace with real data.
-        var data = await _sampleDataService.GetContentGridDataAsync();
+        var data = await _sampleDataService.GetCharacterDataAsync();
         foreach (var item in data)
         {
             Source.Add(item);
@@ -41,12 +41,12 @@ public partial class PersonalViewModel : ObservableRecipient, INavigationAware
     }
 
     [RelayCommand]
-    private void OnItemClick(SampleOrder? clickedItem)
+    private void OnItemClick(Character? clickedItem)
     {
         if (clickedItem != null)
         {
             _navigationService.SetListDataItemForNextConnectedAnimation(clickedItem);
-            _navigationService.NavigateTo(typeof(PersonalDetailViewModel).FullName!, clickedItem.OrderID);
+            _navigationService.NavigateTo(typeof(PersonalDetailViewModel).FullName!, clickedItem.Id);
         }
     }
 }

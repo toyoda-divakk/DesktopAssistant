@@ -11,7 +11,7 @@ public partial class PersonalDetailViewModel : ObservableRecipient, INavigationA
     private readonly ISampleDataService _sampleDataService;
 
     [ObservableProperty]
-    private SampleOrder? item;
+    private Character? item;
 
     public PersonalDetailViewModel(ISampleDataService sampleDataService)
     {
@@ -22,8 +22,8 @@ public partial class PersonalDetailViewModel : ObservableRecipient, INavigationA
     {
         if (parameter is long orderID)
         {
-            var data = await _sampleDataService.GetContentGridDataAsync();
-            Item = data.First(i => i.OrderID == orderID);
+            var data = await _sampleDataService.GetCharacterDataAsync();
+            Item = data.First(i => i.Id == orderID);
         }
     }
 
