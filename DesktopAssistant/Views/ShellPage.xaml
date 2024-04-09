@@ -61,7 +61,7 @@
                         <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xf0e2;" />
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
-                <NavigationViewItem x:Uid="Shell_CharactorSettings" helpers:NavigationHelper.NavigateTo="DesktopAssistant.ViewModels.CharactorSettingsViewModel">
+                <NavigationViewItem x:Uid="Shell_CharacterSettings" helpers:NavigationHelper.NavigateTo="DesktopAssistant.ViewModels.CharacterSettingsViewModel">
                     <NavigationViewItem.Icon>
                         <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xf0e2;" />
                     </NavigationViewItem.Icon>

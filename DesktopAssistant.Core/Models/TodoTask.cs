@@ -14,7 +14,15 @@ public record TodoTask
     /// <summary>
     /// タスクのID
     /// </summary>
-    public Guid Id
+    public long Id
+    {
+        get; init;
+    }
+
+    /// <summary>
+    /// タスクの題名
+    /// </summary>
+    public string Title
     {
         get; init;
     }
@@ -23,6 +31,14 @@ public record TodoTask
     /// タスクの内容
     /// </summary>
     public string Content
+    {
+        get; init;
+    }
+
+    /// <summary>
+    /// タスクの進捗メモ
+    /// </summary>
+    public string Progress
     {
         get; init;
     }

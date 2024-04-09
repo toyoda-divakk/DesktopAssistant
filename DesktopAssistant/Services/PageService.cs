@@ -23,8 +23,8 @@ public class PageService : IPageService
         Configure<PersonalViewModel, PersonalPage>();
         Configure<PersonalDetailViewModel, PersonalDetailPage>();
         Configure<SettingsViewModel, SettingsPage>();
-        Configure<CharactorSettingsViewModel, CharactorSettingsPage>();
-        Configure<CharactorSettingsDetailViewModel, CharactorSettingsDetailPage>();
+        Configure<CharacterSettingsViewModel, CharacterSettingsPage>();
+        Configure<CharacterSettingsDetailViewModel, CharacterSettingsDetailPage>();
         Configure<ToDoListViewModel, ToDoListPage>();
     }
 

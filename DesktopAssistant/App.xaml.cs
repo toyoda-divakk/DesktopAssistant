@@ -67,7 +67,6 @@ public partial class App : Application
             services.AddSingleton<INavigationService, NavigationService>(); // 画面遷移を行う
 
             // Core Services
-            services.AddSingleton<ISampleDataService, SampleDataService>();
             services.AddSingleton<ISampleDataService, SampleDataService>(); // サンプルデータを提供する
             services.AddSingleton<IFileService, FileService>();             // ファイルの読み書きを行う
 
@@ -75,10 +74,10 @@ public partial class App : Application
             // Views and ViewModels
             services.AddTransient<ToDoListViewModel>();
             services.AddTransient<ToDoListPage>();
-            services.AddTransient<CharactorSettingsDetailViewModel>();      // キャラクター設定の詳細画面のViewModel
-            services.AddTransient<CharactorSettingsDetailPage>();
-            services.AddTransient<CharactorSettingsViewModel>();
-            services.AddTransient<CharactorSettingsPage>();
+            services.AddTransient<CharacterSettingsDetailViewModel>();      // キャラクター設定の詳細画面のViewModel
+            services.AddTransient<CharacterSettingsDetailPage>();
+            services.AddTransient<CharacterSettingsViewModel>();
+            services.AddTransient<CharacterSettingsPage>();
             services.AddTransient<SettingsViewModel>();
             services.AddTransient<SettingsPage>();
             services.AddTransient<PersonalDetailViewModel>();

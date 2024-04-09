@@ -8,16 +8,16 @@ using Microsoft.UI.Xaml.Navigation;
 
 namespace DesktopAssistant.Views;
 
-public sealed partial class CharactorSettingsDetailPage : Page
+public sealed partial class CharacterSettingsDetailPage : Page
 {
-    public CharactorSettingsDetailViewModel ViewModel
+    public CharacterSettingsDetailViewModel ViewModel
     {
         get;
     }
 
-    public CharactorSettingsDetailPage()
+    public CharacterSettingsDetailPage()
     {
-        ViewModel = App.GetService<CharactorSettingsDetailViewModel>();
+        ViewModel = App.GetService<CharacterSettingsDetailViewModel>();
         InitializeComponent();
     }
 

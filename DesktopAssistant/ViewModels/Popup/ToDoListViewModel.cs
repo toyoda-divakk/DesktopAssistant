@@ -11,7 +11,7 @@ public partial class ToDoListViewModel : ObservableRecipient, INavigationAware
 {
     private readonly ISampleDataService _sampleDataService;
 
-    public ObservableCollection<SampleOrder> Source { get; } = new ObservableCollection<SampleOrder>();
+    public ObservableCollection<TodoTask> Source { get; } = new ObservableCollection<TodoTask>();
 
     public ToDoListViewModel(ISampleDataService sampleDataService)
     {
@@ -22,8 +22,7 @@ public partial class ToDoListViewModel : ObservableRecipient, INavigationAware
     {
         Source.Clear();
 
-        // TODO: Replace with real data.
-        var data = await _sampleDataService.GetGridDataAsync();
+        var data = await _sampleDataService.GetTodoTaskDataAsync();
 
         foreach (var item in data)
         {

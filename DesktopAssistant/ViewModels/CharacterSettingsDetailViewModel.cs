@@ -6,24 +6,24 @@ using DesktopAssistant.Core.Models;
 
 namespace DesktopAssistant.ViewModels;
 
-public partial class CharactorSettingsDetailViewModel : ObservableRecipient, INavigationAware
+public partial class CharacterSettingsDetailViewModel : ObservableRecipient, INavigationAware
 {
     private readonly ISampleDataService _sampleDataService;
 
     [ObservableProperty]
-    private SampleOrder? item;
+    private Character? item;
 
-    public CharactorSettingsDetailViewModel(ISampleDataService sampleDataService)
+    public CharacterSettingsDetailViewModel(ISampleDataService sampleDataService)
     {
         _sampleDataService = sampleDataService;
     }
 
     public async void OnNavigatedTo(object parameter)
     {
-        if (parameter is long orderID)
+        if (parameter is long characterID)
         {
-            var data = await _sampleDataService.GetContentGridDataAsync();
-            Item = data.First(i => i.OrderID == orderID);
+            var data = await _sampleDataService.GetCharacterDataAsync();
+            Item = data.First(i => i.Id == characterID);
         }
     }
 
