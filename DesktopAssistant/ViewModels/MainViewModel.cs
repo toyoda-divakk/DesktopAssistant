@@ -20,8 +20,11 @@ public partial class MainViewModel : ObservableRecipient
     private void ShowToDoList()
     {
         var newWindow = WindowHelper.CreateWindow();
-        var rootPage = new ToDoListPage();
-        rootPage.RequestedTheme = ThemeSelector.Theme;
+        newWindow.SetWindowSize(860, 600);
+        var rootPage = new ToDoListPage
+        {
+            RequestedTheme = ThemeSelector.Theme
+        };
         newWindow.Content = rootPage;
         newWindow.Activate();
     }

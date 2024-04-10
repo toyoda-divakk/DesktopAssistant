@@ -22,17 +22,6 @@
                 <controls:DataGridTextColumn Binding="{Binding UpdatedAt}" Header="UpdatedAt" />
                 <controls:DataGridTextColumn Binding="{Binding Deadline}" Header="Deadline" />
                 <controls:DataGridTextColumn Binding="{Binding IsDone}" Header="IsDone" />
-                <controls:DataGridTemplateColumn Header="Symbol">
-                    <controls:DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <FontIcon
-                                HorizontalAlignment="Left"
-                                AutomationProperties.Name="{Binding SymbolName}"
-                                FontFamily="{ThemeResource SymbolThemeFontFamily}"
-                                Glyph="{Binding Symbol}" />
-                        </DataTemplate>
-                    </controls:DataGridTemplateColumn.CellTemplate>
-                </controls:DataGridTemplateColumn>
             </controls:DataGrid.Columns>
         </controls:DataGrid>
     </Grid>

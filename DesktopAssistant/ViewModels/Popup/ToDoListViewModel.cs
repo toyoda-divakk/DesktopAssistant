@@ -16,9 +16,10 @@ public partial class ToDoListViewModel : ObservableRecipient, INavigationAware
     public ToDoListViewModel(ISampleDataService sampleDataService)
     {
         _sampleDataService = sampleDataService;
+        InitializeAsync();
     }
 
-    public async void OnNavigatedTo(object parameter)
+    private async void InitializeAsync()
     {
         Source.Clear();
 
@@ -28,6 +29,11 @@ public partial class ToDoListViewModel : ObservableRecipient, INavigationAware
         {
             Source.Add(item);
         }
+    }
+
+    public void OnNavigatedTo(object parameter)
+    {
+        InitializeAsync();
     }
 
     public void OnNavigatedFrom()

@@ -34,4 +34,14 @@ public sealed partial class MainWindow : WindowEx
             TitleBarHelper.ApplySystemThemeToCaptionButtons();
         });
     }
+
+    private void WindowEx_Closed(object sender, Microsoft.UI.Xaml.WindowEventArgs args)
+    {
+        var children = WindowHelper.ActiveWindows.ToArray();    // ToArrayしないと、foreach中にコレクションが変更されるため例外が発生する
+        foreach (var child in children)
+        {
+            child.Close();
+        }
+        App.MainWindow.Close();
+    }
 }
