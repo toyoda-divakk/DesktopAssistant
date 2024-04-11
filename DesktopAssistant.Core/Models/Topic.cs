@@ -22,7 +22,7 @@ public record Topic
     /// <summary>
     /// キャラクター
     /// </summary>
-    public Character Character
+    public long CharacterId
     {
         get; init;
     }

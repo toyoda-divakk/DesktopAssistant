@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 namespace DesktopAssistant.Core.Models;
 
 // Character -> Topic -> Message
+// NoSQLでは紐づけ方が分からないので、子オブジェクトは親のIdを持たせる
 /// <summary>
 /// キャラクター
 /// </summary>

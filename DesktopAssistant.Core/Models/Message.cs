@@ -22,7 +22,7 @@ public record Message
     /// <summary>
     /// Topic
     /// </summary>
-    public Topic Topic
+    public long TopicId
     {
         get; init;
     }
