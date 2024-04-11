@@ -6,12 +6,10 @@ using System.Threading.Tasks;
 
 namespace DesktopAssistant.Core.Models;
 
-// TODO: ユーザと誰の会話かを区別するためのフィールドを追加する
-// TODO: 誰のどの会話かを区別するためのTopicクラスを追加して、そのクラスをChatクラスに追加する
 /// <summary>
-/// 会話
+/// 会話のまとまり
 /// </summary>
-public record Chat
+public record Topic
 {
     /// <summary>
     /// ID
@@ -22,10 +20,17 @@ public record Chat
     }
 
     /// <summary>
-    /// キャラクターID
-    /// ユーザーの発言の場合はnull
+    /// キャラクター
     /// </summary>
-    public long? CharacterId
+    public Character Character
+    {
+        get; init;
+    }
+
+    /// <summary>
+    /// 話題
+    /// </summary>
+    public string Subject
     {
         get; init;
     }
@@ -33,15 +38,23 @@ public record Chat
     /// <summary>
     /// 内容
     /// </summary>
-    public string Text
+    public List<Message> Messages
     {
         get; init;
     }
 
     /// <summary>
-    /// 発言日時
+    /// 作成日時
     /// </summary>
     public DateTime CreatedAt
+    {
+        get; init;
+    }
+
+    /// <summary>
+    /// 最後の会話日時
+    /// </summary>
+    public DateTime UpdatedAt
     {
         get; init;
     }

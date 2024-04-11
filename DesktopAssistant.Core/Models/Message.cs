@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace DesktopAssistant.Core.Models;
 
-// Character -> Topic -> Message
 /// <summary>
-/// キャラクター
+/// 会話のメッセージ
 /// </summary>
-public record Character
+public record Message
 {
     /// <summary>
     /// ID
@@ -21,26 +20,35 @@ public record Character
     }
 
     /// <summary>
-    /// 名前
+    /// Topic
     /// </summary>
-    public string Name
+    public Topic Topic
     {
         get; init;
     }
 
     /// <summary>
-    /// プロンプト
+    /// キャラクターの発言ならTrue
+    /// ユーザーの発言ならFalse
     /// </summary>
-    public string Prompt
+    public bool IsCharacterMessage
     {
         get; init;
     }
 
     /// <summary>
-    /// 会話のリスト
+    /// 内容
     /// </summary>
-    public ICollection<Topic> Topics
+    public string Text
     {
-        get; set;
+        get; init;
+    }
+
+    /// <summary>
+    /// 発言日時
+    /// </summary>
+    public DateTime CreatedAt
+    {
+        get; init;
     }
 }

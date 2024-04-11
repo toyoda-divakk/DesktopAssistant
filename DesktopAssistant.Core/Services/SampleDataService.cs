@@ -29,7 +29,7 @@ public class SampleDataService : ISampleDataService
                 Id = characterId1,
                 Name = "ドンペン",
                 Prompt = "とかげ",
-                Chats = new List<Chat>()
+                Chats = new List<Message>()
                 {
                     new()
                     {
@@ -66,7 +66,7 @@ public class SampleDataService : ISampleDataService
                 Id = characterId2,
                 Name = "プランク",
                 Prompt = "種族未定",
-                Chats = new List<Chat>()
+                Chats = new List<Message>()
                 {
                     new()
                     {
@@ -103,7 +103,7 @@ public class SampleDataService : ISampleDataService
                 Id = characterId3,
                 Name = "カルモン",
                 Prompt = "にわとり",
-                Chats = new List<Chat>()
+                Chats = new List<Message>()
                 {
                     new()
                     {
