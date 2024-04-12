@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -149,12 +150,40 @@ public class SemanticService : ISemanticService
 
         return kernel.CreateFunctionFromPrompt(prompt, executionSettings: new OpenAIPromptExecutionSettings { MaxTokens = 100 });
     }
+
+    /// <summary>
+    /// プラグインに登録可能な関数の書き方例
+    /// </summary>
+    /// <param name="kernel"></param>
+    /// <returns></returns>
+    private static KernelFunction CreateNamedFunctionExample(Kernel kernel)
+    {
+        return kernel.CreateFunctionFromPrompt(
+            new PromptTemplateConfig("""
+                与えられた季節の季語を 3 つ挙げてください。
+
+                ### 季節
+                {{ $season }}
+                """)
+            {
+                Name = "Generate",  // プロンプトから呼び出すときの名前"{{ TestPlugin.Generate $season }}"
+                InputVariables = [
+                    new InputVariable { Name = "season", IsRequired = true },
+                ],
+            });
+    }
     #endregion
 
 }
 
 // ネイティブ関数を持ったプラグインの定義
-class UtilsExample(TimeProvider timeProvider) // これはプライマリーコンストラクタというC#12の機能
+// プラグインの登録は Kernel の Plugins.AddFromXXXX
+// すると、プロンプトから"{{ プラグイン名.関数名 引数名='値' 引数名='値'}}"で呼び出せるようになる
+// {{ UtilsExample.Add x='1' y='2' }}
+// {{ UtilsExample.LocalNow }}
+
+//[Description("四則演算プラグイン")]    // これを書くと、エージェント機能で利用されるようになるので書いた方が良い。System.ComponentModelをusingする
+public class UtilsExample(TimeProvider timeProvider) // これはプライマリーコンストラクタというC#12の機能
 {
     // 現在時間を返す
     [KernelFunction]
@@ -162,5 +191,14 @@ class UtilsExample(TimeProvider timeProvider) // これはプライマリーコ�
 
     // 2つの数値を足す
     [KernelFunction]
+    //[Description("足し算を行います。")]    // これを書くと、エージェント機能で利用されるようになるので書いた方が良い。
+    //[return: Description("計算結果")]
     public int Add(int x, int y) => x + y;
 }
+
+// 関数化したプロンプトもプラグインとして登録できる。その場合はAddFromFunctionsを使う。
+// kernel.Plugins.AddFromFunctions("TestPlugin", [func1]);  // 複数の関数が登録できる。
+// CreateNamedFunctionExampleはName = "Generate"なので、"{{ TestPlugin.Generate $season }}"で呼び出せる
+
+// エージェント機能は、CreateFunctionFromPromptで、executionSettings: new OpenAIPromptExecutionSettings{ToolCallBehavior = ToolCallBehavior.AutoInvokeKernelFunctions} を設定すると自動的にやってくれるようになる。
+
