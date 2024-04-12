@@ -9,6 +9,8 @@ using Microsoft.SemanticKernel.ChatCompletion;
 using Microsoft.SemanticKernel.Connectors.OpenAI;
 
 namespace DesktopAssistant.Core.Services;
+
+// https://zenn.dev/microsoft/articles/semantic-kernel-v1-004
 // 呼び方
 // ・カーネルを作る
 // ・InvokePromptAsyncでプロンプトを入れるか、関数を作ってInvokeAsyncで実行する
@@ -138,6 +140,7 @@ public class SemanticService : ISemanticService
     /// <returns>テキストを要約する関数</returns>
     private static KernelFunction CreateFunctionExample(Kernel kernel)
     {
+        // inputじゃなくても、nameとかなんでもOK。argumentsと一致させること。
         var prompt = """
         {{$input}}
         
@@ -148,6 +151,16 @@ public class SemanticService : ISemanticService
     }
     #endregion
 
+}
 
+// ネイティブ関数を持ったプラグインの定義
+class UtilsExample//(TimeProvider timeProvider) // これはプライマリーコンストラクタというC#12の機能
+{
+    // 現在時間を返す
+    //[KernelFunction]
+    //public string LocalNow() => timeProvider.GetLocalNow().ToString("u");
 
+    // 2つの数値を足す
+    [KernelFunction]
+    public int Add(int x, int y) => x + y;
 }
