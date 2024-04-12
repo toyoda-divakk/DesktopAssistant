@@ -13,7 +13,6 @@ ILocalSettingsServiceを注入して、キーを指定して値を保存する�
 LocalSettingsOptionsは、設定値の保存先を指定するための列挙型で、設定内容はappsettings.jsonに記述される。ユーザは触らない。
 
 
-
 # やることリスト
 https://learn.microsoft.com/ja-jp/windows/apps/design/style/segoe-fluent-icons-font
 
@@ -49,15 +48,30 @@ TODOリスト
 アプリケーションのビルド時に、PRI263: 0xdef01051というエラーが発生する場合があります。
 Nugetで最新版に更新したら解消されました。
 
-# サブフォルダ追加して画面追加したら遷移できなかった
+## サブフォルダ追加して画面追加したら遷移できなかった
 名前空間が違ったのが原因。また、xamlのナビゲーション引数も名前空間を反映していないのでキーが見つからなかった。
 これは追加時に、実際のGit差分を見て確認すれば大丈夫。
 名前空間が違う画面追加は想定されていないので注意すること。
 
-# モードレスで表示したい
+## モードレスで表示したい
 WinUI3では、モードレスウィンドウはサポートされていなかった。  
 https://tera1707.com/entry/2022/06/14/231325  
 WinUI3 Galleryのサンプルコードから、別ウインドウを開くためのヘルパー（WindowHelper）をそのままもらってきて、それを使ってウインドウを開く。  
 あとは実際に表示する画面をPageで作成する。（Windowではない）  
 ただし、このままでは元のウィンドウを閉じても連動して閉じられないっぽい。  
 WindowHelperの中に、アプリが任意のUIElement（GetWindowForElement）を含むウィンドウを見つけられるようにするヘルパークラスがあるので、それを使えばいけそう。  
+
+## SemanticKernelを入れたら、Newtonsoft.jsonが死んだ
+System.Text.Jsonが使えるので、そちらに変更する。
+単純置き換えで行けそう。
+Coreの中にあるHelpersのJsonは要らない。
+```
+// 修正前
+JsonConvert.DeserializeObject<T>(value);
+JsonConvert.SerializeObject(value);
+
+// 修正後
+JsonSerializer.Deserialize<T>(value);
+return JsonSerializer.Serialize(value);
+```
+System.Text.JsonはWindows10の古いバージョンでは動かないため警告が出るらしい。

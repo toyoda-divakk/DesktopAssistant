@@ -1,5 +1,4 @@
-﻿using DesktopAssistant.Core.Helpers;
-
+﻿using System.Text.Json;
 using Windows.Storage;
 using Windows.Storage.Streams;
 
@@ -11,15 +10,13 @@ public static class SettingsStorageExtensions
 {
     private const string FileExtension = ".json";
 
-    public static bool IsRoamingStorageAvailable(this ApplicationData appData)
-    {
-        return appData.RoamingStorageQuota == 0;
-    }
+#pragma warning disable CA1416
+    public static bool IsRoamingStorageAvailable(this ApplicationData appData) => appData.RoamingStorageQuota == 0;
 
     public static async Task SaveAsync<T>(this StorageFolder folder, string name, T content)
     {
         var file = await folder.CreateFileAsync(GetFileName(name), CreationCollisionOption.ReplaceExisting);
-        var fileContent = await Json.StringifyAsync(content);
+        var fileContent = JsonSerializer.Serialize(content);
 
         await FileIO.WriteTextAsync(file, fileContent);
     }
@@ -34,12 +31,12 @@ public static class SettingsStorageExtensions
         var file = await folder.GetFileAsync($"{name}.json");
         var fileContent = await FileIO.ReadTextAsync(file);
 
-        return await Json.ToObjectAsync<T>(fileContent);
+        return JsonSerializer.Deserialize<T>(fileContent);
     }
 
-    public static async Task SaveAsync<T>(this ApplicationDataContainer settings, string key, T value)
+    public static void Save<T>(this ApplicationDataContainer settings, string key, T value)
     {
-        settings.SaveString(key, await Json.StringifyAsync(value));
+        settings.SaveString(key, JsonSerializer.Serialize(value));
     }
 
     public static void SaveString(this ApplicationDataContainer settings, string key, string value)
@@ -47,13 +44,13 @@ public static class SettingsStorageExtensions
         settings.Values[key] = value;
     }
 
-    public static async Task<T?> ReadAsync<T>(this ApplicationDataContainer settings, string key)
+    public static T? Read<T>(this ApplicationDataContainer settings, string key)
     {
         object? obj;
 
         if (settings.Values.TryGetValue(key, out obj))
         {
-            return await Json.ToObjectAsync<T>((string)obj);
+            return JsonSerializer.Deserialize<T>((string)obj);
         }
 
         return default;
@@ -110,3 +107,5 @@ public static class SettingsStorageExtensions
         return string.Concat(name, FileExtension);
     }
 }
+
+#pragma warning restore CA1416

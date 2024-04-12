@@ -1,6 +1,6 @@
-﻿using DesktopAssistant.Contracts.Services;
+﻿using System.Text.Json;
+using DesktopAssistant.Contracts.Services;
 using DesktopAssistant.Core.Contracts.Services;
-using DesktopAssistant.Core.Helpers;
 using DesktopAssistant.Helpers;
 using DesktopAssistant.Models;
 
@@ -57,7 +57,7 @@ public class LocalSettingsService : ILocalSettingsService
         {
             if (ApplicationData.Current.LocalSettings.Values.TryGetValue(key, out var obj))
             {
-                return await Json.ToObjectAsync<T>((string)obj);
+                return JsonSerializer.Deserialize<T>((string)obj);
             }
         }
         else
@@ -66,7 +66,7 @@ public class LocalSettingsService : ILocalSettingsService
 
             if (_settings != null && _settings.TryGetValue(key, out var obj))
             {
-                return await Json.ToObjectAsync<T>((string)obj);
+                return JsonSerializer.Deserialize<T>((string)obj);
             }
         }
 
@@ -77,13 +77,13 @@ public class LocalSettingsService : ILocalSettingsService
     {
         if (RuntimeHelper.IsMSIX)
         {
-            ApplicationData.Current.LocalSettings.Values[key] = await Json.StringifyAsync(value);
+            ApplicationData.Current.LocalSettings.Values[key] = JsonSerializer.Serialize(value);
         }
         else
         {
             await InitializeAsync();
 
-            _settings[key] = await Json.StringifyAsync(value);
+            _settings[key] = JsonSerializer.Serialize(value);
 
             await Task.Run(() => _fileService.Save(_applicationDataFolder, _localsettingsFile, _settings));
         }

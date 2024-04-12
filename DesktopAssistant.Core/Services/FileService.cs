@@ -1,8 +1,6 @@
 ﻿using System.Text;
-
+using System.Text.Json;
 using DesktopAssistant.Core.Contracts.Services;
-
-using Newtonsoft.Json;
 
 namespace DesktopAssistant.Core.Services;
 
@@ -17,7 +15,7 @@ public class FileService : IFileService
         if (File.Exists(path))
         {
             var json = File.ReadAllText(path);
-            return JsonConvert.DeserializeObject<T>(json);
+            return JsonSerializer.Deserialize<T>(json);
         }
 
         return default;
@@ -30,7 +28,7 @@ public class FileService : IFileService
             Directory.CreateDirectory(folderPath);
         }
 
-        var fileContent = JsonConvert.SerializeObject(content);
+        var fileContent = JsonSerializer.Serialize(content);
         File.WriteAllText(Path.Combine(folderPath, fileName), fileContent, Encoding.UTF8);
     }
 
