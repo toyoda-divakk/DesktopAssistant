@@ -154,11 +154,11 @@ public class SemanticService : ISemanticService
 }
 
 // ネイティブ関数を持ったプラグインの定義
-class UtilsExample//(TimeProvider timeProvider) // これはプライマリーコンストラクタというC#12の機能
+class UtilsExample(TimeProvider timeProvider) // これはプライマリーコンストラクタというC#12の機能
 {
     // 現在時間を返す
-    //[KernelFunction]
-    //public string LocalNow() => timeProvider.GetLocalNow().ToString("u");
+    [KernelFunction]
+    public string LocalNow() => timeProvider.GetLocalNow().ToString("u");
 
     // 2つの数値を足す
     [KernelFunction]

@@ -1,4 +1,31 @@
-﻿# ローカライズ
+﻿# .NET8.0に上げる
+最初は7.0なので、すぐに8.0に上げちゃってOK。  
+プロジェクトを右クリックして、プロパティを開いて、ターゲットフレームワークを8.0に変更する。  
+そうすると、MSTestがめっちゃエラー出してきてダルいので削除してしまう。
+
+## RuntimeIdentifiersを消してみたが、良かったのだろうか？
+```
+<RuntimeIdentifiers>win10-x86;win10-x64;win10-arm64</RuntimeIdentifiers>
+<RuntimeIdentifiers>win-x86;win-x64;win-arm64</RuntimeIdentifiers>
+```
+
+## PublishProfileが警告を出してくる。
+'Properties\PublishProfiles\win10-x64.pubxml' という名前の発行プロファイルがプロジェクトに見つかりませんでした。
+```
+    <PublishProfile>Properties\PublishProfiles\win10-$(Platform).pubxml</PublishProfile>
+```
+プロジェクトを右クリックして「発行」
+ClickOnceProfile.pubxmlに変更したら、警告が消えたけど、そんなんで良いのだろうか？
+
+## NETSDK1206	バージョン固有またはディストリビューション固有のランタイム識別子が見つかりました
+指定された RID を必要としないことを把握している場合、これで警告を消す。
+```
+<PropertyGroup>
+  <NoWarn>$(NoWarn);NETSDK1206</NoWarn>
+</PropertyGroup>
+```
+
+# ローカライズ
 Stringクラスに拡張メソッドがある。
 $"{"AppDisplayName".GetLocalized()}" // AppDisplayNameのローカライズ
 

@@ -15,3 +15,4 @@ Console.WriteLine($"UTC: {utcDateTime}");
 Console.WriteLine($"Local Time: {localDateTime}");
 Console.WriteLine($"Japan Time: {japanDateTime}");
 ```
+TimeProviderを使うのもあり？
