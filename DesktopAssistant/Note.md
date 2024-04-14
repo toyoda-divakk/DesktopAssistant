@@ -57,13 +57,17 @@ LiteDBを使ったNoSQLデータベースの作成を行い、ローカルファ
 ●Todo管理画面を作成する。（画面の日付や完了の表示が不細工だが、後で直す）
 Todo管理画面のボタンを考える。
 DataGridだけど、カテゴリ別に折りたためないの？→ListViewの方が良いかもしれない。サンプルを見よう。
-●データ構造を決定する。
-●サンプルデータ作成。
-もうちょっとマシなサンプルデータにする。
-Chatクラスを作成する。
 
 チャット画面を作成する。
 とっととAzureOpenAIにつなぐ。
+
+設定画面に項目を追加する。
+・OpenAIかAzureOpenAIか
+・AzureOpenAIのAPIキー
+・AzureOpenAIのエンドポイント
+・AzureOpenAIのデプロイメント名
+・OpenAIのAPIキー
+・OpenAIのモデル名
 
 
 # DBに保存する物
@@ -93,7 +97,7 @@ WindowHelperの中に、アプリが任意のUIElement（GetWindowForElement）�
 
 ## SemanticKernelを入れたら、Newtonsoft.jsonが死んだ
 System.Text.Jsonが使えるので、そちらに変更する。
-単純置き換えで行けそう。
+単純置き換えで行ける。
 Coreの中にあるHelpersのJsonは要らない。
 ```
 // 修正前
