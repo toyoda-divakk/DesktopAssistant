@@ -6,19 +6,17 @@ namespace DesktopAssistant.Services;
 /// <summary>
 /// テーマの選択を管理するサービスを表します。
 /// </summary>
-public class ApiSettingService : IApiSettingService
+public class ApiSettingService(ILocalSettingsService localSettingsService) : IApiSettingService
 {
     private const string SettingsKey = "AppGenerativeAI";
 
     public GenerativeAI GenerativeAI { get; set; } = GenerativeAI.OpenAI;
 
-    private readonly ILocalSettingsService _localSettingsService;
-
-    public ApiSettingService(ILocalSettingsService localSettingsService)
-    {
-        _localSettingsService = localSettingsService;
-    }
-
+    /// <summary>
+    /// 初期化処理
+    /// ActivationServiceに登録すること
+    /// </summary>
+    /// <returns></returns>
     public async Task InitializeAsync()
     {
         GenerativeAI = await LoadSettingsAsync();
@@ -50,7 +48,7 @@ public class ApiSettingService : IApiSettingService
 
     private async Task<GenerativeAI> LoadSettingsAsync()
     {
-        var valueName = await _localSettingsService.ReadSettingAsync<string>(SettingsKey);
+        var valueName = await localSettingsService.ReadSettingAsync<string>(SettingsKey);
 
         if (Enum.TryParse(valueName, out GenerativeAI cacheValue))
         {
@@ -62,6 +60,6 @@ public class ApiSettingService : IApiSettingService
 
     private async Task SaveSettingAsync(GenerativeAI val)
     {
-        await _localSettingsService.SaveSettingAsync(SettingsKey, val.ToString());
+        await localSettingsService.SaveSettingAsync(SettingsKey, val.ToString());
     }
 }

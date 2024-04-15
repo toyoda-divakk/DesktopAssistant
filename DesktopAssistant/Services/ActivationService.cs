@@ -14,19 +14,9 @@ namespace DesktopAssistant.Services;
 /// アクティベーションハンドラの処理
 /// テーマの設定など
 /// </summary>
-public class ActivationService : IActivationService
+public class ActivationService(ActivationHandler<LaunchActivatedEventArgs> defaultHandler, IEnumerable<IActivationHandler> activationHandlers, IThemeSelectorService themeSelectorService, IApiSettingService apiSettingService) : IActivationService
 {
-    private readonly ActivationHandler<LaunchActivatedEventArgs> _defaultHandler;
-    private readonly IEnumerable<IActivationHandler> _activationHandlers;
-    private readonly IThemeSelectorService _themeSelectorService;
     private UIElement? _shell = null;
-
-    public ActivationService(ActivationHandler<LaunchActivatedEventArgs> defaultHandler, IEnumerable<IActivationHandler> activationHandlers, IThemeSelectorService themeSelectorService)
-    {
-        _defaultHandler = defaultHandler;
-        _activationHandlers = activationHandlers;
-        _themeSelectorService = themeSelectorService;
-    }
 
     /// <summary>
     /// アプリケーションの起動時に呼び出される
@@ -62,16 +52,16 @@ public class ActivationService : IActivationService
     /// <returns></returns>
     private async Task HandleActivationAsync(object activationArgs)
     {
-        var activationHandler = _activationHandlers.FirstOrDefault(h => h.CanHandle(activationArgs));
+        var activationHandler = activationHandlers.FirstOrDefault(h => h.CanHandle(activationArgs));
 
         if (activationHandler != null)
         {
             await activationHandler.HandleAsync(activationArgs);
         }
 
-        if (_defaultHandler.CanHandle(activationArgs))
+        if (defaultHandler.CanHandle(activationArgs))
         {
-            await _defaultHandler.HandleAsync(activationArgs);
+            await defaultHandler.HandleAsync(activationArgs);
         }
     }
 
@@ -82,7 +72,8 @@ public class ActivationService : IActivationService
     /// <returns></returns>
     private async Task InitializeAsync()
     {
-        await _themeSelectorService.InitializeAsync().ConfigureAwait(false);
+        await themeSelectorService.InitializeAsync().ConfigureAwait(false);
+        await apiSettingService.InitializeAsync().ConfigureAwait(false);
         await Task.CompletedTask;
     }
 
@@ -92,7 +83,7 @@ public class ActivationService : IActivationService
     /// <returns></returns>
     private async Task StartupAsync()
     {
-        await _themeSelectorService.SetRequestedThemeAsync();
+        await themeSelectorService.SetRequestedThemeAsync();
         await Task.CompletedTask;
     }
 }

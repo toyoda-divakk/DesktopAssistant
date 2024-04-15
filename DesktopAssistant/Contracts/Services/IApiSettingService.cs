@@ -12,6 +12,11 @@ public interface IApiSettingService
         get;
     }
 
+    /// <summary>
+    /// 初期化処理
+    /// ActivationServiceに登録すること
+    /// </summary>
+    /// <returns></returns>
     Task InitializeAsync();
 
     /// <summary>

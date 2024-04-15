@@ -26,12 +26,6 @@ public partial class SettingsViewModel : ObservableRecipient
     private ElementTheme _elementTheme;
 
     /// <summary>
-    /// AI生成
-    /// </summary>
-    [ObservableProperty]
-    private GenerativeAI _generativeAI;
-
-    /// <summary>
     /// バージョン情報
     /// </summary>
     [ObservableProperty]
@@ -46,12 +40,51 @@ public partial class SettingsViewModel : ObservableRecipient
     }
 
     /// <summary>
+    /// AI生成
+    /// </summary>
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(IsOpenAI))]
+    [NotifyPropertyChangedFor(nameof(IsAzureOpenAI))]
+    private GenerativeAI _generativeAI;
+
+    /// <summary>
     /// AI生成切り替えコマンド
     /// </summary>
     public ICommand SwitchGenerativeAICommand
     {
         get;
     }
+    // https://devlog.mescius.jp/dotnet-community-toolkit-mvvm-command/
+    public bool IsOpenAI => GenerativeAI == GenerativeAI.OpenAI;
+    public bool IsAzureOpenAI => GenerativeAI == GenerativeAI.AzureOpenAI;
+
+    /// <summary>
+    /// OpenAIのAPIキー
+    /// </summary>
+    [ObservableProperty]
+    private string _openAIKey;
+    /// <summary>
+    /// OpenAIのモデル名
+    /// </summary>
+    [ObservableProperty]
+    private string _openAIModel;
+
+    /// <summary>
+    /// AzureOpenAIのAPIキー
+    /// </summary>
+    [ObservableProperty]
+    private string _azureOpenAIKey;
+    /// <summary>
+    /// AzureOpenAIのデプロイメント名
+    /// </summary>
+    [ObservableProperty]
+    private string _azureOpenAIModel;
+    /// <summary>
+    /// AzureOpenAIのエンドポイント
+    /// </summary>
+    [ObservableProperty]
+    private string _azureOpenAIEndpoint;
+
 
     public SettingsViewModel(IThemeSelectorService themeSelectorService, IApiSettingService apiSettingService)
     {
