@@ -72,16 +72,14 @@ public partial class SettingsViewModel : ObservableRecipient
                 }
             });
 
-        // ライブラリのバグのため、Microsoft.UI.XamlのEnumではない場合はint型として受け付けることしかできない
-        // https://github.com/CommunityToolkit/dotnet/discussions/407
         _generativeAI = _apiSettingService.GenerativeAI;
-        SwitchGenerativeAICommand = new RelayCommand<int>(
+        SwitchGenerativeAICommand = new RelayCommand<GenerativeAI>(
             async (param) =>
             {
-                if (GenerativeAI != (GenerativeAI)param)
+                if (GenerativeAI != param)
                 {
-                    GenerativeAI = (GenerativeAI)param;
-                    await _apiSettingService.SetGenerativeAIAsync((GenerativeAI)param);
+                    GenerativeAI = param;
+                    await _apiSettingService.SetGenerativeAIAsync(param);
                 }
             });
     }
