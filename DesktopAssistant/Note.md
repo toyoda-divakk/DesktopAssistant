@@ -109,3 +109,17 @@ JsonSerializer.Deserialize<T>(value);
 return JsonSerializer.Serialize(value);
 ```
 System.Text.JsonはWindows10の古いバージョンでは動かないため警告が出るらしい。
+
+## ViewModelにEnumを送ったらintにされてしまう
+ライブラリのバグのため、Microsoft.UI.XamlのEnumではない場合は、ViewModelにCommandParameterで渡したときにint型として受け付けることしかできなくなっている
+https://github.com/CommunityToolkit/dotnet/discussions/407
+https://github.com/microsoft/microsoft-ui-xaml/issues/7633
+あと、デフォルトのEnumToBooleanConverterもおかしい。
+
+## BoolToVisibilityConverterは、UserControlのUIを更新しません
+https://github.com/CommunityToolkit/WindowsCommunityToolkit/issues/4777
+```
+Visibility="{x:Bind ViewModel.IsOpenAI, Converter={StaticResource BoolToVisibilityConverter}, Mode=OneWay}"
+```
+Mode=OneWayが必要ってだけです。気を付けよう。
+

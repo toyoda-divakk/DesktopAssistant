@@ -7,7 +7,28 @@ namespace DesktopAssistant.Contracts.Services;
 /// </summary>
 public interface IApiSettingService
 {
+    // 保存内容
     GenerativeAI GenerativeAI
+    {
+        get;
+    }
+    string OpenAIKey
+    {
+        get;
+    }
+    string OpenAIModel
+    {
+        get;
+    }
+    string AzureOpenAIKey
+    {
+        get;
+    }
+    string AzureOpenAIModel
+    {
+        get;
+    }
+    string AzureOpenAIEndpoint
     {
         get;
     }

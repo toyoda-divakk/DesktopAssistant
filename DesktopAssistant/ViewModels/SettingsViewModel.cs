@@ -43,8 +43,7 @@ public partial class SettingsViewModel : ObservableRecipient
     /// AI生成
     /// </summary>
     [ObservableProperty]
-    [NotifyPropertyChangedFor(nameof(IsOpenAI))]
-    [NotifyPropertyChangedFor(nameof(IsAzureOpenAI))]
+    [NotifyPropertyChangedFor(nameof(IsOpenAI), nameof(IsAzureOpenAI))]
     private GenerativeAI _generativeAI;
 
     /// <summary>
@@ -115,6 +114,12 @@ public partial class SettingsViewModel : ObservableRecipient
                     await _apiSettingService.SetGenerativeAIAsync(param);
                 }
             });
+
+        _openAIKey = _apiSettingService.OpenAIKey;
+        _openAIModel = _apiSettingService.OpenAIModel;
+        _azureOpenAIKey = _apiSettingService.AzureOpenAIKey;
+        _azureOpenAIModel = _apiSettingService.AzureOpenAIModel;
+        _azureOpenAIEndpoint = _apiSettingService.AzureOpenAIEndpoint;
     }
 
     /// <summary>

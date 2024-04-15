@@ -12,6 +12,16 @@ public class ApiSettingService(ILocalSettingsService localSettingsService) : IAp
 
     public GenerativeAI GenerativeAI { get; set; } = GenerativeAI.OpenAI;
 
+    public string OpenAIKey { get; set; } = string.Empty;
+
+    public string OpenAIModel { get; set; } = string.Empty;
+
+    public string AzureOpenAIKey { get; set; } = string.Empty;
+
+    public string AzureOpenAIModel { get; set; } = string.Empty;
+
+    public string AzureOpenAIEndpoint { get; set; } = string.Empty;
+
     /// <summary>
     /// 初期化処理
     /// ActivationServiceに登録すること
@@ -38,11 +48,11 @@ public class ApiSettingService(ILocalSettingsService localSettingsService) : IAp
 
     /// <summary>
     /// 設定内容をアプリに反映する
+    /// 特に何も実装しない
     /// </summary>
     /// <returns></returns>
     public async Task SetRequestedSettingAsync()
     {
-        // TODO:表示する設定項目の変更とかかな…？
         await Task.CompletedTask;
     }
 

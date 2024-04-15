@@ -11,7 +11,8 @@
     mc:Ignorable="d">
     <Page.Resources>
         <helpers:EnumToBooleanConverter x:Key="EnumToBooleanConverter" />
-        <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+        <converters:BoolToVisibilityConverter
+            x:Key="BoolToVisibilityConverter"/>
     </Page.Resources>
     <Grid>
         <StackPanel x:Name="ContentArea">
@@ -77,7 +78,7 @@
             </StackPanel>
 
             <!--  OpenAIの場合に表示するStackPanel  -->
-            <StackPanel Margin="{StaticResource SmallTopBottomMargin}" Visibility="{x:Bind ViewModel.IsOpenAI, Converter={StaticResource BoolToVisibilityConverter}}">
+            <StackPanel Margin="{StaticResource SmallTopBottomMargin}" Visibility="{x:Bind ViewModel.IsOpenAI, Converter={StaticResource BoolToVisibilityConverter}, Mode=OneWay}">
                 <StackPanel>
                     <TextBlock x:Uid="Settings_Api_ApiKey" />
                     <TextBox
@@ -95,7 +96,7 @@
             </StackPanel>
 
             <!--  AzureOpenAIの場合に表示するStackPanel  -->
-            <StackPanel Margin="{StaticResource SmallTopBottomMargin}" Visibility="{x:Bind ViewModel.IsAzureOpenAI, Converter={StaticResource BoolToVisibilityConverter}}">
+            <StackPanel Margin="{StaticResource SmallTopBottomMargin}" Visibility="{x:Bind ViewModel.IsAzureOpenAI, Converter={StaticResource BoolToVisibilityConverter}, Mode=OneWay}">
                 <StackPanel>
                     <TextBlock x:Uid="Settings_Api_ApiKey" />
                     <TextBox
