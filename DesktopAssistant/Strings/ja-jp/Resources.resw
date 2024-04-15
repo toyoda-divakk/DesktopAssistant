@@ -133,7 +133,7 @@
     <value>キャラ選択</value>
   </data>
   <data name="Settings_Personalization.Text" xml:space="preserve">
-    <value>個人設定</value>
+    <value>表示設定</value>
   </data>
   <data name="Settings_Theme.Text" xml:space="preserve">
     <value>テーマ選択</value>
@@ -143,12 +143,14 @@
   </data>
   <data name="Settings_Theme_Dark.Content" xml:space="preserve">
     <value>ダークテーマ</value>
+    <comment>".Content"を持つRadioButtonに適用するので、".Content"を付ける</comment>
   </data>
   <data name="Settings_Theme_Default.Content" xml:space="preserve">
     <value>デフォルト</value>
   </data>
   <data name="Settings_About.Text" xml:space="preserve">
     <value>このソフトウェアについて</value>
+    <comment>".Text"を持つTextBlockに適用するので、".Text"を付ける</comment>
   </data>
   <data name="Settings_AboutDescription.Text" xml:space="preserve">
     <value>デスクトップにマスコットキャラクターを表示し、あなたの仕事をサポートします。</value>
@@ -161,5 +163,26 @@
   </data>
   <data name="Shell_CharacterSettings.Content" xml:space="preserve">
     <value>キャラ作成</value>
+  </data>
+  <data name="Settings_Api.Text" xml:space="preserve">
+    <value>生成AI API設定</value>
+  </data>
+  <data name="Settings_Api_ApiKey.Text" xml:space="preserve">
+    <value>APIキー</value>
+  </data>
+  <data name="Settings_Api_AzureOpenAI.Content" xml:space="preserve">
+    <value>Azure OpenAI Service</value>
+  </data>
+  <data name="Settings_Api_AzureOpenAI_Endpoint.Text" xml:space="preserve">
+    <value>エンドポイント</value>
+  </data>
+  <data name="Settings_Api_Model.Text" xml:space="preserve">
+    <value>モデル名</value>
+  </data>
+  <data name="Settings_Api_Service.Text" xml:space="preserve">
+    <value>生成サービス</value>
+  </data>
+  <data name="Settings_Api_Service_OpenAI.Content" xml:space="preserve">
+    <value>OpenAI (ChatGPT)</value>
   </data>
 </root>
