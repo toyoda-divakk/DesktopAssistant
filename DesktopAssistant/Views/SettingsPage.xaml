@@ -7,6 +7,7 @@
     xmlns:helpers="using:DesktopAssistant.Helpers"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:xaml="using:Microsoft.UI.Xaml"
+    xmlns:xaml1="using:DesktopAssistant.Core.Enums"
     mc:Ignorable="d">
     <!--  ※設定項目がこれ以上増えたら、CommunityToolkitのSettingsExpanderを使いましょう。  -->
     <Page.Resources>
@@ -69,14 +70,21 @@
                 <TextBlock x:Uid="Settings_Api_Service" />
                 <RadioButton
                     x:Uid="Settings_Api_Service_OpenAI"
+                    Command="{x:Bind ViewModel.SwitchGenerativeAICommand}"
+                    CommandParameter="{helpers:EnumValue Type=xaml1:GenerativeAI,
+                                                         Member=OpenAI}"
                     FontSize="15"
                     GroupName="GenerativeAI"
                     IsChecked="{x:Bind ViewModel.GenerativeAI, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=OpenAI, Mode=OneWay}" />
                 <RadioButton
                     x:Uid="Settings_Api_AzureOpenAI"
+                    Command="{x:Bind ViewModel.SwitchGenerativeAICommand}"
+                    CommandParameter="{helpers:EnumValue Type=xaml1:GenerativeAI,
+                                                         Member=AzureOpenAI}"
                     FontSize="15"
                     GroupName="GenerativeAI"
                     IsChecked="{x:Bind ViewModel.GenerativeAI, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=AzureOpenAI, Mode=OneWay}" />
+
                 <!--  OpenAIの場合に表示するStackPanel  -->
                 <StackPanel Margin="{StaticResource SmallTopBottomMargin}" Visibility="{x:Bind ViewModel.IsOpenAI, Converter={StaticResource BoolToVisibilityConverter}, Mode=OneWay}">
                     <TextBlock x:Uid="Settings_Api_ApiKey" />

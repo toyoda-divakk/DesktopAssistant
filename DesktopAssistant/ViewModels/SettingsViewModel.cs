@@ -45,6 +45,14 @@ public partial class SettingsViewModel : ObservableRecipient, IApiSetting
     }
 
     /// <summary>
+    /// 生成AIサービス切り替えコマンド
+    /// </summary>
+    public RelayCommand<GenerativeAI> SwitchGenerativeAICommand
+    {
+        get;
+    }
+
+    /// <summary>
     /// AI生成のサービス名
     /// </summary>
     [ObservableProperty]
@@ -112,6 +120,17 @@ public partial class SettingsViewModel : ObservableRecipient, IApiSetting
                     ElementTheme = param;
                     await _themeSelectorService.SetThemeAsync(param);
                     ShowAndHideMessageAsync();
+                }
+            }
+        );
+
+        // AIサービス切り替え処理
+        SwitchGenerativeAICommand = new RelayCommand<GenerativeAI>(
+            (param) =>
+            {
+                if (GenerativeAI != param)
+                {
+                    GenerativeAI = param;
                 }
             }
         );
