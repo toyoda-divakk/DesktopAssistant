@@ -183,4 +183,10 @@
   <data name="Settings_Api.Text" xml:space="preserve">
     <value>Generative AI API</value>
   </data>
+  <data name="Button_Save.Text" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="Saved.Message" xml:space="preserve">
+    <value>Change completed.</value>
+  </data>
 </root>

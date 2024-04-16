@@ -1,0 +1,32 @@
+﻿<!--  没  -->
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!--  AccentButtonStyleを引き継いで、角を丸くする  -->
+    <Style
+        x:Key="RoundedAccentButtonStyle"
+        BasedOn="{StaticResource AccentButtonStyle}"
+        TargetType="Button">
+        <Setter Property="CornerRadius" Value="5" />
+    </Style>
+    <!--  これだと何故か背景色が消えてしまうので使えない  -->
+    <!--<Style
+        x:Key="IconTextButtonStyle"
+        BasedOn="{StaticResource RoundedAccentButtonStyle}"
+        TargetType="Button">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <StackPanel Orientation="Horizontal">
+                        <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="{TemplateBinding Tag}" Foreground="Transparent" />
+                        <TextBlock
+                            Grid.Column="1"
+                            Margin="5"
+                            Foreground="Transparent"
+                            Text="{TemplateBinding Content}" />
+                    </StackPanel>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>-->
+
+
+</ResourceDictionary>

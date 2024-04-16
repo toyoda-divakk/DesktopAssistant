@@ -7,15 +7,19 @@
     xmlns:helpers="using:DesktopAssistant.Helpers"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:xaml="using:Microsoft.UI.Xaml"
-    xmlns:xaml1="using:DesktopAssistant.Core.Enums"
     mc:Ignorable="d">
+    <!--  ※設定項目がこれ以上増えたら、CommunityToolkitのSettingsExpanderを使いましょう。  -->
     <Page.Resources>
         <helpers:EnumToBooleanConverter x:Key="EnumToBooleanConverter" />
-        <converters:BoolToVisibilityConverter
-            x:Key="BoolToVisibilityConverter"/>
+        <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
     </Page.Resources>
     <Grid>
         <StackPanel x:Name="ContentArea">
+            <InfoBar
+                x:Uid="Saved"
+                IsClosable="False"
+                IsOpen="{x:Bind ViewModel.IsVisibleMessage, Mode=OneWay}"
+                Severity="Success" />
             <!--  個人設定（Resourcesから直接取ってくる）  -->
             <TextBlock x:Uid="Settings_Personalization" Style="{ThemeResource SubtitleTextBlockStyle}" />
             <!--  テーマ選択  -->
@@ -57,29 +61,24 @@
 
             <!--  APIの設定  -->
             <TextBlock x:Uid="Settings_Api" Style="{ThemeResource SubtitleTextBlockStyle}" />
-            <StackPanel Margin="{StaticResource SmallTopBottomMargin}">
+            <StackPanel
+                Margin="{StaticResource SmallTopBottomMargin}"
+                Padding="10,10"
+                BorderBrush="Gray"
+                BorderThickness="1">
                 <TextBlock x:Uid="Settings_Api_Service" />
                 <RadioButton
                     x:Uid="Settings_Api_Service_OpenAI"
-                    Command="{x:Bind ViewModel.SwitchGenerativeAICommand}"
-                    CommandParameter="{helpers:EnumValue Type=xaml1:GenerativeAI,
-                                                         Member=OpenAI}"
                     FontSize="15"
                     GroupName="GenerativeAI"
                     IsChecked="{x:Bind ViewModel.GenerativeAI, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=OpenAI, Mode=OneWay}" />
                 <RadioButton
                     x:Uid="Settings_Api_AzureOpenAI"
-                    Command="{x:Bind ViewModel.SwitchGenerativeAICommand}"
-                    CommandParameter="{helpers:EnumValue Type=xaml1:GenerativeAI,
-                                                         Member=AzureOpenAI}"
                     FontSize="15"
                     GroupName="GenerativeAI"
                     IsChecked="{x:Bind ViewModel.GenerativeAI, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=AzureOpenAI, Mode=OneWay}" />
-            </StackPanel>
-
-            <!--  OpenAIの場合に表示するStackPanel  -->
-            <StackPanel Margin="{StaticResource SmallTopBottomMargin}" Visibility="{x:Bind ViewModel.IsOpenAI, Converter={StaticResource BoolToVisibilityConverter}, Mode=OneWay}">
-                <StackPanel>
+                <!--  OpenAIの場合に表示するStackPanel  -->
+                <StackPanel Margin="{StaticResource SmallTopBottomMargin}" Visibility="{x:Bind ViewModel.IsOpenAI, Converter={StaticResource BoolToVisibilityConverter}, Mode=OneWay}">
                     <TextBlock x:Uid="Settings_Api_ApiKey" />
                     <TextBox
                         x:Name="OpenAIKey"
@@ -93,11 +92,8 @@
                         Text="{x:Bind ViewModel.OpenAIModel, Mode=TwoWay}"
                         TextWrapping="Wrap" />
                 </StackPanel>
-            </StackPanel>
-
-            <!--  AzureOpenAIの場合に表示するStackPanel  -->
-            <StackPanel Margin="{StaticResource SmallTopBottomMargin}" Visibility="{x:Bind ViewModel.IsAzureOpenAI, Converter={StaticResource BoolToVisibilityConverter}, Mode=OneWay}">
-                <StackPanel>
+                <!--  AzureOpenAIの場合に表示するStackPanel  -->
+                <StackPanel Margin="{StaticResource SmallTopBottomMargin}" Visibility="{x:Bind ViewModel.IsAzureOpenAI, Converter={StaticResource BoolToVisibilityConverter}, Mode=OneWay}">
                     <TextBlock x:Uid="Settings_Api_ApiKey" />
                     <TextBox
                         x:Name="AzureOpenAIKey"
@@ -117,8 +113,18 @@
                         Text="{x:Bind ViewModel.AzureOpenAIEndpoint, Mode=TwoWay}"
                         TextWrapping="Wrap" />
                 </StackPanel>
+                <Button
+                    x:Name="myButton"
+                    Command="{x:Bind ViewModel.SaveGenerativeAICommand}"
+                    Style="{StaticResource AccentButtonStyle}">
+                    <StackPanel Orientation="Horizontal">
+                        <SymbolIcon Symbol="Save" />
+                        <TextBlock x:Uid="Button_Save" Margin="5,0,0,0" />
+                    </StackPanel>
+                </Button>
             </StackPanel>
 
+            <!--  ここいる？  -->
             <!--  このソフトウェアについて  -->
             <TextBlock x:Uid="Settings_About" Style="{ThemeResource SubtitleTextBlockStyle}" />
 

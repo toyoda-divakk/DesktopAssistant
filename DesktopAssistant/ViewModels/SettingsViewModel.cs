@@ -20,6 +20,12 @@ public partial class SettingsViewModel : ObservableRecipient
     private readonly IApiSettingService _apiSettingService;
 
     /// <summary>
+    /// 保存メッセージの表示
+    /// </summary>
+    [ObservableProperty]
+    private bool _isVisibleMessage;
+
+    /// <summary>
     /// テーマ
     /// </summary>
     [ObservableProperty]
@@ -49,7 +55,7 @@ public partial class SettingsViewModel : ObservableRecipient
     /// <summary>
     /// AI生成切り替えコマンド
     /// </summary>
-    public ICommand SwitchGenerativeAICommand
+    public ICommand SaveGenerativeAICommand
     {
         get;
     }
@@ -91,6 +97,7 @@ public partial class SettingsViewModel : ObservableRecipient
         _themeSelectorService = themeSelectorService;
         _apiSettingService = apiSettingService;
 
+        // 表示設定
         _elementTheme = _themeSelectorService.Theme;
         _versionDescription = GetVersionDescription();
 
@@ -101,25 +108,37 @@ public partial class SettingsViewModel : ObservableRecipient
                 {
                     ElementTheme = param;
                     await _themeSelectorService.SetThemeAsync(param);
+                    ShowAndHideMessageAsync();
                 }
             });
 
+        // 生成AIの設定
         _generativeAI = _apiSettingService.GenerativeAI;
-        SwitchGenerativeAICommand = new RelayCommand<GenerativeAI>(
-            async (param) =>
-            {
-                if (GenerativeAI != param)
-                {
-                    GenerativeAI = param;
-                    await _apiSettingService.SetGenerativeAIAsync(param);
-                }
-            });
-
         _openAIKey = _apiSettingService.OpenAIKey;
         _openAIModel = _apiSettingService.OpenAIModel;
         _azureOpenAIKey = _apiSettingService.AzureOpenAIKey;
         _azureOpenAIModel = _apiSettingService.AzureOpenAIModel;
         _azureOpenAIEndpoint = _apiSettingService.AzureOpenAIEndpoint;
+        _isVisibleMessage = false;
+
+        // 保存ボタン
+        SaveGenerativeAICommand = new RelayCommand(
+            async () =>
+            {
+                //await _apiSettingService.SetGenerativeAIAsync(param);
+
+                ShowAndHideMessageAsync();
+            });
+    }
+
+    /// <summary>
+    /// 3秒後にメッセージを非表示にする
+    /// </summary>
+    private async void ShowAndHideMessageAsync()
+    {
+        IsVisibleMessage = true;
+        await Task.Delay(3000);
+        IsVisibleMessage = false;
     }
 
     /// <summary>
