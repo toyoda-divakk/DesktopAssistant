@@ -1,15 +1,14 @@
 ﻿using DesktopAssistant.Contracts.Services;
 using DesktopAssistant.Core.Enums;
+using DesktopAssistant.Helpers;
 
 namespace DesktopAssistant.Services;
 
 /// <summary>
 /// テーマの選択を管理するサービスを表します。
 /// </summary>
-public class ApiSettingService(ILocalSettingsService localSettingsService) : IApiSettingService
+public class ApiSettingService(ILocalSettingsService localSettingsService) : IApiSettingService, IApiSetting
 {
-    private const string SettingsKey = "AppGenerativeAI";
-
     public GenerativeAI GenerativeAI { get; set; } = GenerativeAI.OpenAI;
 
     public string OpenAIKey { get; set; } = string.Empty;
@@ -25,25 +24,34 @@ public class ApiSettingService(ILocalSettingsService localSettingsService) : IAp
     /// <summary>
     /// 初期化処理
     /// ActivationServiceに登録すること
+    /// 設定の再読み込み処理の場合も使用する
     /// </summary>
     /// <returns></returns>
     public async Task InitializeAsync()
     {
-        GenerativeAI = await LoadSettingsAsync();
+        await ReLoadSettingsAsync();
         await Task.CompletedTask;
     }
 
     /// <summary>
-    /// 生成AIを変更する
+    /// 生成AIの設定を変更する
     /// </summary>
-    /// <param name="generativeAI"></param>
+    /// <param name="setting"></param>
     /// <returns></returns>
-    public async Task SetGenerativeAIAsync(GenerativeAI generativeAI)
+    public async Task SetGenerativeAIAsync(IApiSetting setting)
     {
-        GenerativeAI = generativeAI;
+        // リフレクションで移す
+        FieldCopier.CopyProperties<IApiSetting>(setting, this);
+
+        //GenerativeAI = setting.GenerativeAI;
+        //OpenAIKey = setting.OpenAIKey;
+        //OpenAIModel = setting.OpenAIModel;
+        //AzureOpenAIKey = setting.AzureOpenAIKey;
+        //AzureOpenAIModel = setting.AzureOpenAIModel;
+        //AzureOpenAIEndpoint = setting.AzureOpenAIEndpoint;
 
         await SetRequestedSettingAsync();      // すぐにアプリに反映
-        await SaveSettingAsync(GenerativeAI);  // 切り替えたらすぐにファイル保存
+        await SaveSettingAsync();  // 切り替えたらすぐにファイル保存
     }
 
     /// <summary>
@@ -56,20 +64,36 @@ public class ApiSettingService(ILocalSettingsService localSettingsService) : IAp
         await Task.CompletedTask;
     }
 
-    private async Task<GenerativeAI> LoadSettingsAsync()
+    /// <summary>
+    /// 設定の再読み込みを行う
+    /// 初めて読み込む場合も使用する
+    /// </summary>
+    /// <returns></returns>
+    private async Task ReLoadSettingsAsync()
     {
-        var valueName = await localSettingsService.ReadSettingAsync<string>(SettingsKey);
-
-        if (Enum.TryParse(valueName, out GenerativeAI cacheValue))
+        var GenerativeAIString = await localSettingsService.ReadSettingAsync<string>(nameof(GenerativeAI));
+        if (Enum.TryParse(GenerativeAIString, out GenerativeAI cacheValue))
         {
-            return cacheValue;
+            GenerativeAI = cacheValue;
         }
-
-        return GenerativeAI.OpenAI;
+        else
+        {
+            GenerativeAI = GenerativeAI.OpenAI;
+        }
+        OpenAIKey = await localSettingsService.ReadSettingAsync<string>(nameof(OpenAIKey)) ?? string.Empty;
+        OpenAIModel = await localSettingsService.ReadSettingAsync<string>(nameof(OpenAIModel)) ?? string.Empty;
+        AzureOpenAIKey = await localSettingsService.ReadSettingAsync<string>(nameof(AzureOpenAIKey)) ?? string.Empty;
+        AzureOpenAIModel = await localSettingsService.ReadSettingAsync<string>(nameof(AzureOpenAIModel)) ?? string.Empty;
+        AzureOpenAIEndpoint = await localSettingsService.ReadSettingAsync<string>(nameof(AzureOpenAIEndpoint)) ?? string.Empty;
     }
 
-    private async Task SaveSettingAsync(GenerativeAI val)
+    private async Task SaveSettingAsync()
     {
-        await localSettingsService.SaveSettingAsync(SettingsKey, val.ToString());
+        await localSettingsService.SaveSettingAsync(nameof(GenerativeAI), GenerativeAI.ToString());
+        await localSettingsService.SaveSettingAsync(nameof(OpenAIKey), OpenAIKey);
+        await localSettingsService.SaveSettingAsync(nameof(OpenAIModel), OpenAIModel);
+        await localSettingsService.SaveSettingAsync(nameof(AzureOpenAIKey), AzureOpenAIKey);
+        await localSettingsService.SaveSettingAsync(nameof(AzureOpenAIModel), AzureOpenAIModel);
+        await localSettingsService.SaveSettingAsync(nameof(AzureOpenAIEndpoint), AzureOpenAIEndpoint);
     }
 }

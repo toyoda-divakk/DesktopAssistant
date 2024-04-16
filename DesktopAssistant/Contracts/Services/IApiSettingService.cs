@@ -45,7 +45,7 @@ public interface IApiSettingService
     /// </summary>
     /// <param name="generativeAI"></param>
     /// <returns></returns>
-    Task SetGenerativeAIAsync(GenerativeAI theme);
+    Task SetGenerativeAIAsync(IApiSetting setting);
 
     /// <summary>
     /// 設定内容をアプリに反映する

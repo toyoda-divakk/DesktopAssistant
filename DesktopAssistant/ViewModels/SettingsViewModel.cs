@@ -7,14 +7,13 @@ using CommunityToolkit.Mvvm.Input;
 using DesktopAssistant.Contracts.Services;
 using DesktopAssistant.Core.Enums;
 using DesktopAssistant.Helpers;
-
 using Microsoft.UI.Xaml;
 
 using Windows.ApplicationModel;
 
 namespace DesktopAssistant.ViewModels;
 
-public partial class SettingsViewModel : ObservableRecipient
+public partial class SettingsViewModel : ObservableRecipient, IApiSetting
 {
     private readonly IThemeSelectorService _themeSelectorService;
     private readonly IApiSettingService _apiSettingService;
@@ -46,7 +45,7 @@ public partial class SettingsViewModel : ObservableRecipient
     }
 
     /// <summary>
-    /// AI生成
+    /// AI生成のサービス名
     /// </summary>
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(IsOpenAI), nameof(IsAzureOpenAI))]
@@ -67,28 +66,28 @@ public partial class SettingsViewModel : ObservableRecipient
     /// OpenAIのAPIキー
     /// </summary>
     [ObservableProperty]
-    private string _openAIKey;
+    private string _openAIKey = string.Empty;
     /// <summary>
     /// OpenAIのモデル名
     /// </summary>
     [ObservableProperty]
-    private string _openAIModel;
+    private string _openAIModel = string.Empty;
 
     /// <summary>
     /// AzureOpenAIのAPIキー
     /// </summary>
     [ObservableProperty]
-    private string _azureOpenAIKey;
+    private string _azureOpenAIKey = string.Empty;
     /// <summary>
     /// AzureOpenAIのデプロイメント名
     /// </summary>
     [ObservableProperty]
-    private string _azureOpenAIModel;
+    private string _azureOpenAIModel = string.Empty;
     /// <summary>
     /// AzureOpenAIのエンドポイント
     /// </summary>
     [ObservableProperty]
-    private string _azureOpenAIEndpoint;
+    private string _azureOpenAIEndpoint = string.Empty;
 
 
     public SettingsViewModel(IThemeSelectorService themeSelectorService, IApiSettingService apiSettingService)
@@ -97,10 +96,14 @@ public partial class SettingsViewModel : ObservableRecipient
         _themeSelectorService = themeSelectorService;
         _apiSettingService = apiSettingService;
 
+        // 設定の再読み込み
+        _apiSettingService.InitializeAsync();
+
         // 表示設定
         _elementTheme = _themeSelectorService.Theme;
         _versionDescription = GetVersionDescription();
 
+        // テーマ切り替え処理
         SwitchThemeCommand = new RelayCommand<ElementTheme>(
             async (param) =>
             {
@@ -110,25 +113,27 @@ public partial class SettingsViewModel : ObservableRecipient
                     await _themeSelectorService.SetThemeAsync(param);
                     ShowAndHideMessageAsync();
                 }
-            });
+            }
+        );
 
         // 生成AIの設定
-        _generativeAI = _apiSettingService.GenerativeAI;
-        _openAIKey = _apiSettingService.OpenAIKey;
-        _openAIModel = _apiSettingService.OpenAIModel;
-        _azureOpenAIKey = _apiSettingService.AzureOpenAIKey;
-        _azureOpenAIModel = _apiSettingService.AzureOpenAIModel;
-        _azureOpenAIEndpoint = _apiSettingService.AzureOpenAIEndpoint;
+        FieldCopier.CopyProperties<IApiSetting>(_apiSettingService, this);
+        //_generativeAI = _apiSettingService.GenerativeAI;
+        //_openAIKey = _apiSettingService.OpenAIKey;
+        //_openAIModel = _apiSettingService.OpenAIModel;
+        //_azureOpenAIKey = _apiSettingService.AzureOpenAIKey;
+        //_azureOpenAIModel = _apiSettingService.AzureOpenAIModel;
+        //_azureOpenAIEndpoint = _apiSettingService.AzureOpenAIEndpoint;
         _isVisibleMessage = false;
 
-        // 保存ボタン
+        // 保存ボタン処理
         SaveGenerativeAICommand = new RelayCommand(
             async () =>
             {
-                //await _apiSettingService.SetGenerativeAIAsync(param);
-
+                await _apiSettingService.SetGenerativeAIAsync(this);
                 ShowAndHideMessageAsync();
-            });
+            }
+        );
     }
 
     /// <summary>
