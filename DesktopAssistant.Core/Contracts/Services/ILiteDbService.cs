@@ -14,5 +14,5 @@ namespace DesktopAssistant.Core.Contracts.Services;
 /// </summary>
 public interface ILiteDbService
 {
-    IEnumerable<TodoTask> Test(string localPath);
+    List<TodoTask> Test(string localPath);
 }

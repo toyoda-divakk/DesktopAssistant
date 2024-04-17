@@ -41,11 +41,19 @@ public class LocalSettingsService : ILocalSettingsService
         _settings = new Dictionary<string, object>();
     }
 
+    /// <summary>
+    /// 非MSIXの場合のみ使用するフォルダを取得します。
+    /// </summary>
+    /// <returns></returns>
     public string GetApplicationDataFolder()
     {
         return Path.Combine(_localApplicationData, _options.ApplicationDataFolder ?? _defaultApplicationDataFolder);
     }
 
+    /// <summary>
+    /// MSIX非使用の場合のみ呼び出される。
+    /// </summary>
+    /// <returns></returns>
     private async Task InitializeAsync()
     {
         if (!_isInitialized)
@@ -67,6 +75,7 @@ public class LocalSettingsService : ILocalSettingsService
         }
         else
         {
+            // 使わない
             await InitializeAsync();
 
             if (_settings != null && _settings.TryGetValue(key, out var obj))
@@ -86,6 +95,7 @@ public class LocalSettingsService : ILocalSettingsService
         }
         else
         {
+            // 使わない
             await InitializeAsync();
 
             _settings[key] = JsonSerializer.Serialize(value);

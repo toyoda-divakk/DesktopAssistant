@@ -69,7 +69,7 @@ public partial class App : Application
 
             // Core Services
             services.AddSingleton<ISampleDataService, SampleDataService>();     // サンプルデータを提供する
-            services.AddSingleton<IFileService, FileService>();                 // ファイルの読み書きを行う
+            services.AddSingleton<IFileService, FileService>();                 // ファイルの読み書きを行う。MSIX非使用の場合のみ使用する。
             services.AddSingleton<ISemanticService, SemanticService>();         // SemanticKernel
             services.AddSingleton<ILiteDbService, LiteDbService>();         // データベースの操作を行う
 

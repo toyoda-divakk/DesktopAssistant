@@ -6,6 +6,7 @@ namespace DesktopAssistant.Core.Services;
 
 /// <summary>
 /// ファイルの読み書きを行うサービス
+/// MSIX非使用の場合のみ使用すること
 /// </summary>
 public class FileService : IFileService
 {

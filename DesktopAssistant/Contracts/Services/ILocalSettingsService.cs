@@ -10,7 +10,7 @@ public interface ILocalSettingsService
     Task SaveSettingAsync<T>(string key, T value);
 
     /// <summary>
-    /// アプリケーションデータフォルダのパスを取得します。
+    /// 非MSIXの場合のみ使用するアプリケーションデータフォルダを取得します。
     /// </summary>
     /// <returns></returns>
     string GetApplicationDataFolder();

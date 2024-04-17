@@ -11,9 +11,9 @@ namespace DesktopAssistant.Core.Services;
 /// </summary>
 public class LiteDbService : ILiteDbService
 {
-    public IEnumerable<TodoTask> Test(string localPath) {
+    public List<TodoTask> Test(string folder) {
         // コンストラクタ引数はファイル名
-        using var context = new LiteDatabase(Path.Combine(localPath, "data.db"));
+        using var context = new LiteDatabase(Path.Combine(folder, "data.db"));
 
         // エンティティ
         var todoTask = new TodoTask()
@@ -28,8 +28,8 @@ public class LiteDbService : ILiteDbService
         // ユニークインデックスの設定
         todoTasks.EnsureIndex(x => x.Id, true);
 
-        // 作成
-        todoTasks.Insert(todoTask);
+        //// 作成
+        //todoTasks.Insert(todoTask);       // 2回目以降はエラーになるのでコメントアウト
 
         todoTask.Title = "更新したよおおおお";
 
@@ -38,7 +38,7 @@ public class LiteDbService : ILiteDbService
 
         // 検索
         // Titleが「更」で始まるもの
-        var results = todoTasks.Find(x => x.Title.StartsWith("更"));
+        var results = todoTasks.Find(x => x.Title.StartsWith("更")).ToList();
         return results;
     }
 }

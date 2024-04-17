@@ -1,11 +1,11 @@
 ﻿using System.Collections.ObjectModel;
-
 using CommunityToolkit.Mvvm.ComponentModel;
 using DesktopAssistant.Contracts.Services;
 using DesktopAssistant.Contracts.ViewModels;
 using DesktopAssistant.Core.Contracts.Services;
 using DesktopAssistant.Core.Models;
 using DesktopAssistant.Services;
+using Windows.Storage;
 
 namespace DesktopAssistant.ViewModels.Popup;
 
@@ -25,6 +25,7 @@ public partial class ToDoListViewModel : ObservableRecipient, INavigationAware
         Initialize();
     }
 
+    // サンプルデータの場合はこっち
     //private async void InitializeAsync()
     //{
     //    Source.Clear();
@@ -41,10 +42,11 @@ public partial class ToDoListViewModel : ObservableRecipient, INavigationAware
     {
         Source.Clear();
 
-        //var data = await _sampleDataService.GetTodoTaskDataAsync();
-        var data = _liteDbService.Test(_localSettingsService.GetApplicationDataFolder());
+        var localFolder = ApplicationData.Current.LocalFolder;
+        var data = _liteDbService.Test(localFolder.Path);
+        var data2 = data.ToList();
 
-        foreach (var item in data)
+        foreach (var item in data2)
         {
             Source.Add(item);
         }
