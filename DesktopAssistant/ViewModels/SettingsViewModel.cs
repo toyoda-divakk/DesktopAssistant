@@ -3,9 +3,11 @@ using System.Windows.Input;
 
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-
 using DesktopAssistant.Contracts.Services;
+using DesktopAssistant.Core.Contracts.Interfaces;
+using DesktopAssistant.Core.Contracts.Services;
 using DesktopAssistant.Core.Enums;
+using DesktopAssistant.Core.Services;
 using DesktopAssistant.Helpers;
 using Microsoft.UI.Xaml;
 
@@ -17,6 +19,7 @@ public partial class SettingsViewModel : ObservableRecipient, IApiSetting
 {
     private readonly IThemeSelectorService _themeSelectorService;
     private readonly IApiSettingService _apiSettingService;
+    private readonly ISemanticService _semanticService;
 
     /// <summary>
     /// 保存メッセージの表示
@@ -60,9 +63,17 @@ public partial class SettingsViewModel : ObservableRecipient, IApiSetting
     private GenerativeAI _generativeAI;
 
     /// <summary>
-    /// AI生成切り替えコマンド
+    /// 生成AI設定保存コマンド
     /// </summary>
     public ICommand SaveGenerativeAICommand
+    {
+        get;
+    }
+
+    /// <summary>
+    /// 生成AI接続テストコマンド
+    /// </summary>
+    public ICommand TestGenerativeAICommand
     {
         get;
     }
@@ -97,12 +108,24 @@ public partial class SettingsViewModel : ObservableRecipient, IApiSetting
     [ObservableProperty]
     private string _azureOpenAIEndpoint = string.Empty;
 
+    /// <summary>
+    /// 接続テストの結果
+    /// </summary>
+    [ObservableProperty]
+    private string _generateTestResult = string.Empty;
 
-    public SettingsViewModel(IThemeSelectorService themeSelectorService, IApiSettingService apiSettingService)
+    /// <summary>
+    /// テストボタンの有効化
+    /// </summary>
+    [ObservableProperty]
+    private bool _enableTestButton = true;
+
+    public SettingsViewModel(IThemeSelectorService themeSelectorService, IApiSettingService apiSettingService, ISemanticService semanticService)
     {
         // サービスの初期化
         _themeSelectorService = themeSelectorService;
         _apiSettingService = apiSettingService;
+        _semanticService = semanticService;
 
         // 設定の再読み込み
         _apiSettingService.InitializeAsync();
@@ -137,12 +160,6 @@ public partial class SettingsViewModel : ObservableRecipient, IApiSetting
 
         // 生成AIの設定
         FieldCopier.CopyProperties<IApiSetting>(_apiSettingService, this);
-        //_generativeAI = _apiSettingService.GenerativeAI;
-        //_openAIKey = _apiSettingService.OpenAIKey;
-        //_openAIModel = _apiSettingService.OpenAIModel;
-        //_azureOpenAIKey = _apiSettingService.AzureOpenAIKey;
-        //_azureOpenAIModel = _apiSettingService.AzureOpenAIModel;
-        //_azureOpenAIEndpoint = _apiSettingService.AzureOpenAIEndpoint;
         _isVisibleMessage = false;
 
         // 保存ボタン処理
@@ -151,6 +168,16 @@ public partial class SettingsViewModel : ObservableRecipient, IApiSetting
             {
                 await _apiSettingService.SetGenerativeAIAsync(this);
                 ShowAndHideMessageAsync();
+            }
+        );
+
+        // AI接続テスト処理
+        TestGenerativeAICommand = new RelayCommand(
+            async () =>
+            {
+                EnableTestButton = false;
+                GenerateTestResult = await _semanticService.TestGenerativeAIAsync(this, "Hello".GetLocalized());
+                EnableTestButton = true;
             }
         );
     }

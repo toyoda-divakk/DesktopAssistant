@@ -1,6 +1,6 @@
 ﻿using DesktopAssistant.Core.Enums;
 
-namespace DesktopAssistant.Contracts.Services;
+namespace DesktopAssistant.Core.Contracts.Interfaces;
 
 /// <summary>
 /// APIに関する設定項目のインターフェース

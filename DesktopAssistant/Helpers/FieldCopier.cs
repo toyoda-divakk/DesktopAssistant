@@ -12,30 +12,6 @@ namespace DesktopAssistant.Helpers;
 /// </summary>
 public static class FieldCopier
 {
-    ///// <summary>
-    ///// インタフェースに含まれるプロパティのみをコピーする
-    ///// </summary>
-    ///// <param name="source">コピー元オブジェクト</param>
-    ///// <param name="destination">コピー先オブジェクト</param>
-    ///// <param name="interfaceType">インタフェース名:"typeof(IMyInterface)"のように指定</param>
-    //public static void CopyProperties(object source, object destination, Type interfaceType)
-    //{
-    //    var interfaceProperties = interfaceType.GetProperties(BindingFlags.Public | BindingFlags.Instance);
-
-    //    foreach (var interfaceProperty in interfaceProperties)
-    //    {
-    //        var sourceProperty = source.GetType().GetProperty(interfaceProperty.Name);
-    //        var destinationProperty = destination.GetType().GetProperty(interfaceProperty.Name);
-
-    //        if (sourceProperty != null && destinationProperty != null
-    //            && sourceProperty.PropertyType == destinationProperty.PropertyType)
-    //        {
-    //            var value = sourceProperty.GetValue(source);
-    //            destinationProperty.SetValue(destination, value);
-    //        }
-    //    }
-    //}
-
     /// <summary>
     /// インタフェースに含まれるプロパティのみをコピーする
     /// </summary>

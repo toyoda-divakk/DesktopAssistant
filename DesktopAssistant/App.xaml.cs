@@ -63,13 +63,14 @@ public partial class App : Application
             services.AddSingleton<IApiSettingService, ApiSettingService>();         // APIの変更と保存
             services.AddTransient<INavigationViewService, NavigationViewService>(); // NavigationViewの操作を補助する
 
-            services.AddSingleton<IActivationService, ActivationService>(); // アプリケーション起動時の処理を行う
-            services.AddSingleton<IPageService, PageService>();             // ★画面追加すると、ここも更新されるみたい
-            services.AddSingleton<INavigationService, NavigationService>(); // 画面遷移を行う
+            services.AddSingleton<IActivationService, ActivationService>();     // アプリケーション起動時の処理を行う
+            services.AddSingleton<IPageService, PageService>();                 // ★画面追加すると、ここも更新されるみたい
+            services.AddSingleton<INavigationService, NavigationService>();     // 画面遷移を行う
 
             // Core Services
-            services.AddSingleton<ISampleDataService, SampleDataService>(); // サンプルデータを提供する
-            services.AddSingleton<IFileService, FileService>();             // ファイルの読み書きを行う
+            services.AddSingleton<ISampleDataService, SampleDataService>();     // サンプルデータを提供する
+            services.AddSingleton<IFileService, FileService>();                 // ファイルの読み書きを行う
+            services.AddSingleton<ISemanticService, SemanticService>();         // SemanticKernel
 
             // ★画面追加すると、ここも更新されるみたい
             // Views and ViewModels

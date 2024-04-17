@@ -1,4 +1,5 @@
 ﻿using DesktopAssistant.Contracts.Services;
+using DesktopAssistant.Core.Contracts.Interfaces;
 using DesktopAssistant.Core.Enums;
 using DesktopAssistant.Helpers;
 
@@ -9,16 +10,34 @@ namespace DesktopAssistant.Services;
 /// </summary>
 public class ApiSettingService(ILocalSettingsService localSettingsService) : IApiSettingService, IApiSetting
 {
+    /// <summary>
+    /// 生成AIサービス
+    /// </summary>
     public GenerativeAI GenerativeAI { get; set; } = GenerativeAI.OpenAI;
 
+    /// <summary>
+    /// OpenAIのAPIキー
+    /// </summary>
     public string OpenAIKey { get; set; } = string.Empty;
 
+    /// <summary>
+    /// OpenAIのモデル名
+    /// </summary>
     public string OpenAIModel { get; set; } = string.Empty;
 
+    /// <summary>
+    /// AzureOpenAIのAPIキー
+    /// </summary>
     public string AzureOpenAIKey { get; set; } = string.Empty;
 
+    /// <summary>
+    /// AzureOpenAIのデプロイメント名
+    /// </summary>
     public string AzureOpenAIModel { get; set; } = string.Empty;
 
+    /// <summary>
+    /// AzureOpenAIのエンドポイント
+    /// </summary>
     public string AzureOpenAIEndpoint { get; set; } = string.Empty;
 
     /// <summary>
@@ -42,13 +61,6 @@ public class ApiSettingService(ILocalSettingsService localSettingsService) : IAp
     {
         // リフレクションで移す
         FieldCopier.CopyProperties<IApiSetting>(setting, this);
-
-        //GenerativeAI = setting.GenerativeAI;
-        //OpenAIKey = setting.OpenAIKey;
-        //OpenAIModel = setting.OpenAIModel;
-        //AzureOpenAIKey = setting.AzureOpenAIKey;
-        //AzureOpenAIModel = setting.AzureOpenAIModel;
-        //AzureOpenAIEndpoint = setting.AzureOpenAIEndpoint;
 
         await SetRequestedSettingAsync();      // すぐにアプリに反映
         await SaveSettingAsync();  // 切り替えたらすぐにファイル保存

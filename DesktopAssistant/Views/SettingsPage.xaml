@@ -121,15 +121,29 @@
                         Text="{x:Bind ViewModel.AzureOpenAIEndpoint, Mode=TwoWay}"
                         TextWrapping="Wrap" />
                 </StackPanel>
-                <Button
-                    x:Name="myButton"
-                    Command="{x:Bind ViewModel.SaveGenerativeAICommand}"
-                    Style="{StaticResource AccentButtonStyle}">
-                    <StackPanel Orientation="Horizontal">
-                        <SymbolIcon Symbol="Save" />
-                        <TextBlock x:Uid="Button_Save" Margin="5,0,0,0" />
-                    </StackPanel>
-                </Button>
+                <StackPanel Orientation="Horizontal">
+                    <Button
+                        x:Name="testButton"
+                        Command="{x:Bind ViewModel.TestGenerativeAICommand}"
+                        IsEnabled="{x:Bind ViewModel.EnableTestButton, Mode=OneWay}"
+                        Style="{StaticResource AccentButtonStyle}">
+                        <StackPanel Orientation="Horizontal">
+                            <FontIcon Glyph="&#xE701;" />
+                            <TextBlock x:Uid="Button_ApiTest" Margin="5,0,0,0" />
+                        </StackPanel>
+                    </Button>
+                    <Button
+                        x:Name="saveButton"
+                        Margin="24,0,0,0"
+                        Command="{x:Bind ViewModel.SaveGenerativeAICommand}"
+                        Style="{StaticResource AccentButtonStyle}">
+                        <StackPanel Orientation="Horizontal">
+                            <FontIcon Glyph="&#xE74E;" />
+                            <TextBlock x:Uid="Button_Save" Margin="5,0,0,0" />
+                        </StackPanel>
+                    </Button>
+                    <TextBlock Margin="24,0,0,0" Text="{x:Bind ViewModel.GenerateTestResult, Mode=OneWay}" />
+                </StackPanel>
             </StackPanel>
 
             <!--  ここいる？  -->

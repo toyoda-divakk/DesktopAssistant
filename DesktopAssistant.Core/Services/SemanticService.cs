@@ -4,7 +4,9 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DesktopAssistant.Core.Contracts.Interfaces;
 using DesktopAssistant.Core.Contracts.Services;
+using DesktopAssistant.Core.Enums;
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.ChatCompletion;
 using Microsoft.SemanticKernel.Connectors.OpenAI;
@@ -22,47 +24,60 @@ namespace DesktopAssistant.Core.Services;
 /// </summary>
 public class SemanticService : ISemanticService
 {
-    public async Task<string> TestAsync(bool isAzure)
-    {
-        // カーネルのセットアップ
-        var kernel = Setup(isAzure);
-
-        // プロンプトを作成
-        var prompt = """Hello, world! と表示する C# のプログラムを書いてください。""";  // 3つのダブルクォーテーション符号は複数行にわたる文字列リテラルを定義するのに使用する
-        var result = await kernel.InvokePromptAsync(prompt);
-        return result.GetValue<string>();
-    }
-
+    public async Task<string> TestAsync(IApiSetting settings) => await TestGenerativeAIAsync(settings, """Hello, world! と表示する C# のプログラムを書いてください。""");
 
     /// <summary>
     /// APIキーからKernelを作成する
     /// </summary>
     /// <param name="isAzure">Azureならtrue, OpenAIならfalse</param>
     /// <returns></returns>
-    private static Kernel Setup(bool isAzure)
+    private static Kernel Setup(IApiSetting settings)
     {
         var builder = Kernel.CreateBuilder();
-        if (isAzure)
+        if (settings.GenerativeAI == GenerativeAI.AzureOpenAI)
         {
             builder.AddAzureOpenAIChatCompletion(
-                     "gpt-35-turbo",                      // Azure OpenAI Deployment Name
-                     "https://contoso.openai.azure.com/", // Azure OpenAI Endpoint
-                     "...your Azure OpenAI Key...");      // Azure OpenAI Key
+                settings.AzureOpenAIModel,
+                settings.AzureOpenAIEndpoint,
+                settings.AzureOpenAIKey);
         }
         else
         {
             // OpenAIの場合
             builder.AddOpenAIChatCompletion(
-                "gpt-3.5-turbo",
-                "<< ここに OpenAI の API Key を記載する >>");
+                settings.OpenAIModel,
+                settings.OpenAIKey);
         }
         return builder.Build();
     }
 
-    #region チャットを作る例
-    private static async Task<string> ChatTestAsync()
+    /// <summary>
+    /// 接続テスト
+    /// </summary>
+    /// <param name="settings">API設定</param>
+    /// <param name="hello">送信文</param>
+    /// <returns></returns>
+    public async Task<string> TestGenerativeAIAsync(IApiSetting settings, string hello)
     {
-        var kernel = Setup(true);
+        try
+        {
+            var kernel = Setup(settings);
+
+            // プロンプトを作成
+            var prompt = hello;
+            var result = await kernel.InvokePromptAsync(prompt);
+            return result.GetValue<string>();
+        }
+        catch (Exception e)
+        {
+            return e.Message;
+        }
+    }
+
+    #region チャットを作る例
+    private static async Task<string> ChatTestAsync(IApiSetting settings)
+    {
+        var kernel = Setup(settings);
 
         // Chat の履歴を作成
         var chatHistory = new ChatHistory();
@@ -172,7 +187,9 @@ public class SemanticService : ISemanticService
                 ],
             });
     }
+
     #endregion
+
 
 }
 

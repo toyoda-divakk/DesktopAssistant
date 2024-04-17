@@ -191,4 +191,10 @@
   <data name="Saved.Message" xml:space="preserve">
     <value>変更しました。</value>
   </data>
+  <data name="Button_ApiTest.Text" xml:space="preserve">
+    <value>APIテスト</value>
+  </data>
+  <data name="Hello" xml:space="preserve">
+    <value>こんにちは。</value>
+  </data>
 </root>
