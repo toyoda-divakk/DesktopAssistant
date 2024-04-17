@@ -24,7 +24,7 @@ public record TodoTask
     /// </summary>
     public string Title
     {
-        get; init;
+        get; set;
     }
 
     /// <summary>
@@ -32,7 +32,7 @@ public record TodoTask
     /// </summary>
     public string Content
     {
-        get; init;
+        get; set;
     }
 
     /// <summary>
@@ -40,7 +40,7 @@ public record TodoTask
     /// </summary>
     public string Progress
     {
-        get; init;
+        get; set;
     }
 
     /// <summary>

@@ -8,4 +8,10 @@ public interface ILocalSettingsService
     Task<T?> ReadSettingAsync<T>(string key);
 
     Task SaveSettingAsync<T>(string key, T value);
+
+    /// <summary>
+    /// アプリケーションデータフォルダのパスを取得します。
+    /// </summary>
+    /// <returns></returns>
+    string GetApplicationDataFolder();
 }

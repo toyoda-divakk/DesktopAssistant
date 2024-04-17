@@ -71,6 +71,7 @@ public partial class App : Application
             services.AddSingleton<ISampleDataService, SampleDataService>();     // サンプルデータを提供する
             services.AddSingleton<IFileService, FileService>();                 // ファイルの読み書きを行う
             services.AddSingleton<ISemanticService, SemanticService>();         // SemanticKernel
+            services.AddSingleton<ILiteDbService, LiteDbService>();         // データベースの操作を行う
 
             // ★画面追加すると、ここも更新されるみたい
             // Views and ViewModels

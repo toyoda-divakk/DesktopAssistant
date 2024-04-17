@@ -35,6 +35,11 @@ $"{"AppDisplayName".GetLocalized()}" // AppDisplayNameのローカライズ
 ## ユーザが触った設定値
 ILocalSettingsServiceを注入して、キーを指定して値を保存する。
 ユーザが編集した値として、アプリケーションの実行フォルダのLocalSettings.jsonに保存される。
+MSIXの場合、アプリケーションの実行フォルダは、C:\Users\ユーザ名\AppData\Local\Packages\アプリケーションID\LocalCache\LocalSettings.jsonに保存される。
+その場合、ApplicationData.Current.LocalSettingsでアクセスする。  
+それ以外は、C:\Users\ユーザ名\AppData\Localに保存される。
+
+このアプリは"83a7990a-84aa-479c-9662-45da248ee082_gcfy10y4r1fd6"がIDだった。
 
 ## ユーザは触らない方の設定値
 LocalSettingsOptionsは、設定値の保存先を指定するための列挙型で、設定内容はappsettings.jsonに記述される。ユーザは触らない。
