@@ -17,7 +17,7 @@ public class ThemeSelectorService(ILocalSettingsService localSettingsService) : 
 
     public async Task InitializeAsync()
     {
-        Theme = await LoadThemeFromSettingsAsync();
+        Theme = LoadThemeFromSettings();
         await Task.CompletedTask;
     }
 
@@ -26,7 +26,7 @@ public class ThemeSelectorService(ILocalSettingsService localSettingsService) : 
         Theme = theme;
 
         await SetRequestedThemeAsync();
-        await SaveThemeInSettingsAsync(Theme);  // 切り替えたらすぐにファイル保存
+        SaveThemeInSettings(Theme);  // 切り替えたらすぐにファイル保存
     }
 
     public async Task SetRequestedThemeAsync()
@@ -41,9 +41,9 @@ public class ThemeSelectorService(ILocalSettingsService localSettingsService) : 
         await Task.CompletedTask;
     }
 
-    private async Task<ElementTheme> LoadThemeFromSettingsAsync()
+    private ElementTheme LoadThemeFromSettings()
     {
-        var themeName = await localSettingsService.ReadSettingAsync<string>(SettingsKey);
+        var themeName = localSettingsService.ReadSetting<string>(SettingsKey);
 
         if (Enum.TryParse(themeName, out ElementTheme cacheTheme))
         {
@@ -53,8 +53,8 @@ public class ThemeSelectorService(ILocalSettingsService localSettingsService) : 
         return ElementTheme.Default;
     }
 
-    private async Task SaveThemeInSettingsAsync(ElementTheme theme)
+    private void SaveThemeInSettings(ElementTheme theme)
     {
-        await localSettingsService.SaveSettingAsync(SettingsKey, theme.ToString());
+        localSettingsService.SaveSetting(SettingsKey, theme.ToString());
     }
 }

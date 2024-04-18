@@ -42,8 +42,8 @@ public partial class ToDoListViewModel : ObservableRecipient, INavigationAware
     {
         Source.Clear();
 
-        var localFolder = ApplicationData.Current.LocalFolder;
-        var data = _liteDbService.Test(localFolder.Path);
+        var localFolder = _localSettingsService.ApplicationDataFolder;
+        var data = _liteDbService.Test(localFolder);
         var data2 = data.ToList();
 
         foreach (var item in data2)

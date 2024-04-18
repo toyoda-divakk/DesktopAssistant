@@ -5,13 +5,12 @@
 /// </summary>
 public interface ILocalSettingsService
 {
-    Task<T?> ReadSettingAsync<T>(string key);
+    T? ReadSetting<T>(string key);
 
-    Task SaveSettingAsync<T>(string key, T value);
+    void SaveSetting<T>(string key, T value);
 
-    /// <summary>
-    /// 非MSIXの場合のみ使用するアプリケーションデータフォルダを取得します。
-    /// </summary>
-    /// <returns></returns>
-    string GetApplicationDataFolder();
+    string ApplicationDataFolder
+    {
+        get;
+    }
 }

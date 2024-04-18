@@ -6,12 +6,18 @@
 /// </summary>
 public class LocalSettingsOptions
 {
+    /// <summary>
+    /// 非MSIXの場合のみ使用するフォルダ
+    /// </summary>
     public string? ApplicationDataFolder
     {
         get; set;
     }
 
-    public string? LocalSettingsFile
+    /// <summary>
+    /// "LocalSettings.json"
+    /// </summary>
+    public string? LocalSettingsFileName
     {
         get; set;
     }

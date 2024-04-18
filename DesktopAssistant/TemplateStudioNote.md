@@ -58,6 +58,7 @@ var localFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
 var file = await localFolder.CreateFileAsync("myfile.txt", Windows.Storage.CreationCollisionOption.ReplaceExisting);
 await FileIO.WriteTextAsync(file, "This is my file content.");
 ```
+LocalSettingsServiceのデフォルトが結構酷いと思ったので、MSIXとの違いをなるべく吸収するように修正した。
 
 # トラブル
 ## PRI263: 0xdef01051

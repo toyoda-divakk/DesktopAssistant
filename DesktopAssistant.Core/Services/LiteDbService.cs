@@ -19,7 +19,7 @@ public class LiteDbService : ILiteDbService
         var todoTask = new TodoTask()
         {
             Title = "たいとるうううう",
-            Id = 1
+            Id = 0,
         };
 
         // DBへ接続
@@ -28,8 +28,8 @@ public class LiteDbService : ILiteDbService
         // ユニークインデックスの設定
         todoTasks.EnsureIndex(x => x.Id, true);
 
-        //// 作成
-        //todoTasks.Insert(todoTask);       // 2回目以降はエラーになるのでコメントアウト
+        // データが無かったら作成
+        todoTasks.Upsert(todoTask);
 
         todoTask.Title = "更新したよおおおお";
 
