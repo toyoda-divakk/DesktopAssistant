@@ -24,11 +24,11 @@ public partial class CharacterSettingsViewModel : ObservableRecipient, INavigati
         _sampleDataService = sampleDataService;
     }
 
-    public async void OnNavigatedTo(object parameter)
+    public void OnNavigatedTo(object parameter)
     {
         Source.Clear();
 
-        var data = await _sampleDataService.GetCharacterDataAsync();
+        var data = _sampleDataService.GetSampleCharacters();    // TODO:データベースからの取得に変更
         foreach (var item in data)
         {
             Source.Add(item);

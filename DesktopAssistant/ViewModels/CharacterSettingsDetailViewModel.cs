@@ -18,11 +18,11 @@ public partial class CharacterSettingsDetailViewModel : ObservableRecipient, INa
         _sampleDataService = sampleDataService;
     }
 
-    public async void OnNavigatedTo(object parameter)
+    public void OnNavigatedTo(object parameter)
     {
         if (parameter is long characterID)
         {
-            var data = await _sampleDataService.GetCharacterDataAsync();
+            var data = _sampleDataService.GetSampleCharacters();    // TODO:データベースからの取得に変更
             Item = data.First(i => i.Id == characterID);
         }
     }

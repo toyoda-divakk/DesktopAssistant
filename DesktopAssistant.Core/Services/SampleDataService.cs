@@ -5,39 +5,31 @@ namespace DesktopAssistant.Core.Services;
 
 /// <summary>
 /// サンプルデータを保持します。
+/// ※DBに入れるので保持は必要なくなる
 /// </summary>
 public class SampleDataService : ISampleDataService
 {
-    private List<Character> _allCharacters;
-    private List<TodoTask> _allTodoTasks;
-
-    //private static IEnumerable<SampleOrder> AllOrders()
-    //{
-    //    var companies = AllCompanies();
-    //    return companies.SelectMany(c => c.Orders);
-    //}
-
-    private static IEnumerable<Character> AllCharacters()
+    public IEnumerable<Character> GetSampleCharacters()
     {
         var characterId1 = 10001;
         var characterId2 = 10002;
         var characterId3 = 10003;
-        return new List<Character>()
-        {
+        return
+        [
             new()
             {
                 Id = characterId1,
                 Name = "ドンペン",
                 Prompt = "とかげ",
-                Topics = new List<Topic>()
-                {
+                Topics =
+                [
                     new()
                     {
                         Id = 1,
                         CharacterId = characterId1,
                         Subject = "朝の挨拶",
-                        Messages = new List<Message>()
-                        {
+                        Messages =
+                        [
                             new()
                             {
                                 Id = 10001,
@@ -70,7 +62,7 @@ public class SampleDataService : ISampleDataService
                                 Text = "いいいい",
                                 CreatedAt = new DateTime(1997, 9, 22, 9, 13, 00)
                             }
-                        },
+                        ],
                         CreatedAt = new DateTime(1997, 9, 22, 9, 10, 00),
                         UpdatedAt = new DateTime(1997, 9, 22, 9, 13, 00)
                     },
@@ -79,8 +71,8 @@ public class SampleDataService : ISampleDataService
                         Id = 2,
                         CharacterId = characterId1,
                         Subject = "昼の挨拶",
-                        Messages = new List<Message>()
-                        {
+                        Messages =
+                        [
                             new()
                             {
                                 Id = 10005,
@@ -113,26 +105,26 @@ public class SampleDataService : ISampleDataService
                                 Text = "ええええ",
                                 CreatedAt = new DateTime(1997, 9, 22, 10, 13, 00)
                             }
-                        },
+                        ],
                         CreatedAt = new DateTime(1997, 9, 22, 10, 10, 00),
                         UpdatedAt = new DateTime(1997, 9, 22, 10, 13, 00)
                     }
-                }
+                ]
             },
             new()
             {
                 Id = characterId2,
                 Name = "プランク",
                 Prompt = "種族未定",
-                Topics = new List<Topic>()
-                {
+                Topics =
+                [
                     new()
                     {
                         Id = 3,
                         CharacterId = characterId2,
                         Subject = "朝の挨拶",
-                        Messages = new List<Message>()
-                        {
+                        Messages =
+                        [
                             new()
                             {
                                 Id = 10009,
@@ -165,7 +157,7 @@ public class SampleDataService : ISampleDataService
                                 Text = "いいいい",
                                 CreatedAt = new DateTime(1997, 9, 22, 9, 13, 00)
                             }
-                        },
+                        ],
                         CreatedAt = new DateTime(1997, 9, 22, 9, 10, 00),
                         UpdatedAt = new DateTime(1997, 9, 22, 9, 13, 00)
                     },
@@ -174,8 +166,8 @@ public class SampleDataService : ISampleDataService
                         Id = 4,
                         CharacterId = characterId2,
                         Subject = "昼の挨拶",
-                        Messages = new List<Message>()
-                        {
+                        Messages =
+                        [
                             new()
                             {
                                 Id = 10013,
@@ -208,26 +200,26 @@ public class SampleDataService : ISampleDataService
                                 Text = "ええええ",
                                 CreatedAt = new DateTime(1997, 9, 22, 10, 13, 00)
                             }
-                        },
+                        ],
                         CreatedAt = new DateTime(1997, 9, 22, 10, 10, 00),
                         UpdatedAt = new DateTime(1997, 9, 22, 10, 13, 00)
                     }
-                }
+                ]
             },
             new()
             {
                 Id = characterId3,
                 Name = "カルモン",
                 Prompt = "にわとり",
-                Topics = new List<Topic>()
-                {
+                Topics =
+                [
                     new()
                     {
                         Id = 5,
                         CharacterId = characterId3,
                         Subject = "朝の挨拶",
-                        Messages = new List<Message>()
-                        {
+                        Messages =
+                        [
                             new()
                             {
                                 Id = 10017,
@@ -260,7 +252,7 @@ public class SampleDataService : ISampleDataService
                                 Text = "いいいい",
                                 CreatedAt = new DateTime(1997, 9, 22, 9, 13, 00)
                             }
-                        },
+                        ],
                         CreatedAt = new DateTime(1997, 9, 22, 9, 10, 00),
                         UpdatedAt = new DateTime(1997, 9, 22, 9, 13, 00)
                     },
@@ -269,8 +261,8 @@ public class SampleDataService : ISampleDataService
                         Id = 6,
                         CharacterId = characterId3,
                         Subject = "昼の挨拶",
-                        Messages = new List<Message>()
-                        {
+                        Messages =
+                        [
                             new()
                             {
                                 Id = 10021,
@@ -303,24 +295,23 @@ public class SampleDataService : ISampleDataService
                                 Text = "ええええ",
                                 CreatedAt = new DateTime(1997, 9, 22, 10, 13, 00)
                             }
-                        },
+                        ],
                         CreatedAt = new DateTime(1997, 9, 22, 10, 10, 00),
                         UpdatedAt = new DateTime(1997, 9, 22, 10, 13, 00)
                     }
-                }
+                ]
             }
-        };
+        ];
     }
 
-    private static IEnumerable<TodoTask> AllTodoTasks()
+    public IEnumerable<TodoTask> GetSampleTodoTasks()
     {
-        return new List<TodoTask>()
-        {
+        return
+        [
             new()
             {
-                Id = 1,
                 Title = "タスク一覧を見る1",
-                Content = "今どんなタスクが登録されているか見てみよう。",
+                Content = "今どんなタスクが登録されているか見てみよう。1",
                 Progress = "特になし",
                 IsDone = false,
                 CreatedAt = DateTime.UtcNow,
@@ -329,31 +320,14 @@ public class SampleDataService : ISampleDataService
             },
             new()
             {
-                Id = 2,
                 Title = "タスク一覧を見る2",
-                Content = "今どんなタスクが登録されているか見てみよう。",
+                Content = "今どんなタスクが登録されているか見てみよう。2",
                 Progress = "特になし",
                 IsDone = false,
                 CreatedAt = DateTime.UtcNow,
                 UpdatedAt = DateTime.UtcNow,
                 Deadline = DateTime.UtcNow + TimeSpan.FromDays(10)
             }
-        };
-    }
-
-    public async Task<IEnumerable<Character>> GetCharacterDataAsync()
-    {
-        _allCharacters ??= new List<Character>(AllCharacters());
-
-        await Task.CompletedTask;
-        return _allCharacters;
-    }
-
-    public async Task<IEnumerable<TodoTask>> GetTodoTaskDataAsync()
-    {
-        _allTodoTasks ??= new List<TodoTask>(AllTodoTasks());
-
-        await Task.CompletedTask;
-        return _allTodoTasks;
+        ];
     }
 }

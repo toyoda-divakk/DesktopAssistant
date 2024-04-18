@@ -9,6 +9,9 @@ public interface ILocalSettingsService
 
     void SaveSetting<T>(string key, T value);
 
+    /// <summary>
+    /// アプリケーションのデータフォルダ
+    /// </summary>
     string ApplicationDataFolder
     {
         get;

@@ -27,9 +27,6 @@ public class LocalSettingsService : ILocalSettingsService
     private readonly string _applicationDataFolder;
     private readonly string _localsettingsFile; // 実際に保存しているjsonファイル
 
-    /// <summary>
-    /// 実際のアプリケーションのデータフォルダ
-    /// </summary>
     public string ApplicationDataFolder => _applicationDataFolder;
 
     /// <summary>

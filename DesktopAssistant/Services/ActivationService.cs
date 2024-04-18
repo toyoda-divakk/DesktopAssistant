@@ -1,5 +1,8 @@
 ﻿using DesktopAssistant.Activation;
 using DesktopAssistant.Contracts.Services;
+using DesktopAssistant.Core.Contracts.Services;
+using DesktopAssistant.Core.Models;
+using DesktopAssistant.Core.Services;
 using DesktopAssistant.Views;
 
 using Microsoft.UI.Xaml;
@@ -14,7 +17,7 @@ namespace DesktopAssistant.Services;
 /// アクティベーションハンドラの処理
 /// テーマの設定など
 /// </summary>
-public class ActivationService(ActivationHandler<LaunchActivatedEventArgs> defaultHandler, IEnumerable<IActivationHandler> activationHandlers, IThemeSelectorService themeSelectorService, IApiSettingService apiSettingService) : IActivationService
+public class ActivationService(ActivationHandler<LaunchActivatedEventArgs> defaultHandler, IEnumerable<IActivationHandler> activationHandlers, IThemeSelectorService themeSelectorService, IApiSettingService apiSettingService, ILiteDbService liteDbService, ISampleDataService sampleDataService) : IActivationService
 {
     private UIElement? _shell = null;
 
@@ -74,6 +77,46 @@ public class ActivationService(ActivationHandler<LaunchActivatedEventArgs> defau
     {
         await themeSelectorService.InitializeAsync().ConfigureAwait(false);
         await apiSettingService.InitializeAsync().ConfigureAwait(false);
+
+        // 初回起動限定タスクの実行
+        if (!liteDbService.IsExistDatabase())
+        {
+            liteDbService.CreateOrInitializeDatabase();
+        }
+        // 1度しか実行しない処理が行われているかここでチェックし、実施されていない場合は実行する。SystemEventが登録されていれば実行済み。
+        var systemEvents = liteDbService.GetTable<SystemEvent>();
+        if (!systemEvents.Exists(e => e.Event == SystemEvents.Initial_SetTasks))
+        {
+            liteDbService.Insert(new SystemEvent()
+            {
+                Event = SystemEvents.Initial_SetTasks,
+                Content = "DBにプリセットのタスクを登録する。",
+                IsDone = true,
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow
+            });
+
+            // サンプルデータを登録
+            var tasks = sampleDataService.GetSampleTodoTasks();
+            foreach (var task in tasks)
+            {
+                liteDbService.Insert(task);
+            }
+        }
+        if (!systemEvents.Exists(e => e.Event == SystemEvents.Initial_SetCharacoers))
+        {
+            liteDbService.Insert(new SystemEvent()
+            {
+                Event = SystemEvents.Initial_SetCharacoers,
+                Content = "DBにプリセットのキャラを登録する。",
+                IsDone = false, // TODO: まだ実装しないのでここはfalseにしておく
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow
+            });
+            sampleDataService.GetSampleCharacters();
+            // TODO: サンプルデータを登録
+        }
+
         await Task.CompletedTask;
     }
 

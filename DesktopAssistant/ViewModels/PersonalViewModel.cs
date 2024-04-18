@@ -24,12 +24,11 @@ public partial class PersonalViewModel : ObservableRecipient, INavigationAware
         _sampleDataService = sampleDataService;
     }
 
-    public async void OnNavigatedTo(object parameter)
+    public void OnNavigatedTo(object parameter)
     {
         Source.Clear();
 
-        // TODO: Replace with real data.
-        var data = await _sampleDataService.GetCharacterDataAsync();
+        var data = _sampleDataService.GetSampleCharacters();
         foreach (var item in data)
         {
             Source.Add(item);

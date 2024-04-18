@@ -31,6 +31,9 @@ $"{"AppDisplayName".GetLocalized()}" // AppDisplayNameのローカライズ
 
 ファイルはStringsフォルダのen-usをコピーして、ja-jpフォルダを作成して、日本語版を記述するだけ。ただし、画面を追加したときは手動で追加すること。
 
+# Humanizer
+Humanizerライブラリが入っているので、Stringに対してメソッドを呼ぶことでパスカルケース化や、複数形化などの英単語変換ができる。
+
 # 設定値の保存方法
 ## ユーザが触った設定値
 ILocalSettingsServiceを注入して、キーを指定して値を保存する。
