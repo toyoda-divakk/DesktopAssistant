@@ -32,7 +32,7 @@ public class LiteDbService(ILocalSettingsService localSettingsService) : ILiteDb
 
     public bool IsExistDatabase() => File.Exists(FilePath);
 
-    public List<T> GetTable<T>()
+    public IEnumerable<T> GetTable<T>()
     {
         using var context = GetContext;
         var table = context.GetCollection<T>(typeof(T).Name.Pluralize());

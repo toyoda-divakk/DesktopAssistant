@@ -11,9 +11,9 @@ public class SampleDataService : ISampleDataService
 {
     public IEnumerable<Character> GetSampleCharacters()
     {
-        var characterId1 = 10001;
-        var characterId2 = 10002;
-        var characterId3 = 10003;
+        var characterId1 = 1;
+        var characterId2 = 2;
+        var characterId3 = 3;
         return
         [
             new()
@@ -32,7 +32,6 @@ public class SampleDataService : ISampleDataService
                         [
                             new()
                             {
-                                Id = 10001,
                                 TopicId = 1,
                                 IsCharacterMessage = false,
                                 Text = "おはよう",
@@ -40,7 +39,6 @@ public class SampleDataService : ISampleDataService
                             },
                             new()
                             {
-                                Id = 10002,
                                 TopicId = 1,
                                 IsCharacterMessage = true,
                                 Text = "何だ貴様は",
@@ -48,7 +46,6 @@ public class SampleDataService : ISampleDataService
                             },
                             new()
                             {
-                                Id = 10003,
                                 TopicId = 1,
                                 IsCharacterMessage = false,
                                 Text = "ああああ",
@@ -56,7 +53,6 @@ public class SampleDataService : ISampleDataService
                             },
                             new()
                             {
-                                Id = 10004,
                                 TopicId = 1,
                                 IsCharacterMessage = true,
                                 Text = "いいいい",
@@ -75,7 +71,6 @@ public class SampleDataService : ISampleDataService
                         [
                             new()
                             {
-                                Id = 10005,
                                 TopicId = 2,
                                 IsCharacterMessage = false,
                                 Text = "こんにちは",
@@ -83,7 +78,6 @@ public class SampleDataService : ISampleDataService
                             },
                             new()
                             {
-                                Id = 10006,
                                 TopicId = 2,
                                 IsCharacterMessage = true,
                                 Text = "おう、今日は何の用だ？",
@@ -91,7 +85,6 @@ public class SampleDataService : ISampleDataService
                             },
                             new()
                             {
-                                Id = 10007,
                                 TopicId = 2,
                                 IsCharacterMessage = false,
                                 Text = "うううう",
@@ -99,7 +92,6 @@ public class SampleDataService : ISampleDataService
                             },
                             new()
                             {
-                                Id = 10008,
                                 TopicId = 2,
                                 IsCharacterMessage = true,
                                 Text = "ええええ",
@@ -127,7 +119,6 @@ public class SampleDataService : ISampleDataService
                         [
                             new()
                             {
-                                Id = 10009,
                                 TopicId = 3,
                                 IsCharacterMessage = false,
                                 Text = "おはよう",
@@ -135,7 +126,6 @@ public class SampleDataService : ISampleDataService
                             },
                             new()
                             {
-                                Id = 10010,
                                 TopicId = 3,
                                 IsCharacterMessage = true,
                                 Text = "何だ貴様は",
@@ -143,7 +133,6 @@ public class SampleDataService : ISampleDataService
                             },
                             new()
                             {
-                                Id = 10011,
                                 TopicId = 3,
                                 IsCharacterMessage = false,
                                 Text = "ああああ",
@@ -151,7 +140,6 @@ public class SampleDataService : ISampleDataService
                             },
                             new()
                             {
-                                Id = 10012,
                                 TopicId = 3,
                                 IsCharacterMessage = true,
                                 Text = "いいいい",
@@ -170,7 +158,6 @@ public class SampleDataService : ISampleDataService
                         [
                             new()
                             {
-                                Id = 10013,
                                 TopicId = 4,
                                 IsCharacterMessage = false,
                                 Text = "こんにちは",
@@ -178,7 +165,6 @@ public class SampleDataService : ISampleDataService
                             },
                             new()
                             {
-                                Id = 10014,
                                 TopicId = 4,
                                 IsCharacterMessage = true,
                                 Text = "おう、今日は何の用だ？",
@@ -186,7 +172,6 @@ public class SampleDataService : ISampleDataService
                             },
                             new()
                             {
-                                Id = 10015,
                                 TopicId = 4,
                                 IsCharacterMessage = false,
                                 Text = "うううう",
@@ -194,7 +179,6 @@ public class SampleDataService : ISampleDataService
                             },
                             new()
                             {
-                                Id = 10016,
                                 TopicId = 4,
                                 IsCharacterMessage = true,
                                 Text = "ええええ",
@@ -222,7 +206,6 @@ public class SampleDataService : ISampleDataService
                         [
                             new()
                             {
-                                Id = 10017,
                                 TopicId = 5,
                                 IsCharacterMessage = false,
                                 Text = "おはよう",
@@ -230,7 +213,6 @@ public class SampleDataService : ISampleDataService
                             },
                             new()
                             {
-                                Id = 10018,
                                 TopicId = 5,
                                 IsCharacterMessage = true,
                                 Text = "何だ貴様は",
@@ -238,7 +220,6 @@ public class SampleDataService : ISampleDataService
                             },
                             new()
                             {
-                                Id = 10019,
                                 TopicId = 5,
                                 IsCharacterMessage = false,
                                 Text = "ああああ",
@@ -246,7 +227,6 @@ public class SampleDataService : ISampleDataService
                             },
                             new()
                             {
-                                Id = 10020,
                                 TopicId = 5,
                                 IsCharacterMessage = true,
                                 Text = "いいいい",
@@ -265,7 +245,6 @@ public class SampleDataService : ISampleDataService
                         [
                             new()
                             {
-                                Id = 10021,
                                 TopicId = 6,
                                 IsCharacterMessage = false,
                                 Text = "こんにちは",
@@ -273,7 +252,6 @@ public class SampleDataService : ISampleDataService
                             },
                             new()
                             {
-                                Id = 10022,
                                 TopicId = 6,
                                 IsCharacterMessage = true,
                                 Text = "おう、今日は何の用だ？",
@@ -281,7 +259,6 @@ public class SampleDataService : ISampleDataService
                             },
                             new()
                             {
-                                Id = 10023,
                                 TopicId = 6,
                                 IsCharacterMessage = false,
                                 Text = "うううう",
@@ -289,7 +266,6 @@ public class SampleDataService : ISampleDataService
                             },
                             new()
                             {
-                                Id = 10024,
                                 TopicId = 6,
                                 IsCharacterMessage = true,
                                 Text = "ええええ",
@@ -310,9 +286,9 @@ public class SampleDataService : ISampleDataService
         [
             new()
             {
-                Title = "タスク一覧を見る1",
-                Content = "今どんなタスクが登録されているか見てみよう。1",
-                Progress = "特になし",
+                Title = "タスク一覧を見る",
+                Content = "今どんなタスクが登録されているか見てみよう。",
+                Progress = "進捗メモがあればここに書いてね。",
                 IsDone = false,
                 CreatedAt = DateTime.UtcNow,
                 UpdatedAt = DateTime.UtcNow,
@@ -320,9 +296,39 @@ public class SampleDataService : ISampleDataService
             },
             new()
             {
-                Title = "タスク一覧を見る2",
-                Content = "今どんなタスクが登録されているか見てみよう。2",
-                Progress = "特になし",
+                Title = "アシスタント一覧を見る",
+                Content = "今どんなアシスタントが登録されているか見てみよう。",
+                Progress = "メニューからアシスタント一覧ボタンをクリックします。",
+                IsDone = false,
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow,
+                Deadline = DateTime.UtcNow + TimeSpan.FromDays(10)
+            },
+            new()
+            {
+                Title = "OpenAI(ChatGPT)のAPIキーを手に入れる",
+                Content = "OpenAIにアカウントを登録しよう。",
+                Progress = "AIを利用するには、OpenAIかAzureのどちらかでAPIキーを作成する必要があります。",
+                IsDone = false,
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow,
+                Deadline = DateTime.UtcNow + TimeSpan.FromDays(10)
+            },
+            new()
+            {
+                Title = "AzureのAPIキーを手に入れる",
+                Content = "AzureでOpenAIサービスを登録しよう。",
+                Progress = "AIを利用するには、OpenAIかAzureのどちらかでAPIキーを作成する必要があります。",
+                IsDone = false,
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow,
+                Deadline = DateTime.UtcNow + TimeSpan.FromDays(10)
+            },
+            new()
+            {
+                Title = "APIの設定をする",
+                Content = "作成したAPIキーを設定画面に入力します。",
+                Progress = "メニューから設定ボタンをクリックします。",
                 IsDone = false,
                 CreatedAt = DateTime.UtcNow,
                 UpdatedAt = DateTime.UtcNow,

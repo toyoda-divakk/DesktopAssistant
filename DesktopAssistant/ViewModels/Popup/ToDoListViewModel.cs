@@ -10,37 +10,27 @@ using Windows.Storage;
 
 namespace DesktopAssistant.ViewModels.Popup;
 
-public partial class ToDoListViewModel : ObservableRecipient, INavigationAware
+public partial class ToDoListViewModel(ILiteDbService liteDbService) : ObservableRecipient //, INavigationAware
 {
-    private readonly ILiteDbService _liteDbService;
+    //private readonly ILiteDbService _liteDbService;
 
-    public ObservableCollection<TodoTask> Source { get; } = [];
+    public ObservableCollection<TodoTask> Source { get; } = new ObservableCollection<TodoTask>(liteDbService.GetTable<TodoTask>());
+    //public ObservableCollection<TodoTask> Source { get; } = [];
 
-    public ToDoListViewModel(ILiteDbService liteDbService)
-    {
-        _liteDbService = liteDbService;
-        Initialize();
-    }
+    //public ToDoListViewModel(ILiteDbService liteDbService)
+    //{
+    //    _liteDbService = liteDbService;
+    //    Initialize();
+    //}
 
+    //private void Initialize()
+    //{
+    //    Source.Clear();
 
-    private void Initialize()
-    {
-        Source.Clear();
-
-        var data = _liteDbService.GetTable<TodoTask>();
-        foreach (var item in data)
-        {
-            Source.Add(item);
-        }
-    }
-
-    public void OnNavigatedTo(object parameter)
-    {
-        // ポップアップなので呼ばれない
-        Initialize();
-    }
-
-    public void OnNavigatedFrom()
-    {
-    }
+    //    var data = _liteDbService.GetTable<TodoTask>().ToList();
+    //    foreach (var item in data)
+    //    {
+    //        Source.Add(item);
+    //    }
+    //}
 }

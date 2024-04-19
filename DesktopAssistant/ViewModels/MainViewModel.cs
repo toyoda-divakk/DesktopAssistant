@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using System.Collections.ObjectModel;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using DesktopAssistant.Contracts.Services;
 using DesktopAssistant.Core.Models;
@@ -7,15 +8,15 @@ using DesktopAssistant.Views.Popup;
 
 namespace DesktopAssistant.ViewModels;
 
-public partial class MainViewModel : ObservableRecipient
+public partial class MainViewModel(IThemeSelectorService themeSelector) : ObservableRecipient
 {
-    IThemeSelectorService ThemeSelector { get; }
-    public MainViewModel(IThemeSelectorService themeSelector)
-    {
-        ThemeSelector = themeSelector;
-    }
+    //public ObservableCollection<Character> Source { get; } = new ObservableCollection<Character>();   // TODO:たぶん、こういう独自モデルのコレクションを作成してバインドすることでボタンメニューを実現する
 
-    // ToDoListPageをモードレス表示するコマンドを作成する
+    IThemeSelectorService ThemeSelector { get; } = themeSelector;   // TODO:ポップアップする場合は必要だけど、ポップアップ先でやったらどう？
+
+    /// <summary>
+    /// ToDoListPageをモードレス表示する
+    /// </summary>
     [RelayCommand]
     private void ShowToDoList()
     {
@@ -33,7 +34,7 @@ public partial class MainViewModel : ObservableRecipient
     /// 全てのWindowを閉じる
     /// </summary>
     [RelayCommand]
-    private void Close()
+    private static void Close()
     {
         var children = WindowHelper.ActiveWindows.ToArray();    // ToArrayしないと、foreach中にコレクションが変更されるため例外が発生する
         foreach (var child in children)

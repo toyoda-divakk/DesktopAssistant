@@ -27,7 +27,7 @@ public interface ILiteDbService
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <returns></returns>
-    List<T> GetTable<T>();
+    IEnumerable<T> GetTable<T>();
 
     /// <summary>
     /// 任意のテーブルにデータを追加

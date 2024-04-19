@@ -84,7 +84,7 @@ public class ActivationService(ActivationHandler<LaunchActivatedEventArgs> defau
             liteDbService.CreateOrInitializeDatabase();
         }
         // 1度しか実行しない処理が行われているかここでチェックし、実施されていない場合は実行する。SystemEventが登録されていれば実行済み。
-        var systemEvents = liteDbService.GetTable<SystemEvent>();
+        var systemEvents = liteDbService.GetTable<SystemEvent>().ToList();
         if (!systemEvents.Exists(e => e.Event == SystemEvents.Initial_SetTasks))
         {
             liteDbService.Insert(new SystemEvent()
@@ -103,7 +103,7 @@ public class ActivationService(ActivationHandler<LaunchActivatedEventArgs> defau
                 liteDbService.Insert(task);
             }
         }
-        if (!systemEvents.Exists(e => e.Event == SystemEvents.Initial_SetCharacoers))
+        if (!systemEvents.ToList().Exists(e => e.Event == SystemEvents.Initial_SetCharacoers))
         {
             liteDbService.Insert(new SystemEvent()
             {

@@ -16,7 +16,7 @@ public partial class PersonalViewModel : ObservableRecipient, INavigationAware
     private readonly INavigationService _navigationService;
     private readonly ISampleDataService _sampleDataService;
 
-    public ObservableCollection<Character> Source { get; } = new ObservableCollection<Character>();
+    public ObservableCollection<Character> Source { get; } = [];
 
     public PersonalViewModel(INavigationService navigationService, ISampleDataService sampleDataService)
     {
