@@ -6,5 +6,5 @@ namespace DesktopAssistant.Core.Contracts.Services;
 public interface ISampleDataService
 {
     IEnumerable<Character> GetSampleCharacters();
-    IEnumerable<TodoTask> GetSampleTodoTasks();
+    IEnumerable<TaskCategory> GetSampleTodoTasks();
 }

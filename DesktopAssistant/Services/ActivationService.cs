@@ -97,10 +97,14 @@ public class ActivationService(ActivationHandler<LaunchActivatedEventArgs> defau
             });
 
             // サンプルデータを登録
-            var tasks = sampleDataService.GetSampleTodoTasks();
-            foreach (var task in tasks)
+            var taskCategories = sampleDataService.GetSampleTodoTasks();
+            foreach (var taskCategory in taskCategories)
             {
-                liteDbService.Insert(task);
+                liteDbService.Insert(taskCategory);
+                foreach (var task in taskCategory.TodoTasks)
+                {
+                    liteDbService.Insert(task);
+                }
             }
         }
         if (!systemEvents.ToList().Exists(e => e.Event == SystemEvents.Initial_SetCharacoers))

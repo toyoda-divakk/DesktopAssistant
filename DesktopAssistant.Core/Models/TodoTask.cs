@@ -20,6 +20,14 @@ public record TodoTask
     }
 
     /// <summary>
+    /// 分類ID
+    /// </summary>
+    public long CategoryId
+    {
+        get; init;
+    }
+
+    /// <summary>
     /// タスクの題名
     /// </summary>
     public string Title

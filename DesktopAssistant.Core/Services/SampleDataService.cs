@@ -280,60 +280,92 @@ public class SampleDataService : ISampleDataService
         ];
     }
 
-    public IEnumerable<TodoTask> GetSampleTodoTasks()
+    public IEnumerable<TaskCategory> GetSampleTodoTasks()
     {
+        var categoryId1 = 1;
+        var categoryId2 = 2;
         return
         [
-            new()
-            {
-                Title = "タスク一覧を見る",
-                Content = "今どんなタスクが登録されているか見てみよう。",
-                Progress = "進捗メモがあればここに書いてね。",
-                IsDone = false,
-                CreatedAt = DateTime.UtcNow,
-                UpdatedAt = DateTime.UtcNow,
-                Deadline = DateTime.UtcNow + TimeSpan.FromDays(10)
+            new (){
+                Id = categoryId1,
+                Name = "ソフトの使い方",
+                TodoTasks =
+                [
+                    new()
+                    {
+                        Title = "タスク一覧を見る",
+                        CategoryId = categoryId1,
+                        Content = "今どんなタスクが登録されているか見てみよう。",
+                        Progress = "進捗メモがあればここに書いてね。",
+                        IsDone = false,
+                        CreatedAt = DateTime.UtcNow,
+                        UpdatedAt = DateTime.UtcNow,
+                        Deadline = DateTime.UtcNow + TimeSpan.FromDays(10)
+                    },
+                    new()
+                    {
+                        Title = "アシスタント一覧を見る",
+                        CategoryId = categoryId1,
+                        Content = "今どんなアシスタントが登録されているか見てみよう。",
+                        Progress = "メニューからアシスタント一覧ボタンをクリックします。",
+                        IsDone = false,
+                        CreatedAt = DateTime.UtcNow,
+                        UpdatedAt = DateTime.UtcNow,
+                        Deadline = DateTime.UtcNow + TimeSpan.FromDays(10)
+                    },
+                    new()
+                    {
+                        Title = "OpenAI(ChatGPT)のAPIキーを手に入れる",
+                        CategoryId = categoryId1,
+                        Content = "OpenAIにアカウントを登録しよう。",
+                        Progress = "AIを利用するには、OpenAIかAzureのどちらかでAPIキーを作成する必要があります。",
+                        IsDone = false,
+                        CreatedAt = DateTime.UtcNow,
+                        UpdatedAt = DateTime.UtcNow,
+                        Deadline = DateTime.UtcNow + TimeSpan.FromDays(10)
+                    },
+                    new()
+                    {
+                        Title = "AzureのAPIキーを手に入れる",
+                        CategoryId = categoryId1,
+                        Content = "AzureでOpenAIサービスを登録しよう。",
+                        Progress = "AIを利用するには、OpenAIかAzureのどちらかでAPIキーを作成する必要があります。",
+                        IsDone = false,
+                        CreatedAt = DateTime.UtcNow,
+                        UpdatedAt = DateTime.UtcNow,
+                        Deadline = DateTime.UtcNow + TimeSpan.FromDays(10)
+                    },
+                    new()
+                    {
+                        Title = "APIの設定をする",
+                        CategoryId = categoryId1,
+                        Content = "作成したAPIキーを設定画面に入力します。",
+                        Progress = "メニューから設定ボタンをクリックします。",
+                        IsDone = false,
+                        CreatedAt = DateTime.UtcNow,
+                        UpdatedAt = DateTime.UtcNow,
+                        Deadline = DateTime.UtcNow + TimeSpan.FromDays(10)
+                    }
+                ]
             },
-            new()
-            {
-                Title = "アシスタント一覧を見る",
-                Content = "今どんなアシスタントが登録されているか見てみよう。",
-                Progress = "メニューからアシスタント一覧ボタンをクリックします。",
-                IsDone = false,
-                CreatedAt = DateTime.UtcNow,
-                UpdatedAt = DateTime.UtcNow,
-                Deadline = DateTime.UtcNow + TimeSpan.FromDays(10)
+            new (){
+                Id = categoryId2,
+                Name = "自由",
+                TodoTasks =
+                [
+                    new()
+                    {
+                        Title = "タスクの登録",
+                        CategoryId = categoryId2,
+                        Content = "タスクを登録してみよう。",
+                        Progress = "",
+                        IsDone = false,
+                        CreatedAt = DateTime.UtcNow,
+                        UpdatedAt = DateTime.UtcNow,
+                        Deadline = DateTime.UtcNow + TimeSpan.FromDays(10)
+                    }
+                ]
             },
-            new()
-            {
-                Title = "OpenAI(ChatGPT)のAPIキーを手に入れる",
-                Content = "OpenAIにアカウントを登録しよう。",
-                Progress = "AIを利用するには、OpenAIかAzureのどちらかでAPIキーを作成する必要があります。",
-                IsDone = false,
-                CreatedAt = DateTime.UtcNow,
-                UpdatedAt = DateTime.UtcNow,
-                Deadline = DateTime.UtcNow + TimeSpan.FromDays(10)
-            },
-            new()
-            {
-                Title = "AzureのAPIキーを手に入れる",
-                Content = "AzureでOpenAIサービスを登録しよう。",
-                Progress = "AIを利用するには、OpenAIかAzureのどちらかでAPIキーを作成する必要があります。",
-                IsDone = false,
-                CreatedAt = DateTime.UtcNow,
-                UpdatedAt = DateTime.UtcNow,
-                Deadline = DateTime.UtcNow + TimeSpan.FromDays(10)
-            },
-            new()
-            {
-                Title = "APIの設定をする",
-                Content = "作成したAPIキーを設定画面に入力します。",
-                Progress = "メニューから設定ボタンをクリックします。",
-                IsDone = false,
-                CreatedAt = DateTime.UtcNow,
-                UpdatedAt = DateTime.UtcNow,
-                Deadline = DateTime.UtcNow + TimeSpan.FromDays(10)
-            }
         ];
     }
 }
