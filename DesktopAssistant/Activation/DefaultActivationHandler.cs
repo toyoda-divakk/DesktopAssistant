@@ -11,14 +11,9 @@ namespace DesktopAssistant.Activation;
 /// <summary>
 /// 起動時の処理を行うActivationHandlerのデフォルト実装
 /// </summary>
-public class DefaultActivationHandler : ActivationHandler<LaunchActivatedEventArgs>
+public class DefaultActivationHandler(INavigationService navigationService) : ActivationHandler<LaunchActivatedEventArgs>
 {
-    private readonly INavigationService _navigationService; // 画面遷移を行うサービス
-
-    public DefaultActivationHandler(INavigationService navigationService)
-    {
-        _navigationService = navigationService;
-    }
+    private readonly INavigationService _navigationService = navigationService; // 画面遷移を行うサービス
 
     // 実行条件を書く
     /// <summary>

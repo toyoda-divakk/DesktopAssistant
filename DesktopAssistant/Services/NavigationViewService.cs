@@ -11,12 +11,8 @@ namespace DesktopAssistant.Services;
 /// <summary>
 /// NavigationViewの操作を補助する
 /// </summary>
-public class NavigationViewService : INavigationViewService
+public class NavigationViewService(INavigationService navigationService, IPageService pageService) : INavigationViewService
 {
-    private readonly INavigationService _navigationService; // 実際のページのナビゲーション
-
-    private readonly IPageService _pageService; // ページの型の取得
-
     private NavigationView? _navigationView;
 
     /// <summary>
@@ -28,12 +24,6 @@ public class NavigationViewService : INavigationViewService
     /// ナビゲーションビューの設定アイテム
     /// </summary>
     public object? SettingsItem => _navigationView?.SettingsItem;
-
-    public NavigationViewService(INavigationService navigationService, IPageService pageService)
-    {
-        _navigationService = navigationService;
-        _pageService = pageService;
-    }
 
     [MemberNotNull(nameof(_navigationView))]    // _navigationViewがnullでない値を持つことをIDEに対して保証する
     public void Initialize(NavigationView navigationView)
@@ -67,7 +57,7 @@ public class NavigationViewService : INavigationViewService
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="args"></param>
-    private void OnBackRequested(NavigationView sender, NavigationViewBackRequestedEventArgs args) => _navigationService.GoBack();
+    private void OnBackRequested(NavigationView sender, NavigationViewBackRequestedEventArgs args) => navigationService.GoBack();
 
     /// <summary>
     /// ナビゲーションビュー内のアイテムが選択されたときに実行
@@ -79,7 +69,7 @@ public class NavigationViewService : INavigationViewService
         if (args.IsSettingsInvoked)
         {
             // 設定アイテムが選択されたとき
-            _navigationService.NavigateTo(typeof(SettingsViewModel).FullName!);
+            navigationService.NavigateTo(typeof(SettingsViewModel).FullName!);
         }
         else
         {
@@ -87,7 +77,7 @@ public class NavigationViewService : INavigationViewService
 
             if (selectedItem?.GetValue(NavigationHelper.NavigateToProperty) is string pageKey)
             {
-                _navigationService.NavigateTo(pageKey);
+                navigationService.NavigateTo(pageKey);
             }
         }
     }
@@ -122,7 +112,7 @@ public class NavigationViewService : INavigationViewService
         if (menuItem.GetValue(NavigationHelper.NavigateToProperty) is string pageKey)
         {
             // ページのキーが一致するかどうかを判定
-            return _pageService.GetPageType(pageKey) == sourcePageType;
+            return pageService.GetPageType(pageKey) == sourcePageType;
         }
 
         return false;
