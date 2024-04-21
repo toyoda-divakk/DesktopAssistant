@@ -41,6 +41,7 @@ public partial class SettingsViewModel : ObservableRecipient, IApiSetting
 
     /// <summary>
     /// テーマ切り替えコマンド
+    /// ラジオボタンではバインドできるが、コンボボックスではできない
     /// </summary>
     public ICommand SwitchThemeCommand
     {

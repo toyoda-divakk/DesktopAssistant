@@ -6,6 +6,10 @@ namespace DesktopAssistant;
 
 public sealed partial class MainWindow : WindowEx
 {
+    /// <summary>
+    /// UIスレッドで非同期操作を実行する仕組み
+    /// UIスレッドはシングルスレッドなのでこのような仕組みが必要
+    /// </summary>
     private readonly Microsoft.UI.Dispatching.DispatcherQueue dispatcherQueue;
 
     private readonly UISettings settings;
@@ -18,23 +22,26 @@ public sealed partial class MainWindow : WindowEx
         Content = null;
         Title = "AppDisplayName".GetLocalized();
 
-        // Theme change code picked from https://github.com/microsoft/WinUI-Gallery/pull/1239
         dispatcherQueue = Microsoft.UI.Dispatching.DispatcherQueue.GetForCurrentThread();
         settings = new UISettings();
-        settings.ColorValuesChanged += Settings_ColorValuesChanged; // cannot use FrameworkElement.ActualThemeChanged event
+        settings.ColorValuesChanged += Settings_ColorValuesChanged; // FrameworkElement.ActualThemeChangedイベントは使用できません。
     }
 
-    // this handles updating the caption button colors correctly when indows system theme is changed
-    // while the app is open
+    // これは、ウィンドウズのシステムテーマが変更されたときに、キャプションボタンの色を正しく更新する処理です。アプリが開いている間
     private void Settings_ColorValuesChanged(UISettings sender, object args)
     {
-        // This calls comes off-thread, hence we will need to dispatch it to current app's thread
+        // この呼び出しはオフスレッドで行われるため、現在のアプリのスレッドにディスパッチする必要がある。
         dispatcherQueue.TryEnqueue(() =>
         {
             TitleBarHelper.ApplySystemThemeToCaptionButtons();
         });
     }
 
+    /// <summary>
+    /// 他のウィンドウと一緒に閉じる
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="args"></param>
     private void WindowEx_Closed(object sender, Microsoft.UI.Xaml.WindowEventArgs args)
     {
         var children = WindowHelper.ActiveWindows.ToArray();    // ToArrayしないと、foreach中にコレクションが変更されるため例外が発生する

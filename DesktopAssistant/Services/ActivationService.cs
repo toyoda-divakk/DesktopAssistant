@@ -20,6 +20,7 @@ namespace DesktopAssistant.Services;
 public class ActivationService(ActivationHandler<LaunchActivatedEventArgs> defaultHandler, IEnumerable<IActivationHandler> activationHandlers, IThemeSelectorService themeSelectorService, IApiSettingService apiSettingService, ILiteDbService liteDbService, ISampleDataService sampleDataService) : IActivationService
 {
     private UIElement? _shell = null;
+    private UIElement? _main = null;
 
     /// <summary>
     /// アプリケーションの起動時に呼び出される
@@ -36,6 +37,8 @@ public class ActivationService(ActivationHandler<LaunchActivatedEventArgs> defau
         {
             _shell = App.GetService<ShellPage>();
             App.MainWindow.Content = _shell ?? new Frame();
+            //_main = App.GetService<MainPage>();
+            //App.MainWindow.Content = _main ?? new Frame();
         }
 
         await HandleActivationAsync(activationArgs);

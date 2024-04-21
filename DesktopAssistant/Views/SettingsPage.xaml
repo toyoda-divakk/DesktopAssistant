@@ -2,10 +2,12 @@
     x:Class="DesktopAssistant.Views.SettingsPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:CommunityToolkit.WinUI.Controls"
     xmlns:converters="using:CommunityToolkit.WinUI.UI.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:helpers="using:DesktopAssistant.Helpers"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ui="using:CommunityToolkit.WinUI"
     xmlns:xaml="using:Microsoft.UI.Xaml"
     xmlns:xaml1="using:DesktopAssistant.Core.Enums"
     mc:Ignorable="d">
@@ -24,7 +26,7 @@
             <!--  個人設定（Resourcesから直接取ってくる）  -->
             <TextBlock x:Uid="Settings_Personalization" Style="{ThemeResource SubtitleTextBlockStyle}" />
             <!--  テーマ選択  -->
-            <StackPanel Margin="{StaticResource SmallTopBottomMargin}">
+            <!--<StackPanel Margin="{StaticResource SmallTopBottomMargin}">
                 <TextBlock x:Uid="Settings_Theme" />
                 <StackPanel Margin="{StaticResource XSmallTopMargin}">
                     <RadioButton
@@ -58,7 +60,21 @@
                         </RadioButton.CommandParameter>
                     </RadioButton>
                 </StackPanel>
-            </StackPanel>
+            </StackPanel>-->
+
+            <controls:SettingsCard
+                Description="このアプリケーションで使用するテーマを選択してください。"
+                Header="テーマ選択"
+                HeaderIcon="{ui:FontIcon Glyph=&#xE799;}">
+                <!--<ComboBox>
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="SelectionChanged">
+                            <i:InvokeCommandAction Command="{Binding SelectionChangedCommand}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </ComboBox>-->
+            </controls:SettingsCard>
+
 
             <!--  APIの設定  -->
             <TextBlock x:Uid="Settings_Api" Style="{ThemeResource SubtitleTextBlockStyle}" />
@@ -146,22 +162,29 @@
                 </StackPanel>
             </StackPanel>
 
-            <!--  ここいる？  -->
+            <!--  ここ、いらない  -->
             <!--  このソフトウェアについて  -->
+            <!--
             <TextBlock x:Uid="Settings_About" Style="{ThemeResource SubtitleTextBlockStyle}" />
 
+            -->
             <!--  バージョン情報を取得して表示  -->
+            <!--
             <StackPanel Margin="{StaticResource XSmallTopMargin}">
                 <TextBlock Style="{ThemeResource BodyTextBlockStyle}" Text="{x:Bind ViewModel.VersionDescription, Mode=OneWay}" />
 
-                <!--  アプリの紹介文（Resourcesから直接取ってくる）  -->
+            -->
+            <!--  アプリの紹介文（Resourcesから直接取ってくる）  -->
+            <!--
                 <TextBlock
                     x:Uid="Settings_AboutDescription"
                     Margin="{StaticResource XSmallTopMargin}"
                     Style="{ThemeResource BodyTextBlockStyle}" />
-                <!--  作者ページへのリンク  -->
+            -->
+            <!--  作者ページへのリンク  -->
+            <!--
                 <HyperlinkButton x:Uid="SettingsPage_PrivacyTermsLink" Margin="{StaticResource SettingsPageHyperlinkButtonMargin}" />
-            </StackPanel>
+            </StackPanel>-->
         </StackPanel>
     </Grid>
 </Page>

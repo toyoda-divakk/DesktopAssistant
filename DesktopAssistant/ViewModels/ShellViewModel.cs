@@ -7,6 +7,9 @@ using Microsoft.UI.Xaml.Navigation;
 
 namespace DesktopAssistant.ViewModels;
 
+/// <summary>
+/// シェルページのビューモデル
+/// </summary>
 public partial class ShellViewModel : ObservableRecipient
 {
     [ObservableProperty]

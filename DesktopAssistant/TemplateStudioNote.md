@@ -25,6 +25,15 @@ ClickOnceProfile.pubxmlに変更したら、警告が消えたけど、そんな
 </PropertyGroup>
 ```
 
+# シェルページの仕組み
+ShellPageは、アプリ起動時にActivationServiceからMainWindowにセットされる。  
+ShellPageは、Frameを持っていて、Frameには、各ページがセットされる。  
+ShellPageのxamlで各ページを表示する領域であるFrameを作成し、コードビハインドでそのFrameをページ表示場所として指定することで、各ページの表示を実現している。  
+ShellPageのコードビハインドで、タイトルバーの設定や、キーボードショートカットの設定を行っている。
+
+ここカスタマイズするの結構面倒臭いので、できるだけデフォルトのままで使用する。メニューを上にするか左にするかをプロジェクト作成前に決めておく。
+ナビゲーションメニューはウィンドウを小さくすれば非表示になる。
+
 # ローカライズ
 Stringクラスに拡張メソッドがある。
 $"{"AppDisplayName".GetLocalized()}" // AppDisplayNameのローカライズ

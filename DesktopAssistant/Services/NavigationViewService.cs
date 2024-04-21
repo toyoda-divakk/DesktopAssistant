@@ -73,6 +73,7 @@ public class NavigationViewService(INavigationService navigationService, IPageSe
         }
         else
         {
+            // 通常のアイテムが選択されたとき
             var selectedItem = args.InvokedItemContainer as NavigationViewItem;
 
             if (selectedItem?.GetValue(NavigationHelper.NavigateToProperty) is string pageKey)
