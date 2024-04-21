@@ -135,7 +135,7 @@
   <data name="Settings_Personalization.Text" xml:space="preserve">
     <value>表示設定</value>
   </data>
-  <data name="Settings_Theme.Text" xml:space="preserve">
+  <data name="Settings_Theme.Header" xml:space="preserve">
     <value>テーマ選択</value>
   </data>
   <data name="Settings_Theme_Light.Content" xml:space="preserve">
@@ -196,5 +196,8 @@
   </data>
   <data name="Hello" xml:space="preserve">
     <value>こんにちは。</value>
+  </data>
+  <data name="Settings_Theme.Description" xml:space="preserve">
+    <value>ライトテーマかダークテーマを選択します。</value>
   </data>
 </root>
