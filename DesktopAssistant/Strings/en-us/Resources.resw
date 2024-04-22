@@ -177,11 +177,8 @@
   <data name="Settings_Api_Service_OpenAI.Content" xml:space="preserve">
     <value>OpenAI (ChatGPT)</value>
   </data>
-  <data name="Settings_Api_Service.Text" xml:space="preserve">
-    <value>Generative AI Service</value>
-  </data>
   <data name="Settings_Api.Text" xml:space="preserve">
-    <value>Generative AI API</value>
+    <value>Configuration of Generation AI API</value>
   </data>
   <data name="Button_Save.Text" xml:space="preserve">
     <value>Save</value>
@@ -197,5 +194,35 @@
   </data>
   <data name="Settings_Theme.Description" xml:space="preserve">
     <value>Select a light or dark theme.</value>
+  </data>
+  <data name="Settings_ApiTest.Description" xml:space="preserve">
+    <value>Ensure that AI is available in this setting.</value>
+  </data>
+  <data name="Settings_ApiTest.Header" xml:space="preserve">
+    <value>API Execution Testing</value>
+  </data>
+  <data name="Settings_Api_Service.Description" xml:space="preserve">
+    <value>Select the generating AI service.</value>
+  </data>
+  <data name="Settings_Api_Service.Header" xml:space="preserve">
+    <value>Selection of Generative AI Services</value>
+  </data>
+  <data name="Settings_Api_Top.Description" xml:space="preserve">
+    <value>Configure settings for using the generated AI. The settings you have entered will not be reflected until you click the Save button.</value>
+  </data>
+  <data name="Settings_Api_Top.Header" xml:space="preserve">
+    <value>Configuration of Generation AI API</value>
+  </data>
+  <data name="Settings_AzureOpenAI.Description" xml:space="preserve">
+    <value>For Azure, please obtain the necessary configuration information from Azure OpenAI Studio.</value>
+  </data>
+  <data name="Settings_AzureOpenAI.Header" xml:space="preserve">
+    <value>Azure OpenAI Service</value>
+  </data>
+  <data name="Settings_OpenAI.Description" xml:space="preserve">
+    <value>Create an account at OpenAI and obtain an API key.</value>
+  </data>
+  <data name="Settings_OpenAI.Header" xml:space="preserve">
+    <value>OpenAI (ChatGPT)</value>
   </data>
 </root>

@@ -69,9 +69,7 @@
                 x:Uid="Settings_Api"
                 Margin="0,24,0,0"
                 Style="{ThemeResource SubtitleTextBlockStyle}" />
-            <controls:SettingsExpander
-                Description="生成AIを利用するための設定を行います。"
-                Header="Settings_Api.Text"
+            <controls:SettingsExpander x:Uid="Settings_Api_Top"
                 HeaderIcon="{ui:FontIcon Glyph=&#xE799;}">
 
                 <Button
@@ -84,7 +82,7 @@
                     </StackPanel>
                 </Button>
                 <controls:SettingsExpander.Items>
-                    <controls:SettingsCard Description="SettingsCard within an Expander can be made clickable too!" Header="Settings_Api_Service">
+                    <controls:SettingsCard x:Uid="Settings_Api_Service">
                         <StackPanel Margin="{StaticResource SmallTopBottomMargin}" Orientation="Horizontal">
                             <RadioButton
                                 x:Uid="Settings_Api_Service_OpenAI"
@@ -106,10 +104,7 @@
                         </StackPanel>
                     </controls:SettingsCard>
                     <!--  OpenAIの場合に表示する  -->
-                    <controls:SettingsCard
-                        Description="asdf"
-                        Header="OpenAI (ChatGPT)"
-                        Visibility="{x:Bind ViewModel.IsOpenAI, Converter={StaticResource BoolToVisibilityConverter}, Mode=OneWay}">
+                    <controls:SettingsCard x:Uid="Settings_OpenAI" Visibility="{x:Bind ViewModel.IsOpenAI, Converter={StaticResource BoolToVisibilityConverter}, Mode=OneWay}">
                         <StackPanel Margin="{StaticResource SmallTopBottomMargin}">
                             <TextBlock x:Uid="Settings_Api_ApiKey" />
                             <TextBox
@@ -127,10 +122,7 @@
                     </controls:SettingsCard>
 
                     <!--  AzureOpenAIの場合に表示する  -->
-                    <controls:SettingsCard
-                        Description="asdf"
-                        Header="Azure OpenAI Service"
-                        Visibility="{x:Bind ViewModel.IsAzureOpenAI, Converter={StaticResource BoolToVisibilityConverter}, Mode=OneWay}">
+                    <controls:SettingsCard x:Uid="Settings_AzureOpenAI" Visibility="{x:Bind ViewModel.IsAzureOpenAI, Converter={StaticResource BoolToVisibilityConverter}, Mode=OneWay}">
                         <StackPanel Margin="{StaticResource SmallTopBottomMargin}">
                             <TextBlock x:Uid="Settings_Api_ApiKey" />
                             <TextBox
@@ -153,7 +145,7 @@
                         </StackPanel>
                     </controls:SettingsCard>
 
-                    <controls:SettingsCard Description="この設定で繋がるか確認しよう。" Header="ApiTest">
+                    <controls:SettingsCard x:Uid="Settings_ApiTest">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock
                                 MinWidth="160"

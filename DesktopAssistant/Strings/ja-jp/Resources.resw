@@ -165,7 +165,7 @@
     <value>キャラ作成</value>
   </data>
   <data name="Settings_Api.Text" xml:space="preserve">
-    <value>生成AI API設定</value>
+    <value>生成AIのAPI設定</value>
   </data>
   <data name="Settings_Api_ApiKey.Text" xml:space="preserve">
     <value>APIキー</value>
@@ -178,9 +178,6 @@
   </data>
   <data name="Settings_Api_Model.Text" xml:space="preserve">
     <value>モデル名</value>
-  </data>
-  <data name="Settings_Api_Service.Text" xml:space="preserve">
-    <value>生成サービス</value>
   </data>
   <data name="Settings_Api_Service_OpenAI.Content" xml:space="preserve">
     <value>OpenAI (ChatGPT)</value>
@@ -199,5 +196,35 @@
   </data>
   <data name="Settings_Theme.Description" xml:space="preserve">
     <value>ライトテーマかダークテーマを選択します。</value>
+  </data>
+  <data name="Settings_ApiTest.Description" xml:space="preserve">
+    <value>この設定でAIが利用できることを確認します。</value>
+  </data>
+  <data name="Settings_ApiTest.Header" xml:space="preserve">
+    <value>APIの実行テスト</value>
+  </data>
+  <data name="Settings_Api_Service.Description" xml:space="preserve">
+    <value>生成AIサービスを選択します。</value>
+  </data>
+  <data name="Settings_Api_Service.Header" xml:space="preserve">
+    <value>生成AIサービスの選択</value>
+  </data>
+  <data name="Settings_Api_Top.Description" xml:space="preserve">
+    <value>生成AIを利用するための設定を行います。入力した設定は保存ボタンをクリックするまで反映されません。</value>
+  </data>
+  <data name="Settings_Api_Top.Header" xml:space="preserve">
+    <value>生成AIのAPI設定</value>
+  </data>
+  <data name="Settings_AzureOpenAI.Description" xml:space="preserve">
+    <value>Azureの場合、Azure OpenAI Studioから必要な設定情報を取得してください。</value>
+  </data>
+  <data name="Settings_AzureOpenAI.Header" xml:space="preserve">
+    <value>Azure OpenAI Service</value>
+  </data>
+  <data name="Settings_OpenAI.Description" xml:space="preserve">
+    <value>OpenAIでアカウントを作成して、APIキーを取得してください。</value>
+  </data>
+  <data name="Settings_OpenAI.Header" xml:space="preserve">
+    <value>OpenAI (ChatGPT)</value>
   </data>
 </root>

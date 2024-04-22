@@ -6,10 +6,14 @@
     xmlns:local="using:DesktopAssistant"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:windowex="using:WinUIEx"
-    Width="800"
-    Height="600"
+    Width="960"
+    Height="720"
+    MinWidth="400"
+    MinHeight="300"
     Closed="WindowEx_Closed"
-    PersistenceId="MainWindow" IsMaximizable="False" IsMinimizable="False" 
+    IsMaximizable="False"
+    IsMinimizable="False"
+    PersistenceId="MainWindow"
     mc:Ignorable="d">
     <Window.SystemBackdrop>
         <MicaBackdrop />
