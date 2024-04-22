@@ -22,6 +22,7 @@ public partial class MainViewModel(IThemeSelectorService themeSelector) : Observ
     {
         var newWindow = WindowHelper.CreateWindow();
         newWindow.SetWindowSize(860, 600);
+        newWindow.Title = "ToDoList".GetLocalized();
         var rootPage = new ToDoListPage
         {
             RequestedTheme = ThemeSelector.Theme

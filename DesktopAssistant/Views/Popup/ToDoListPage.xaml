@@ -4,11 +4,39 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="using:CommunityToolkit.WinUI.UI.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local1="using:DesktopAssistant.ViewModels.Popup"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
+    <Page.Resources>
+        <!--  データの型を指定して、表示テンプレートを定義  -->
+        <DataTemplate x:Key="ImageTextListMailFolderTemplate" x:DataType="local1:Contact">
+            <Grid>
+                <Grid.ContextFlyout>
+                    <MenuFlyout>
+                        <MenuFlyoutItem Command="{x:Bind EditCommand}" Text="Edit" />
+                    </MenuFlyout>
+                </Grid.ContextFlyout>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition
+                        Width="Auto"
+                        MinWidth="180"
+                        MaxWidth="240" />
+                </Grid.ColumnDefinitions>
+                <TextBlock
+                    HorizontalAlignment="Left"
+                    Text="{x:Bind Name}"
+                    TextWrapping="Wrap" />
+                <TextBlock
+                    HorizontalAlignment="Right"
+                    Text="{x:Bind Company}"
+                    TextWrapping="Wrap" />
+            </Grid>
+        </DataTemplate>
+    </Page.Resources>
 
     <Grid x:Name="ContentArea">
-        <controls:DataGrid
+        <!--<controls:DataGrid
             AutoGenerateColumns="False"
             GridLinesVisibility="Horizontal"
             ItemsSource="{x:Bind ViewModel.Source, Mode=OneWay}">
@@ -23,6 +51,14 @@
                 <controls:DataGridTextColumn Binding="{Binding Deadline}" Header="Deadline" />
                 <controls:DataGridTextColumn Binding="{Binding IsDone}" Header="IsDone" />
             </controls:DataGrid.Columns>
-        </controls:DataGrid>
+        </controls:DataGrid>-->
+        <ListView
+            AllowDrop="True"
+            CanDragItems="True"
+            CanReorderItems="True"
+            ItemTemplate="{StaticResource ImageTextListMailFolderTemplate}"
+            ItemsSource="{x:Bind ViewModel.TestSource, Mode=OneWay}"
+            SelectionMode="Single" />
+
     </Grid>
 </Page>

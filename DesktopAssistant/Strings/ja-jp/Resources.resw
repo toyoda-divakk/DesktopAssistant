@@ -227,4 +227,7 @@
   <data name="Settings_OpenAI.Header" xml:space="preserve">
     <value>OpenAI (ChatGPT)</value>
   </data>
+  <data name="ToDoList" xml:space="preserve">
+    <value>ToDoリスト</value>
+  </data>
 </root>

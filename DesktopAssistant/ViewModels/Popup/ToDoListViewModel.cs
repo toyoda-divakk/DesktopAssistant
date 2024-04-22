@@ -1,5 +1,7 @@
 ﻿using System.Collections.ObjectModel;
+using System.Windows.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using DesktopAssistant.Contracts.Services;
 using DesktopAssistant.Contracts.ViewModels;
 using DesktopAssistant.Core.Contracts.Services;
@@ -21,28 +23,36 @@ namespace DesktopAssistant.ViewModels.Popup;
 // 削除確認ダイアログで削除すると、ToDoリストが更新される
 // ToDoリストのアイテムをドラッグアンドドロップすると、順番が変わる（表示順を持たせる：カテゴリ、タスク）
 
+// WinUI3 GalleryのListViewを参考に実装する
 
 public partial class ToDoListViewModel(ILiteDbService liteDbService) : ObservableRecipient
 {
     //private readonly ILiteDbService _liteDbService;
 
     public ObservableCollection<TodoTask> Source { get; } = new ObservableCollection<TodoTask>(liteDbService.GetTable<TodoTask>());
-    //public ObservableCollection<TodoTask> Source { get; } = [];
+    public ObservableCollection<Contact> TestSource { get; } = [new ("a", "b", "c"), new("d", "e", "f")];
 
-    //public ToDoListViewModel(ILiteDbService liteDbService)
-    //{
-    //    _liteDbService = liteDbService;
-    //    Initialize();
-    //}
+}
 
-    //private void Initialize()
-    //{
-    //    Source.Clear();
+public class Contact(string firstName, string lastName, string company)
+{
+    public string FirstName
+    {
+        get; private set;
+    } = firstName;
+    public string LastName
+    {
+        get; private set;
+    } = lastName;
+    public string Company
+    {
+        get; private set;
+    } = company;
+    public string Name => FirstName + " " + LastName;
 
-    //    var data = _liteDbService.GetTable<TodoTask>().ToList();
-    //    foreach (var item in data)
-    //    {
-    //        Source.Add(item);
-    //    }
-    //}
+    public ICommand EditCommand => new RelayCommand(() =>
+       {
+           // Edit
+           Console.WriteLine();
+       });
 }
