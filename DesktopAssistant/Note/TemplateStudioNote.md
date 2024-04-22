@@ -72,6 +72,11 @@ await FileIO.WriteTextAsync(file, "This is my file content.");
 ```
 LocalSettingsServiceのデフォルトが結構酷いと思ったので、MSIXとの違いをなるべく吸収するように修正した。
 
+### MSIXをやめたい場合
+csprojの中にMSIXをやるかどうかの値があるのでFalseにする。
+※MSIXだと1つのマシンに複数ユーザでインストールできない？全てのユーザで使えるようにインストールできる？
+
+
 # トラブル
 ## PRI263: 0xdef01051
 アプリケーションのビルド時に、PRI263: 0xdef01051というエラーが発生する場合があります。
