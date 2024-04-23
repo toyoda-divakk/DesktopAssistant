@@ -36,7 +36,7 @@
         </DataTemplate>
 
         <!--  タスク  -->
-        <!--  Expander  -->
+        <!--  TODO:Expander系の部品を付けること  -->
         <DataTemplate x:Key="TodoTaskTemplate" x:DataType="model:TodoTask">
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -68,10 +68,9 @@
             ItemTemplate="{StaticResource TaskCategoryTemplate}"
             ItemsSource="{x:Bind ViewModel.Categories, Mode=OneWay}"
             SelectionMode="Single">
-            <!--  もうちょっとスマートな書き方できない？→こっちはいい。cs側は？  -->
             <interactivity:Interaction.Behaviors>
                 <core:EventTriggerBehavior EventName="SelectionChanged">
-                    <core:InvokeCommandAction Command="{x:Bind ViewModel.TaskCategoryChangedCommand}" CommandParameter="{x:Bind CategoryListView.SelectedItems, Mode=OneWay}" />
+                    <core:InvokeCommandAction Command="{x:Bind ViewModel.TaskCategoryChangedCommand}" CommandParameter="{x:Bind CategoryListView.SelectedItem, Mode=OneWay}" />
                 </core:EventTriggerBehavior>
             </interactivity:Interaction.Behaviors>
         </ListView>

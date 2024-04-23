@@ -70,26 +70,18 @@ public partial class ToDoListViewModel(ILiteDbService liteDbService) : Observabl
     }
 
     [RelayCommand]
-    public void TaskCategoryChanged(object categories)
+    public void TaskCategoryChanged(object category)
     {
         Tasks.Clear();
-        if (categories is not IList<object> category)
+
+        var stringItem = category as TaskCategory;
+        if (stringItem == null)
         {
             return;
         }
-
-        foreach (var temp in category)
+        foreach (var todoTask in stringItem.TodoTasks)
         {
-            var stringItem = temp as TaskCategory;
-            if (stringItem == null)
-            {
-                continue;
-            }
-            foreach (var todoTask in stringItem.TodoTasks)
-            {
-                Tasks.Add(todoTask);
-            }
-
+            Tasks.Add(todoTask);
         }
     }
 }
