@@ -3,17 +3,22 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="using:CommunityToolkit.WinUI.UI.Controls"
+    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local1="using:DesktopAssistant.ViewModels.Popup"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:model="using:DesktopAssistant.Core.Models"
     mc:Ignorable="d">
     <Page.Resources>
         <!--  データの型を指定して、表示テンプレートを定義  -->
-        <DataTemplate x:Key="ImageTextListMailFolderTemplate" x:DataType="local1:Contact">
+        <!--  カテゴリ  -->
+        <DataTemplate x:Key="TaskCategoryTemplate" x:DataType="model:TaskCategory">
             <Grid>
+                <!--  右クリックメニュー  -->
                 <Grid.ContextFlyout>
                     <MenuFlyout>
                         <MenuFlyoutItem Command="{x:Bind EditCommand}" Text="Edit" />
+                        <MenuFlyoutItem Command="{x:Bind EditCommand}" Text="Delete" />
                     </MenuFlyout>
                 </Grid.ContextFlyout>
 
@@ -27,38 +32,57 @@
                     HorizontalAlignment="Left"
                     Text="{x:Bind Name}"
                     TextWrapping="Wrap" />
+            </Grid>
+        </DataTemplate>
+
+        <!--  タスク  -->
+        <!--  Expander  -->
+        <DataTemplate x:Key="TodoTaskTemplate" x:DataType="model:TodoTask">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
                 <TextBlock
-                    HorizontalAlignment="Right"
-                    Text="{x:Bind Company}"
+                    HorizontalAlignment="Left"
+                    Text="{x:Bind Title}"
                     TextWrapping="Wrap" />
             </Grid>
         </DataTemplate>
     </Page.Resources>
 
+    <!--  TODO:AllowDropの違いを確認すること  -->
     <Grid x:Name="ContentArea">
-        <!--<controls:DataGrid
-            AutoGenerateColumns="False"
-            GridLinesVisibility="Horizontal"
-            ItemsSource="{x:Bind ViewModel.Source, Mode=OneWay}">
-            <controls:DataGrid.Resources>
-                <SolidColorBrush x:Key="DataGridColumnHeaderBackgroundColor" Color="Transparent" />
-            </controls:DataGrid.Resources>
-            <controls:DataGrid.Columns>
-                <controls:DataGridTextColumn Binding="{Binding Id}" Header="TaskID" />
-                <controls:DataGridTextColumn Binding="{Binding Title}" Header="Title" />
-                <controls:DataGridTextColumn Binding="{Binding CreatedAt}" Header="CreatedAt" />
-                <controls:DataGridTextColumn Binding="{Binding UpdatedAt}" Header="UpdatedAt" />
-                <controls:DataGridTextColumn Binding="{Binding Deadline}" Header="Deadline" />
-                <controls:DataGridTextColumn Binding="{Binding IsDone}" Header="IsDone" />
-            </controls:DataGrid.Columns>
-        </controls:DataGrid>-->
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition
+                Width="Auto"
+                MinWidth="180"
+                MaxWidth="240" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
         <ListView
+            x:Name="CategoryListView"
+            Grid.Column="0"
             AllowDrop="True"
             CanDragItems="True"
             CanReorderItems="True"
-            ItemTemplate="{StaticResource ImageTextListMailFolderTemplate}"
-            ItemsSource="{x:Bind ViewModel.TestSource, Mode=OneWay}"
-            SelectionMode="Single" />
+            ItemTemplate="{StaticResource TaskCategoryTemplate}"
+            ItemsSource="{x:Bind ViewModel.Categories, Mode=OneWay}"
+            SelectionMode="Single">
+            <!--  もうちょっとスマートな書き方できない？→こっちはいい。cs側は？  -->
+            <interactivity:Interaction.Behaviors>
+                <core:EventTriggerBehavior EventName="SelectionChanged">
+                    <core:InvokeCommandAction Command="{x:Bind ViewModel.TaskCategoryChangedCommand}" CommandParameter="{x:Bind CategoryListView.SelectedItems, Mode=OneWay}" />
+                </core:EventTriggerBehavior>
+            </interactivity:Interaction.Behaviors>
+        </ListView>
 
+        <ListView
+            Grid.Column="1"
+            AllowDrop="False"
+            CanDragItems="True"
+            CanReorderItems="True"
+            ItemTemplate="{StaticResource TodoTaskTemplate}"
+            ItemsSource="{x:Bind ViewModel.Tasks, Mode=OneWay}"
+            SelectionMode="Single" />
     </Grid>
 </Page>

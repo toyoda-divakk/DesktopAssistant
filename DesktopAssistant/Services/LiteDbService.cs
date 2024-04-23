@@ -11,12 +11,21 @@ namespace DesktopAssistant.Services;
 /// LiteDB
 /// アプリ固有の操作はなるべく実装しないように
 /// </summary>
-public class LiteDbService(ILocalSettingsService localSettingsService) : ILiteDbService
+public class LiteDbService : ILiteDbService
 {
-    private readonly ILocalSettingsService _localSettingsService = localSettingsService;
+    private readonly ILocalSettingsService _localSettingsService;
     private readonly string _filename = "data.db";
     private string FilePath => Path.Combine(_localSettingsService.ApplicationDataFolder, _filename);
     private LiteDatabase GetContext => new(FilePath);
+
+    public LiteDbService(ILocalSettingsService localSettingsService)
+    {
+        _localSettingsService = localSettingsService;
+
+        // 無視するフィールドなどを設定する
+        var mapper = BsonMapper.Global;
+        mapper.Entity<TaskCategory>().Ignore(x => x.EditCommand);
+    }
 
     public void CreateOrInitializeDatabase()
     {
@@ -26,8 +35,6 @@ public class LiteDbService(ILocalSettingsService localSettingsService) : ILiteDb
             //データベースファイルが存在している場合は削除
             File.Delete(Path.Combine(localPath, _filename));
         }
-        using var context = new LiteDatabase(Path.Combine(localPath, _filename));
-        context.GetCollection<TodoTask>("TodoTasks");
     }
 
     public bool IsExistDatabase() => File.Exists(FilePath);
@@ -45,36 +52,4 @@ public class LiteDbService(ILocalSettingsService localSettingsService) : ILiteDb
         var table = context.GetCollection<T>(typeof(T).Name.Pluralize());
         table.Insert(data);
     }
-
-    //public List<TodoTask> Test()
-    //{
-    //    // コンストラクタ引数はファイル名
-    //    using var context = GetContext;
-
-    //    // エンティティ
-    //    var todoTask = new TodoTask()
-    //    {
-    //        Title = "たいとるうううう",
-    //        Id = 0,
-    //    };
-
-    //    // DBへ接続
-    //    var todoTasks = context.GetCollection<TodoTask>("TodoTasks");
-
-    //    // ユニークインデックスの設定
-    //    todoTasks.EnsureIndex(x => x.Id, true);
-
-    //    // データが無かったら作成
-    //    todoTasks.Upsert(todoTask);
-
-    //    todoTask.Title = "更新したよおおおお";
-
-    //    // 更新
-    //    todoTasks.Update(todoTask);
-
-    //    // 検索
-    //    // Titleが「更」で始まるもの
-    //    var results = todoTasks.Find(x => x.Title.StartsWith("更")).ToList();
-    //    return results;
-    //}
 }

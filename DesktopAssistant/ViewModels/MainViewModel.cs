@@ -10,9 +10,7 @@ namespace DesktopAssistant.ViewModels;
 
 public partial class MainViewModel(IThemeSelectorService themeSelector) : ObservableRecipient
 {
-    //public ObservableCollection<Character> Source { get; } = new ObservableCollection<Character>();   // TODO:たぶん、こういう独自モデルのコレクションを作成してバインドすることでボタンメニューを実現する
-
-    IThemeSelectorService ThemeSelector { get; } = themeSelector;   // TODO:ポップアップする場合は必要だけど、ポップアップ先でやったらどう？
+    private IThemeSelectorService ThemeSelector { get; } = themeSelector;
 
     /// <summary>
     /// ToDoListPageをモードレス表示する
@@ -28,6 +26,7 @@ public partial class MainViewModel(IThemeSelectorService themeSelector) : Observ
             RequestedTheme = ThemeSelector.Theme
         };
         newWindow.Content = rootPage;
+        rootPage.ViewModel.Initialize();
         newWindow.Activate();
     }
 

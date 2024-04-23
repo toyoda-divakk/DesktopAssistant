@@ -1,4 +1,6 @@
 ﻿using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -27,32 +29,68 @@ namespace DesktopAssistant.ViewModels.Popup;
 
 public partial class ToDoListViewModel(ILiteDbService liteDbService) : ObservableRecipient
 {
-    //private readonly ILiteDbService _liteDbService;
+    private readonly ILiteDbService _liteDbService = liteDbService;
 
-    public ObservableCollection<TodoTask> Source { get; } = new ObservableCollection<TodoTask>(liteDbService.GetTable<TodoTask>());
-    public ObservableCollection<Contact> TestSource { get; } = [new ("a", "b", "c"), new("d", "e", "f")];
+    /// <summary>
+    /// カテゴリリスト
+    /// </summary>
+    public ObservableCollection<TaskCategory> Categories { get; set; } = [];
 
+    /// <summary>
+    /// 表示中のタスク
+    /// </summary>
+    public ObservableCollection<TodoTask> Tasks { get; set; } = [];
+
+    ObservableCollection<TaskCategory> SetupCategories(IEnumerable<TaskCategory> taskCategories)
+    {
+        var allCategory = new TaskCategory
+        {
+            Id = 0,
+            Name = "全て",
+            TodoTasks = [],
+            EditCommand = new RelayCommand(() => { })
+        };
+
+        var categories = taskCategories.ToList();
+        foreach (var category in categories)
+        {
+            category.EditCommand = new RelayCommand(() =>
+            {
+                Tasks = new ObservableCollection<TodoTask>(category.TodoTasks);
+            });
+        }
+
+        return new ObservableCollection<TaskCategory>(categories);
+    }
+
+    public void Initialize()
+    {
+        var taskCategories = _liteDbService.GetTable<TaskCategory>();
+        Categories = SetupCategories(taskCategories);
+    }
+
+    [RelayCommand]
+    public void TaskCategoryChanged(object categories)
+    {
+        Tasks.Clear();
+        if (categories is not IList<object> category)
+        {
+            return;
+        }
+
+        foreach (var temp in category)
+        {
+            var stringItem = temp as TaskCategory;
+            if (stringItem == null)
+            {
+                continue;
+            }
+            foreach (var todoTask in stringItem.TodoTasks)
+            {
+                Tasks.Add(todoTask);
+            }
+
+        }
+    }
 }
 
-public class Contact(string firstName, string lastName, string company)
-{
-    public string FirstName
-    {
-        get; private set;
-    } = firstName;
-    public string LastName
-    {
-        get; private set;
-    } = lastName;
-    public string Company
-    {
-        get; private set;
-    } = company;
-    public string Name => FirstName + " " + LastName;
-
-    public ICommand EditCommand => new RelayCommand(() =>
-       {
-           // Edit
-           Console.WriteLine();
-       });
-}

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace DesktopAssistant.Core.Models;
 
@@ -27,10 +28,17 @@ public record TaskCategory
         get; set;
     }
 
+    // ここにデータがある状態でDBに入れると、読み込み時に関連したデータも取得するみたい。どういう仕組み？
     /// <summary>
     /// 属するタスク
     /// </summary>
     public List<TodoTask> TodoTasks
+    {
+        get; set;
+    }
+
+    // Ignoreなので、LiteDbServiceで個別に指定する
+    public ICommand EditCommand
     {
         get; set;
     }
