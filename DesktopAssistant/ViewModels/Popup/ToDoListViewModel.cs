@@ -168,6 +168,11 @@ public partial class ToDoListViewModel(ILiteDbService liteDbService) : Observabl
         SetTasks(tasks);
     }
 
+    [RelayCommand]
+    public void AddCategory()
+    {
+    }
+
     /// <summary>
     /// タスクの表示を更新する
     /// </summary>

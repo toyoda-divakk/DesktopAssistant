@@ -3,6 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="using:CommunityToolkit.WinUI.UI.Controls"
+    xmlns:controls2="using:CommunityToolkit.WinUI.Controls"
     xmlns:core="using:Microsoft.Xaml.Interactions.Core"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
@@ -41,15 +42,16 @@
         <!--  タスク  -->
         <!--  TODO:Expander系の部品を付けること  -->
         <DataTemplate x:Key="TodoTaskTemplate" x:DataType="model:TodoTask">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
+            <Expander
+                HorizontalAlignment="Stretch"
+                ExpandDirection="Down"
+                Header="{x:Bind Title}"
+                IsExpanded="False">
                 <TextBlock
                     HorizontalAlignment="Left"
                     Text="{x:Bind Title}"
                     TextWrapping="Wrap" />
-            </Grid>
+            </Expander>
         </DataTemplate>
     </Page.Resources>
 
@@ -61,25 +63,53 @@
                 MinWidth="180"
                 MaxWidth="240" />
             <!--  右側  -->
-            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
         <!--  カテゴリ表示  -->
-        <ListView
-            x:Name="CategoryListView"
+        <Rectangle
             Grid.Column="0"
-            AllowDrop="True"
-            CanDragItems="False"
-            CanReorderItems="True"
-            ItemTemplate="{StaticResource TaskCategoryTemplate}"
-            ItemsSource="{x:Bind ViewModel.Categories, Mode=OneWay}"
-            SelectionMode="Single">
-            <interactivity:Interaction.Behaviors>
-                <core:EventTriggerBehavior EventName="SelectionChanged">
-                    <core:InvokeCommandAction Command="{x:Bind ViewModel.TaskCategoryChangedCommand}" CommandParameter="{x:Bind CategoryListView.SelectedItem, Mode=OneWay}" />
-                </core:EventTriggerBehavior>
-            </interactivity:Interaction.Behaviors>
-        </ListView>
+            Fill="{ThemeResource AcrylicInAppFillColorDefaultBrush}"
+            RadiusX="18"
+            RadiusY="18" />
+        <StackPanel Grid.Column="0" Orientation="Vertical">
+            <!--  全て  -->
+            <Button
+                Grid.Column="0"
+                MinWidth="180"
+                Margin="8"
+                Padding="0,10"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Bottom"
+                Command="{x:Bind ViewModel.AddCategoryCommand}"
+                Content="全てのタスクを表示" />
+            <!--  カテゴリ  -->
+            <ListView
+                x:Name="CategoryListView"
+                Margin="0,8,0,0"
+                AllowDrop="True"
+                CanDragItems="False"
+                CanReorderItems="True"
+                ItemTemplate="{StaticResource TaskCategoryTemplate}"
+                ItemsSource="{x:Bind ViewModel.Categories, Mode=OneWay}"
+                SelectionMode="Single">
+                <interactivity:Interaction.Behaviors>
+                    <core:EventTriggerBehavior EventName="SelectionChanged">
+                        <core:InvokeCommandAction Command="{x:Bind ViewModel.TaskCategoryChangedCommand}" CommandParameter="{x:Bind CategoryListView.SelectedItem, Mode=OneWay}" />
+                    </core:EventTriggerBehavior>
+                </interactivity:Interaction.Behaviors>
+            </ListView>
+            <!--  追加  -->
+        </StackPanel>
+        <Button
+            Grid.Column="0"
+            MinWidth="180"
+            Margin="8"
+            Padding="0,10"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Bottom"
+            Command="{x:Bind ViewModel.AddCategoryCommand}"
+            Content="カテゴリの追加" />
 
         <!--  タスク表示  -->
         <ListView
@@ -90,5 +120,7 @@
             ItemTemplate="{StaticResource TodoTaskTemplate}"
             ItemsSource="{x:Bind ViewModel.Tasks, Mode=OneWay}"
             SelectionMode="Single" />
+
+
     </Grid>
 </Page>
