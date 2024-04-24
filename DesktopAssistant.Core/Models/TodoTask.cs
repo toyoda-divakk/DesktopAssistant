@@ -9,7 +9,7 @@ namespace DesktopAssistant.Core.Models;
 /// <summary>
 /// Todoタスク
 /// </summary>
-public record TodoTask
+public record TodoTask : IIdentifiable
 {
     /// <summary>
     /// タスクのID

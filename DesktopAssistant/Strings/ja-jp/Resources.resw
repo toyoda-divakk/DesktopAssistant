@@ -230,4 +230,28 @@
   <data name="ToDoList" xml:space="preserve">
     <value>ToDoリスト</value>
   </data>
+  <data name="Button_Cancel" xml:space="preserve">
+    <value>キャンセル</value>
+  </data>
+  <data name="Button_Delete" xml:space="preserve">
+    <value>削除</value>
+  </data>
+  <data name="Button_NoRegrets" xml:space="preserve">
+    <value>後悔しない</value>
+  </data>
+  <data name="Dialog_Content1.Text" xml:space="preserve">
+    <value>カテゴリ内のタスクも全て削除されます。</value>
+  </data>
+  <data name="Dialog_Content2.Text" xml:space="preserve">
+    <value>削除したデータを元に戻すことはできません。</value>
+  </data>
+  <data name="Message_ConfirmDelete1" xml:space="preserve">
+    <value>本当に削除するのですか？</value>
+  </data>
+  <data name="Message_ConfirmDelete2" xml:space="preserve">
+    <value>後悔しませんね？</value>
+  </data>
+  <data name="Message_DeleteCategory" xml:space="preserve">
+    <value>カテゴリを削除しますか？</value>
+  </data>
 </root>

@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -8,6 +9,7 @@ using DesktopAssistant.Contracts.Services;
 using DesktopAssistant.Contracts.ViewModels;
 using DesktopAssistant.Core.Contracts.Services;
 using DesktopAssistant.Core.Models;
+using DesktopAssistant.Helpers;
 using DesktopAssistant.Services;
 using DesktopAssistant.Views.Popup;
 using Humanizer;
@@ -80,19 +82,57 @@ public partial class ToDoListViewModel(ILiteDbService liteDbService) : Observabl
             category.DeleteCommand = new RelayCommand(async () =>
             {
                 // TODO:削除確認ダイアログを表示する
-                var dialog = new ContentDialog
+                var dialog1 = new ContentDialog
                 {
                     XamlRoot = _window?.Content.XamlRoot,
-                    //dialog.Style = Application.Current.Resources["DefaultContentDialogStyle"] as Style;
-                    Title = "Save your work?",
-                    PrimaryButtonText = "Save",
-                    SecondaryButtonText = "Don't Save",
-                    CloseButtonText = "Cancel",
+                    Title = "Message_DeleteCategory".GetLocalized(),
+                    PrimaryButtonText = "Button_Delete".GetLocalized(),
+                    CloseButtonText = "Button_Cancel".GetLocalized(),
                     DefaultButton = ContentDialogButton.Primary,
                     Content = new ContentDialogContent()
                 };
 
-                var result = await dialog.ShowAsync();
+                var result1 = await dialog1.ShowAsync();
+                if (result1 == ContentDialogResult.Primary)
+                {
+                    var dialog2 = new ContentDialog
+                    {
+                        XamlRoot = _window?.Content.XamlRoot,
+                        Title = "Message_ConfirmDelete1".GetLocalized(),
+                        PrimaryButtonText = "Button_Delete".GetLocalized(),
+                        CloseButtonText = "Button_Cancel".GetLocalized(),
+                        DefaultButton = ContentDialogButton.Primary,
+                        Content = new ContentDialogContent()
+                    };
+                    var result2 = await dialog2.ShowAsync();
+                    if (result2 == ContentDialogResult.Primary)
+                    {
+                        var dialog3 = new ContentDialog
+                        {
+                            XamlRoot = _window?.Content.XamlRoot,
+                            Title = "Message_ConfirmDelete2".GetLocalized(),
+                            PrimaryButtonText = "Button_NoRegrets".GetLocalized(),
+                            CloseButtonText = "Button_Cancel".GetLocalized(),
+                            DefaultButton = ContentDialogButton.Primary,
+                            Content = new ContentDialogContent()
+                        };
+                        var result3 = await dialog3.ShowAsync();
+                        if (result3 == ContentDialogResult.Primary)
+                        {
+                            // カテゴリ内のタスクを全て削除する
+                            var tasks = _liteDbService.GetTable<TodoTask>().Where(x => x.CategoryId == category.Id);
+                            foreach (var task in tasks)
+                            {
+                                _liteDbService.Delete(task);
+                            }
+                            // カテゴリを削除する
+                            _liteDbService.Delete(category);
+                            Categories.Remove(category);
+                            SetTasks([]);
+
+                        }
+                    }
+                }
 
             });
         }

@@ -9,7 +9,7 @@ namespace DesktopAssistant.Core.Models;
 /// <summary>
 /// 会話のまとまり
 /// </summary>
-public record Topic
+public record Topic : IIdentifiable
 {
     /// <summary>
     /// ID

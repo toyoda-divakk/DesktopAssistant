@@ -11,7 +11,7 @@ namespace DesktopAssistant.Core.Models;
 /// <summary>
 /// キャラクター
 /// </summary>
-public record Character
+public record Character : IIdentifiable
 {
     /// <summary>
     /// ID

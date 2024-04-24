@@ -26,7 +26,7 @@ public enum SystemEvents
 /// <summary>
 /// このシステムのイベント
 /// </summary>
-public record SystemEvent
+public record SystemEvent : IIdentifiable
 {
     /// <summary>
     /// ID

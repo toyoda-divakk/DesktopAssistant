@@ -9,9 +9,11 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     mc:Ignorable="d">
 
-    <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-        <!--  Content body  -->
-        <TextBlock Text="Lorem ipsum dolor sit amet, adipisicing elit." TextWrapping="Wrap" />
-        <CheckBox Content="Upload your content to the cloud." />
+    <StackPanel
+        HorizontalAlignment="Stretch"
+        VerticalAlignment="Stretch"
+        Background="White">
+        <TextBlock x:Uid="Dialog_Content1" TextWrapping="Wrap" />
+        <TextBlock x:Uid="Dialog_Content2" TextWrapping="Wrap" />
     </StackPanel>
 </Page>

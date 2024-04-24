@@ -35,4 +35,11 @@ public interface ILiteDbService
     /// <typeparam name="T"></typeparam>
     /// <param name="data"></param>
     void Insert<T>(T data);
+
+    /// <summary>
+    /// 対象のデータを削除する
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="target"></param>
+    void Delete<T>(T target) where T : IIdentifiable;
 }

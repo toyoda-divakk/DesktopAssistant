@@ -9,7 +9,7 @@ namespace DesktopAssistant.Core.Models;
 /// <summary>
 /// 会話のメッセージ
 /// </summary>
-public record Message
+public record Message : IIdentifiable
 {
     /// <summary>
     /// ID

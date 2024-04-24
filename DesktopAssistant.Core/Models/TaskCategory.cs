@@ -10,7 +10,7 @@ namespace DesktopAssistant.Core.Models;
 /// <summary>
 /// Todoタスクの分類
 /// </summary>
-public record TaskCategory
+public record TaskCategory : IIdentifiable
 {
     /// <summary>
     /// ID

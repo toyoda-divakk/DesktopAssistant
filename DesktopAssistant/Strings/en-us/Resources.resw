@@ -228,4 +228,28 @@
   <data name="ToDoList" xml:space="preserve">
     <value>ToDoList</value>
   </data>
+  <data name="Button_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Button_Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="Button_NoRegrets" xml:space="preserve">
+    <value>No regrets</value>
+  </data>
+  <data name="Dialog_Content1.Text" xml:space="preserve">
+    <value>All tasks in the category will also be deleted.</value>
+  </data>
+  <data name="Dialog_Content2.Text" xml:space="preserve">
+    <value>Deleted data cannot be restored.</value>
+  </data>
+  <data name="Message_ConfirmDelete1" xml:space="preserve">
+    <value>Are you sure you want to delete it?</value>
+  </data>
+  <data name="Message_ConfirmDelete2" xml:space="preserve">
+    <value>You won't regret it, will you?</value>
+  </data>
+  <data name="Message_DeleteCategory" xml:space="preserve">
+    <value>Do you want to delete a category?</value>
+  </data>
 </root>
