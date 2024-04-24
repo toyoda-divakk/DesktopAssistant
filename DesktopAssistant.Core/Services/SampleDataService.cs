@@ -19,6 +19,7 @@ public class SampleDataService : ISampleDataService
             new()
             {
                 Id = characterId1,
+                Order = characterId1,
                 Name = "ドンペン",
                 Prompt = "とかげ",
                 Topics =
@@ -106,6 +107,7 @@ public class SampleDataService : ISampleDataService
             new()
             {
                 Id = characterId2,
+                Order = characterId2,
                 Name = "プランク",
                 Prompt = "種族未定",
                 Topics =
@@ -193,6 +195,7 @@ public class SampleDataService : ISampleDataService
             new()
             {
                 Id = characterId3,
+                Order = characterId3,
                 Name = "カルモン",
                 Prompt = "にわとり",
                 Topics =
@@ -288,6 +291,7 @@ public class SampleDataService : ISampleDataService
         [
             new (){
                 Id = categoryId1,
+                Order = categoryId1,
                 Name = "ソフトの使い方",
                 TodoTasks =
                 [
@@ -295,6 +299,7 @@ public class SampleDataService : ISampleDataService
                     {
                         Title = "タスク一覧を見る",
                         CategoryId = categoryId1,
+                        Order = 1,
                         Content = "今どんなタスクが登録されているか見てみよう。",
                         Progress = "進捗メモがあればここに書いてね。",
                         IsDone = false,
@@ -306,6 +311,7 @@ public class SampleDataService : ISampleDataService
                     {
                         Title = "アシスタント一覧を見る",
                         CategoryId = categoryId1,
+                        Order = 2,
                         Content = "今どんなアシスタントが登録されているか見てみよう。",
                         Progress = "メニューからアシスタント一覧ボタンをクリックします。",
                         IsDone = false,
@@ -317,6 +323,7 @@ public class SampleDataService : ISampleDataService
                     {
                         Title = "OpenAI(ChatGPT)のAPIキーを手に入れる",
                         CategoryId = categoryId1,
+                        Order = 3,
                         Content = "OpenAIにアカウントを登録しよう。",
                         Progress = "AIを利用するには、OpenAIかAzureのどちらかでAPIキーを作成する必要があります。",
                         IsDone = false,
@@ -328,6 +335,7 @@ public class SampleDataService : ISampleDataService
                     {
                         Title = "AzureのAPIキーを手に入れる",
                         CategoryId = categoryId1,
+                        Order = 4,
                         Content = "AzureでOpenAIサービスを登録しよう。",
                         Progress = "AIを利用するには、OpenAIかAzureのどちらかでAPIキーを作成する必要があります。",
                         IsDone = false,
@@ -339,6 +347,7 @@ public class SampleDataService : ISampleDataService
                     {
                         Title = "APIの設定をする",
                         CategoryId = categoryId1,
+                        Order = 5,
                         Content = "作成したAPIキーを設定画面に入力します。",
                         Progress = "メニューから設定ボタンをクリックします。",
                         IsDone = false,
@@ -350,6 +359,7 @@ public class SampleDataService : ISampleDataService
             },
             new (){
                 Id = categoryId2,
+                Order = categoryId2,
                 Name = "自由",
                 TodoTasks =
                 [
@@ -357,6 +367,7 @@ public class SampleDataService : ISampleDataService
                     {
                         Title = "タスクの登録",
                         CategoryId = categoryId2,
+                        Order = 1,
                         Content = "タスクを登録してみよう。",
                         Progress = "",
                         IsDone = false,

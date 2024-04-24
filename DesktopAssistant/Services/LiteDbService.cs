@@ -24,7 +24,9 @@ public class LiteDbService : ILiteDbService
 
         // 無視するフィールドなどを設定する
         var mapper = BsonMapper.Global;
-        mapper.Entity<TaskCategory>().Ignore(x => x.EditCommand);
+        mapper.Entity<TaskCategory>()
+            .Ignore(x => x.EditCommand)
+            .Ignore(x => x.DeleteCommand);
     }
 
     public void CreateOrInitializeDatabase()

@@ -21,6 +21,14 @@ public record TaskCategory
     }
 
     /// <summary>
+    /// 表示順
+    /// </summary>
+    public int Order
+    {
+        get; init;
+    }
+
+    /// <summary>
     /// 分類名
     /// </summary>
     public string Name
@@ -37,8 +45,13 @@ public record TaskCategory
         get; set;
     }
 
+    // ※あまりIgnoreみたいなのやりたくないんだけど、ListViewの右クリックメニューに直接処理を付けたい場合これが一番簡単。
     // Ignoreなので、LiteDbServiceで個別に指定する
     public ICommand EditCommand
+    {
+        get; set;
+    }
+    public ICommand DeleteCommand
     {
         get; set;
     }

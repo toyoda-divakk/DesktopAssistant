@@ -9,7 +9,10 @@ using DesktopAssistant.Contracts.ViewModels;
 using DesktopAssistant.Core.Contracts.Services;
 using DesktopAssistant.Core.Models;
 using DesktopAssistant.Services;
+using DesktopAssistant.Views.Popup;
 using Humanizer;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
 using Windows.Storage;
 
 namespace DesktopAssistant.ViewModels.Popup;
@@ -37,49 +40,102 @@ public partial class ToDoListViewModel(ILiteDbService liteDbService) : Observabl
     public ObservableCollection<TaskCategory> Categories { get; set; } = [];
 
     /// <summary>
+    /// ウィンドウの参照
+    /// モーダルダイアログを出すのに必要
+    /// </summary>
+    private Window? _window;
+
+    /// <summary>
     /// 表示中のタスク
     /// </summary>
     public ObservableCollection<TodoTask> Tasks { get; set; } = [];
 
-    ObservableCollection<TaskCategory> SetupCategories(IEnumerable<TaskCategory> taskCategories)
+    /// <summary>
+    /// 初期化
+    /// カテゴリのリストを読み込む
+    /// </summary>
+    public void Initialize(Window window)
     {
-        var allCategory = new TaskCategory
-        {
-            Id = 0,
-            Name = "全て",
-            TodoTasks = [],
-            EditCommand = new RelayCommand(() => { })
-        };
+        var taskCategories = _liteDbService.GetTable<TaskCategory>();
+        Categories = SetupCategories(taskCategories);
+        _window = window;
+    }
 
+    /// <summary>
+    /// 全カテゴリ取得
+    /// </summary>
+    /// <param name="taskCategories"></param>
+    /// <returns></returns>
+    private ObservableCollection<TaskCategory> SetupCategories(IEnumerable<TaskCategory> taskCategories)
+    {
         var categories = taskCategories.ToList();
+
+        // 右クリック時の処理を設定する
         foreach (var category in categories)
         {
             category.EditCommand = new RelayCommand(() =>
             {
-                Tasks = new ObservableCollection<TodoTask>(category.TodoTasks);
+                // TODO:編集ダイアログを表示する
+            });
+            category.DeleteCommand = new RelayCommand(async () =>
+            {
+                // TODO:削除確認ダイアログを表示する
+                var dialog = new ContentDialog
+                {
+                    XamlRoot = _window?.Content.XamlRoot,
+                    //dialog.Style = Application.Current.Resources["DefaultContentDialogStyle"] as Style;
+                    Title = "Save your work?",
+                    PrimaryButtonText = "Save",
+                    SecondaryButtonText = "Don't Save",
+                    CloseButtonText = "Cancel",
+                    DefaultButton = ContentDialogButton.Primary,
+                    Content = new ContentDialogContent()
+                };
+
+                var result = await dialog.ShowAsync();
+
             });
         }
-
         return new ObservableCollection<TaskCategory>(categories);
     }
 
-    public void Initialize()
-    {
-        var taskCategories = _liteDbService.GetTable<TaskCategory>();
-        Categories = SetupCategories(taskCategories);
-    }
-
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="category"></param>
     [RelayCommand]
     public void TaskCategoryChanged(object category)
     {
-        Tasks.Clear();
-
         var stringItem = category as TaskCategory;
         if (stringItem == null)
         {
             return;
         }
-        foreach (var todoTask in stringItem.TodoTasks)
+        SetTasks(stringItem.TodoTasks);
+    }
+
+    /// <summary>
+    /// 全てのカテゴリのタスクを表示する
+    /// </summary>
+    [RelayCommand]
+    public void ShowAllTasks()
+    {
+        var tasks = _liteDbService.GetTable<TodoTask>();
+        foreach (var todoTask in tasks)
+        {
+            Tasks.Add(todoTask);
+        }
+        SetTasks(tasks);
+    }
+
+    /// <summary>
+    /// タスクの表示を更新する
+    /// </summary>
+    /// <param name="tasks">表示するタスクのリスト</param>
+    private void SetTasks(IEnumerable<TodoTask> tasks)
+    {
+        Tasks.Clear();
+        foreach (var todoTask in tasks)
         {
             Tasks.Add(todoTask);
         }

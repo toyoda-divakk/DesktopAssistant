@@ -18,7 +18,7 @@
                 <Grid.ContextFlyout>
                     <MenuFlyout>
                         <MenuFlyoutItem Command="{x:Bind EditCommand}" Text="Edit" />
-                        <MenuFlyoutItem Command="{x:Bind EditCommand}" Text="Delete" />
+                        <MenuFlyoutItem Command="{x:Bind DeleteCommand}" Text="Delete" />
                     </MenuFlyout>
                 </Grid.ContextFlyout>
 
@@ -28,7 +28,10 @@
                         MinWidth="180"
                         MaxWidth="240" />
                 </Grid.ColumnDefinitions>
+                <!--  右クリックが実際テキストが表示されている所にしか反応しないので、MinWidthとPaddingで調整して枠全体に反応するようにしている  -->
                 <TextBlock
+                    MinWidth="180"
+                    Padding="0,10"
                     HorizontalAlignment="Left"
                     Text="{x:Bind Name}"
                     TextWrapping="Wrap" />
@@ -50,20 +53,23 @@
         </DataTemplate>
     </Page.Resources>
 
-    <!--  TODO:AllowDropの違いを確認すること  -->
     <Grid x:Name="ContentArea">
         <Grid.ColumnDefinitions>
+            <!--  左側  -->
             <ColumnDefinition
                 Width="Auto"
                 MinWidth="180"
                 MaxWidth="240" />
+            <!--  右側  -->
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
+
+        <!--  カテゴリ表示  -->
         <ListView
             x:Name="CategoryListView"
             Grid.Column="0"
             AllowDrop="True"
-            CanDragItems="True"
+            CanDragItems="False"
             CanReorderItems="True"
             ItemTemplate="{StaticResource TaskCategoryTemplate}"
             ItemsSource="{x:Bind ViewModel.Categories, Mode=OneWay}"
@@ -75,10 +81,11 @@
             </interactivity:Interaction.Behaviors>
         </ListView>
 
+        <!--  タスク表示  -->
         <ListView
             Grid.Column="1"
-            AllowDrop="False"
-            CanDragItems="True"
+            AllowDrop="True"
+            CanDragItems="False"
             CanReorderItems="True"
             ItemTemplate="{StaticResource TodoTaskTemplate}"
             ItemsSource="{x:Bind ViewModel.Tasks, Mode=OneWay}"

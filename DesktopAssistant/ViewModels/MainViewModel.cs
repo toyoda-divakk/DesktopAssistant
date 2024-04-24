@@ -5,6 +5,7 @@ using DesktopAssistant.Contracts.Services;
 using DesktopAssistant.Core.Models;
 using DesktopAssistant.Helpers;
 using DesktopAssistant.Views.Popup;
+using Microsoft.UI.Xaml;
 
 namespace DesktopAssistant.ViewModels;
 
@@ -26,7 +27,7 @@ public partial class MainViewModel(IThemeSelectorService themeSelector) : Observ
             RequestedTheme = ThemeSelector.Theme
         };
         newWindow.Content = rootPage;
-        rootPage.ViewModel.Initialize();
+        rootPage.ViewModel.Initialize(newWindow);
         newWindow.Activate();
     }
 

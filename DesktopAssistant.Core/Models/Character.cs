@@ -22,6 +22,14 @@ public record Character
     }
 
     /// <summary>
+    /// 表示順
+    /// </summary>
+    public int Order
+    {
+        get; init;
+    }
+
+    /// <summary>
     /// 名前
     /// </summary>
     public string Name
