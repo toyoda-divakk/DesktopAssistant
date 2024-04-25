@@ -252,4 +252,21 @@
   <data name="Message_DeleteCategory" xml:space="preserve">
     <value>Do you want to delete a category?</value>
   </data>
+  <data name="Button_Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="Menu_Delete.Text" xml:space="preserve">
+    <value>削除</value>
+  </data>
+  <data name="Menu_Edit.Text" xml:space="preserve">
+    <value>編集</value>
+  </data>
+  <data name="Button_AddCategory.Content" xml:space="preserve">
+    <value>カテゴリの追加</value>
+    <comment>Todo画面、Content。直すこと</comment>
+  </data>
+  <data name="Button_AllTasks.Content" xml:space="preserve">
+    <value>全てのタスクを表示</value>
+    <comment>Todo画面、Content。直すこと</comment>
+  </data>
 </root>

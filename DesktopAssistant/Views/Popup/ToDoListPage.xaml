@@ -18,8 +18,14 @@
                 <!--  右クリックメニュー  -->
                 <Grid.ContextFlyout>
                     <MenuFlyout>
-                        <MenuFlyoutItem Command="{x:Bind EditCommand}" Text="Edit" />
-                        <MenuFlyoutItem Command="{x:Bind DeleteCommand}" Text="Delete" />
+                        <MenuFlyoutItem
+                            x:Uid="Menu_Edit"
+                            Command="{x:Bind EditCommand}"
+                            Text="Edit" />
+                        <MenuFlyoutItem
+                            x:Uid="Menu_Delete"
+                            Command="{x:Bind DeleteCommand}"
+                            Text="Delete" />
                     </MenuFlyout>
                 </Grid.ContextFlyout>
 
@@ -40,7 +46,6 @@
         </DataTemplate>
 
         <!--  タスク  -->
-        <!--  TODO:Expander系の部品を付けること  -->
         <DataTemplate x:Key="TodoTaskTemplate" x:DataType="model:TodoTask">
             <Expander
                 HorizontalAlignment="Stretch"
@@ -75,14 +80,14 @@
         <StackPanel Grid.Column="0" Orientation="Vertical">
             <!--  全て  -->
             <Button
+                x:Uid="Button_AllTasks"
                 Grid.Column="0"
                 MinWidth="180"
                 Margin="8"
                 Padding="0,10"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Bottom"
-                Command="{x:Bind ViewModel.AddCategoryCommand}"
-                Content="全てのタスクを表示" />
+                Command="{x:Bind ViewModel.AddCategoryCommand}" />
             <!--  カテゴリ  -->
             <ListView
                 x:Name="CategoryListView"
@@ -102,14 +107,14 @@
             <!--  追加  -->
         </StackPanel>
         <Button
+            x:Uid="Button_AddCategory"
             Grid.Column="0"
             MinWidth="180"
             Margin="8"
             Padding="0,10"
             HorizontalAlignment="Center"
             VerticalAlignment="Bottom"
-            Command="{x:Bind ViewModel.AddCategoryCommand}"
-            Content="カテゴリの追加" />
+            Command="{x:Bind ViewModel.AddCategoryCommand}" />
 
         <!--  タスク表示  -->
         <ListView
