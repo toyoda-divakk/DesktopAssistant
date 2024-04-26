@@ -89,7 +89,7 @@ public partial class ToDoListViewModel(ILiteDbService liteDbService) : Observabl
                     PrimaryButtonText = "Button_Delete".GetLocalized(),
                     CloseButtonText = "Button_Cancel".GetLocalized(),
                     DefaultButton = ContentDialogButton.Primary,
-                    Content = new ContentDialogContent()
+                    Content = new ContentDialogContent("Dialog_DeleteTask1".GetLocalized(), "Dialog_DeleteTask2".GetLocalized())
                 };
 
                 var result1 = await dialog1.ShowAsync();
@@ -102,7 +102,7 @@ public partial class ToDoListViewModel(ILiteDbService liteDbService) : Observabl
                         PrimaryButtonText = "Button_Delete".GetLocalized(),
                         CloseButtonText = "Button_Cancel".GetLocalized(),
                         DefaultButton = ContentDialogButton.Primary,
-                        Content = new ContentDialogContent()
+                        Content = new ContentDialogContent("Dialog_DeleteTask1".GetLocalized(), "Dialog_DeleteTask2".GetLocalized())
                     };
                     var result2 = await dialog2.ShowAsync();
                     if (result2 == ContentDialogResult.Primary)
@@ -114,7 +114,7 @@ public partial class ToDoListViewModel(ILiteDbService liteDbService) : Observabl
                             PrimaryButtonText = "Button_NoRegrets".GetLocalized(),
                             CloseButtonText = "Button_Cancel".GetLocalized(),
                             DefaultButton = ContentDialogButton.Primary,
-                            Content = new ContentDialogContent()
+                            Content = new ContentDialogContent("Dialog_DeleteTask1".GetLocalized(), "Dialog_DeleteTask2".GetLocalized())
                         };
                         var result3 = await dialog3.ShowAsync();
                         if (result3 == ContentDialogResult.Primary)

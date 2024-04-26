@@ -13,7 +13,7 @@
         HorizontalAlignment="Stretch"
         VerticalAlignment="Stretch"
         Background="White">
-        <TextBlock x:Uid="Dialog_Content1" TextWrapping="Wrap" />
-        <TextBlock x:Uid="Dialog_Content2" TextWrapping="Wrap" />
+        <TextBlock x:Name="Text_Content1" TextWrapping="Wrap" />
+        <TextBlock x:Name="Text_Content2" TextWrapping="Wrap" />
     </StackPanel>
 </Page>

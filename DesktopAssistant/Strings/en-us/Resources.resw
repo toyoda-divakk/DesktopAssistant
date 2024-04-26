@@ -237,10 +237,10 @@
   <data name="Button_NoRegrets" xml:space="preserve">
     <value>No regrets</value>
   </data>
-  <data name="Dialog_Content1.Text" xml:space="preserve">
+  <data name="Dialog_DeleteTask1" xml:space="preserve">
     <value>All tasks in the category will also be deleted.</value>
   </data>
-  <data name="Dialog_Content2.Text" xml:space="preserve">
+  <data name="Dialog_DeleteTask2" xml:space="preserve">
     <value>Deleted data cannot be restored.</value>
   </data>
   <data name="Message_ConfirmDelete1" xml:space="preserve">

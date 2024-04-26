@@ -13,19 +13,17 @@ using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
 
-// To learn more about WinUI, the WinUI project structure,
-// and more about our project templates, see: http://aka.ms/winui-project-info.
+namespace DesktopAssistant.Views.Popup;
 
-namespace DesktopAssistant.Views.Popup
+/// <summary>
+/// An empty page that can be used on its own or navigated to within a Frame.
+/// </summary>
+public sealed partial class ContentDialogContent : Page
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
-    public sealed partial class ContentDialogContent : Page
+    public ContentDialogContent(string text1, string text2)
     {
-        public ContentDialogContent()
-        {
-            this.InitializeComponent();
-        }
+        this.InitializeComponent();
+        Text_Content1.Text = text1;
+        Text_Content2.Text = text2;
     }
 }
