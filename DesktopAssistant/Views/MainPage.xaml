@@ -14,6 +14,7 @@
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
             <Button Command="{x:Bind ViewModel.ShowToDoListCommand}" Content="Show ToDo List" />
             <Button Command="{x:Bind ViewModel.ChatCommand}" Content="Chat" />
+            <Button Command="{x:Bind ViewModel.ShowCharacterCommand}" Content="Show Character" />
             <Button Command="{x:Bind ViewModel.CloseCommand}" Content="Close" />
         </StackPanel>
         <!--<controls:AdaptiveGridView

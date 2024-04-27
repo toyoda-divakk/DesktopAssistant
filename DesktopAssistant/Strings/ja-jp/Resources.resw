@@ -272,4 +272,7 @@
   <data name="Chat" xml:space="preserve">
     <value>チャット</value>
   </data>
+  <data name="CharacterImage" xml:space="preserve">
+    <value>キャラクター画像</value>
+  </data>
 </root>

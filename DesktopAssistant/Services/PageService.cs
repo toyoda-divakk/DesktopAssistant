@@ -15,7 +15,7 @@ namespace DesktopAssistant.Services;
 /// </summary>
 public class PageService : IPageService
 {
-    private readonly Dictionary<string, Type> _pages = new();
+    private readonly Dictionary<string, Type> _pages = [];
 
     public PageService()
     {
@@ -28,6 +28,7 @@ public class PageService : IPageService
         Configure<CharacterSettingsDetailViewModel, CharacterSettingsDetailPage>();
         Configure<ToDoListViewModel, ToDoListPage>();
         Configure<ChatViewModel, ChatPage>();
+        Configure<CharacterImageViewModel, CharacterImagePage>();
     }
 
     public Type GetPageType(string key)

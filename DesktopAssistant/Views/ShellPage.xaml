@@ -96,6 +96,11 @@
                             <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xe7c3;"/>
                         </NavigationViewItem.Icon>
                     </NavigationViewItem>-->
+                    <!--<NavigationViewItem x:Uid="Shell_CharacterImage" helpers:NavigationHelper.NavigateTo="DesktopAssistant.ViewModels.CharacterImageViewModel">
+                        <NavigationViewItem.Icon>
+                            <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xe7c3;"/>
+                        </NavigationViewItem.Icon>
+                    </NavigationViewItem>-->
                 </NavigationView.MenuItems>
                 <NavigationView.HeaderTemplate>
                     <DataTemplate>

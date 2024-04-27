@@ -50,6 +50,23 @@ public partial class MainViewModel(IThemeSelectorService themeSelector) : Observ
     }
 
     /// <summary>
+    /// CharacterPageをモードレス表示する
+    /// </summary>
+    [RelayCommand]
+    private void ShowCharacter()
+    {
+        var newWindow = WindowHelper.CreateWindow();
+        newWindow.SetWindowSize(860, 600);      // TODO:画像ファイルからサイズを決定すること
+        newWindow.Title = "CharacterImage".GetLocalized();
+        var rootPage = new CharacterImagePage
+        {
+            RequestedTheme = ThemeSelector.Theme
+        };
+        newWindow.Content = rootPage;
+        newWindow.Activate();
+    }
+
+    /// <summary>
     /// 全てのWindowを閉じる
     /// </summary>
     [RelayCommand]
