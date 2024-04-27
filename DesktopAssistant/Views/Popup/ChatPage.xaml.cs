@@ -1,5 +1,4 @@
-﻿using DesktopAssistant.ViewModels;
-
+﻿using DesktopAssistant.ViewModels.Popup;
 using Microsoft.UI.Xaml.Controls;
 
 namespace DesktopAssistant.Views.Popup;
