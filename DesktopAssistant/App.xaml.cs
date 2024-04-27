@@ -9,6 +9,7 @@ using DesktopAssistant.ViewModels;
 using DesktopAssistant.ViewModels.Popup;
 using DesktopAssistant.Views;
 using DesktopAssistant.Views.Popup;
+
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.UI.Xaml;
@@ -75,6 +76,8 @@ public partial class App : Application
 
             // ★画面追加すると、ここも更新されるみたい
             // Views and ViewModels
+            services.AddTransient<ChatViewModel>();
+            services.AddTransient<ChatPage>();
             services.AddTransient<ToDoListViewModel>();
             services.AddTransient<ToDoListPage>();
             services.AddTransient<CharacterSettingsDetailViewModel>();      // キャラクター設定の詳細画面のViewModel

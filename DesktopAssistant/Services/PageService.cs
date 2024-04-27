@@ -5,6 +5,7 @@ using DesktopAssistant.ViewModels;
 using DesktopAssistant.ViewModels.Popup;
 using DesktopAssistant.Views;
 using DesktopAssistant.Views.Popup;
+
 using Microsoft.UI.Xaml.Controls;
 
 namespace DesktopAssistant.Services;
@@ -26,6 +27,7 @@ public class PageService : IPageService
         Configure<CharacterSettingsViewModel, CharacterSettingsPage>();
         Configure<CharacterSettingsDetailViewModel, CharacterSettingsDetailPage>();
         Configure<ToDoListViewModel, ToDoListPage>();
+        Configure<ChatViewModel, ChatPage>();
     }
 
     public Type GetPageType(string key)

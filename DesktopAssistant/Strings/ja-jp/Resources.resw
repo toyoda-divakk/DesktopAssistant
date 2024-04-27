@@ -269,4 +269,7 @@
   <data name="Button_AllTasks.Content" xml:space="preserve">
     <value>全てのタスクを表示</value>
   </data>
+  <data name="Chat" xml:space="preserve">
+    <value>チャット</value>
+  </data>
 </root>

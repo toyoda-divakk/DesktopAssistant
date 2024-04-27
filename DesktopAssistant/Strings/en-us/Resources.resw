@@ -269,4 +269,10 @@
     <value>全てのタスクを表示</value>
     <comment>Todo画面、Content。直すこと</comment>
   </data>
+  <data name="Shell_Chat.Content" xml:space="preserve">
+    <value>Chat</value>
+  </data>
+  <data name="Chat" xml:space="preserve">
+    <value>Chat</value>
+  </data>
 </root>

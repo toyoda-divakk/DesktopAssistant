@@ -32,6 +32,24 @@ public partial class MainViewModel(IThemeSelectorService themeSelector) : Observ
     }
 
     /// <summary>
+    /// ChatPageをモードレス表示する
+    /// </summary>
+    [RelayCommand]
+    private void Chat()
+    {
+        var newWindow = WindowHelper.CreateWindow();
+        newWindow.SetWindowSize(860, 600);
+        newWindow.Title = "Chat".GetLocalized();
+        var rootPage = new ChatPage
+        {
+            RequestedTheme = ThemeSelector.Theme
+        };
+        newWindow.Content = rootPage;
+        //rootPage.ViewModel.Initialize(newWindow);
+        newWindow.Activate();
+    }
+
+    /// <summary>
     /// 全てのWindowを閉じる
     /// </summary>
     [RelayCommand]
