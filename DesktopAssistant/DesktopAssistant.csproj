@@ -15,8 +15,18 @@
     <EnableMsixTooling>true</EnableMsixTooling>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="SampleImages\devil.png" />
+    <None Remove="SampleImages\ookami.png" />
+    <None Remove="SampleImages\slime.png" />
+    <None Remove="SampleImages\tsundere.png" />
     <None Remove="Styles\Button.xaml" />
     <None Remove="Views\Popup\ContentDialogContent.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="SampleImages\devil.png" />
+    <EmbeddedResource Include="SampleImages\ookami.png" />
+    <EmbeddedResource Include="SampleImages\slime.png" />
+    <EmbeddedResource Include="SampleImages\tsundere.png" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,4 +1,5 @@
-﻿using DesktopAssistant.Core.Contracts.Services;
+﻿using System.ComponentModel;
+using DesktopAssistant.Core.Contracts.Services;
 using DesktopAssistant.Core.Models;
 
 namespace DesktopAssistant.Core.Services;
@@ -21,6 +22,7 @@ public class SampleDataService : ISampleDataService
                 Id = characterId1,
                 Order = characterId1,
                 Name = "ドンペン",
+                Description = "厳しい口調で話します",
                 Prompt = "とかげ",
                 Topics =
                 [
@@ -109,6 +111,7 @@ public class SampleDataService : ISampleDataService
                 Id = characterId2,
                 Order = characterId2,
                 Name = "プランク",
+                Description = "やんちゃな口調で話します",
                 Prompt = "種族未定",
                 Topics =
                 [
@@ -197,6 +200,7 @@ public class SampleDataService : ISampleDataService
                 Id = characterId3,
                 Order = characterId3,
                 Name = "カルモン",
+                Description = "優しく話します",
                 Prompt = "にわとり",
                 Topics =
                 [

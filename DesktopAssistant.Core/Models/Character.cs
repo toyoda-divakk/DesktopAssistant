@@ -38,6 +38,14 @@ public record Character : IIdentifiable
     }
 
     /// <summary>
+    /// 見出し・説明
+    /// </summary>
+    public string Description
+    {
+        get; init;
+    }
+
+    /// <summary>
     /// プロンプト
     /// </summary>
     public string Prompt

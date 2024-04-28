@@ -1,4 +1,6 @@
-﻿using DesktopAssistant.Activation;
+﻿using System.IO;
+using System.Reflection;
+using DesktopAssistant.Activation;
 using DesktopAssistant.Contracts.Services;
 using DesktopAssistant.Core.Contracts.Services;
 using DesktopAssistant.Core.Models;
@@ -7,6 +9,7 @@ using DesktopAssistant.Views;
 
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using Windows.Storage;
 
 namespace DesktopAssistant.Services;
 
@@ -17,7 +20,7 @@ namespace DesktopAssistant.Services;
 /// アクティベーションハンドラの処理
 /// テーマの設定など
 /// </summary>
-public class ActivationService(ActivationHandler<LaunchActivatedEventArgs> defaultHandler, IEnumerable<IActivationHandler> activationHandlers, IThemeSelectorService themeSelectorService, IApiSettingService apiSettingService, ILiteDbService liteDbService, ISampleDataService sampleDataService) : IActivationService
+public class ActivationService(ActivationHandler<LaunchActivatedEventArgs> defaultHandler, IEnumerable<IActivationHandler> activationHandlers, IThemeSelectorService themeSelectorService, IApiSettingService apiSettingService, ILiteDbService liteDbService, ISampleDataService sampleDataService, ILocalSettingsService localSettingsService) : IActivationService
 {
     private UIElement? _shell = null;
     private UIElement? _main = null;
@@ -122,9 +125,40 @@ public class ActivationService(ActivationHandler<LaunchActivatedEventArgs> defau
             });
             sampleDataService.GetSampleCharacters();
             // TODO: サンプルデータを登録
+
+            // 埋め込みリソースからサンプル画像を取得してアプリケーションフォルダにコピーする
+            CreateImageFolderIfNotExists();
+            CopyResorceImageToDataFolder("DesktopAssistant.SampleImages.devil.png", "Images/1.png");
+            CopyResorceImageToDataFolder("DesktopAssistant.SampleImages.ookami.png", "Images/2.png");
+            CopyResorceImageToDataFolder("DesktopAssistant.SampleImages.slime.png", "Images/3.png");
+            CopyResorceImageToDataFolder("DesktopAssistant.SampleImages.tsundere.png", "Images/4.png");
+
         }
 
         await Task.CompletedTask;
+    }
+
+    private void CreateImageFolderIfNotExists()
+    {
+        // アプリケーションフォルダのパスを取得  
+        var appFolder = localSettingsService.ApplicationDataFolder;
+        var imagePath = Path.Combine(appFolder, "Images");
+
+        if (!Directory.Exists(imagePath))
+        {
+            Directory.CreateDirectory(imagePath);
+        }
+    }
+
+    private void CopyResorceImageToDataFolder(string source, string destination)
+    {
+        // アプリケーションフォルダのパスを取得  
+        var appFolder = localSettingsService.ApplicationDataFolder;
+        // 埋め込まれたリソースから画像ファイルを取得  
+        var assembly = typeof(MainPage).GetTypeInfo().Assembly;
+        using var resourceStream = assembly.GetManifestResourceStream(source);
+        using var fileStream = File.Create(Path.Combine(appFolder, destination));
+        resourceStream?.CopyTo(fileStream);
     }
 
     /// <summary>

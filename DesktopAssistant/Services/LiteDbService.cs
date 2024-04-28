@@ -55,12 +55,6 @@ public class LiteDbService : ILiteDbService
         table.Insert(data);
     }
 
-    //public void Delete(TaskCategory category)
-    //{
-    //    using var context = GetContext;
-    //    var table = context.GetCollection<TaskCategory>(typeof(TaskCategory).Name.Pluralize());
-    //    table.Delete(category.Id);
-    //}
     public void Delete<T>(T target) where T : IIdentifiable
     {
         using var context = GetContext;
