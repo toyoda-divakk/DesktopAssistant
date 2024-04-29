@@ -11,18 +11,12 @@ using DesktopAssistant.Core.Models;
 
 namespace DesktopAssistant.ViewModels;
 
-public partial class CharacterSettingsViewModel : ObservableRecipient, INavigationAware
+public partial class CharacterSettingsViewModel(INavigationService navigationService, ISampleDataService sampleDataService) : ObservableRecipient, INavigationAware
 {
-    private readonly INavigationService _navigationService;
-    private readonly ISampleDataService _sampleDataService;
+    private readonly INavigationService _navigationService = navigationService;
+    private readonly ISampleDataService _sampleDataService = sampleDataService;
 
     public ObservableCollection<Character> Source { get; } = new();
-
-    public CharacterSettingsViewModel(INavigationService navigationService, ISampleDataService sampleDataService)
-    {
-        _navigationService = navigationService;
-        _sampleDataService = sampleDataService;
-    }
 
     public void OnNavigatedTo(object parameter)
     {

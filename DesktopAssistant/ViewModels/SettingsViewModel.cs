@@ -147,6 +147,32 @@ public partial class SettingsViewModel : ObservableRecipient, IApiSetting, IChat
     [ObservableProperty]
     private EnterKeyBond _keyBindSend;
 
+    // TODO:あれ？コマンドってこうだよね？
+    //[RelayCommand]
+    //private void OnItemClick(ChatPosition? clickedItem)
+    //{
+    //}
+
+    /// <summary>
+    /// 切り替えコマンド
+    /// </summary>
+    public RelayCommand<ChatPosition> SwitchAIPositionCommand
+    {
+        get;
+    }
+    public RelayCommand<ChatPosition> SwitchUserPositionCommand
+    {
+        get;
+    }
+    public RelayCommand<EnterKeyBond> SwitchKeyBindNewLineCommand
+    {
+        get;
+    }
+    public RelayCommand<EnterKeyBond> SwitchKeyBindSendCommand
+    {
+        get;
+    }
+
     /// <summary>
     /// チャット表示設定保存コマンド
     /// </summary>
@@ -189,7 +215,7 @@ public partial class SettingsViewModel : ObservableRecipient, IApiSetting, IChat
             }
         );
 
-        // AIサービス切り替え処理
+        // AIサービスラジオボタン切り替え処理
         SwitchGenerativeAICommand = new RelayCommand<GenerativeAI>(
             (param) =>
             {
@@ -216,6 +242,44 @@ public partial class SettingsViewModel : ObservableRecipient, IApiSetting, IChat
                 EnableTestButton = false;
                 GenerateTestResult = await _semanticService.TestGenerativeAIAsync(this, "Hello".GetLocalized());
                 EnableTestButton = true;
+            }
+        );
+
+        // チャット表示ラジオボタン切り替え処理
+        SwitchAIPositionCommand = new RelayCommand<ChatPosition>(
+            (param) =>
+            {
+                if (AIPosition != param)
+                {
+                    AIPosition = param;
+                }
+            }
+        );
+        SwitchUserPositionCommand = new RelayCommand<ChatPosition>(
+            (param) =>
+            {
+                if (UserPosition != param)
+                {
+                    UserPosition = param;
+                }
+            }
+        );
+        SwitchKeyBindNewLineCommand = new RelayCommand<EnterKeyBond>(
+            (param) =>
+            {
+                if (KeyBindNewLine != param)
+                {
+                    KeyBindNewLine = param;
+                }
+            }
+        );
+        SwitchKeyBindSendCommand = new RelayCommand<EnterKeyBond>(
+            (param) =>
+            {
+                if (KeyBindSend != param) // TODO:KeyBindNewLineと同じ値にしない事
+                {
+                    KeyBindSend = param;
+                }
             }
         );
 

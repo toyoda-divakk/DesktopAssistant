@@ -278,13 +278,13 @@
   <data name="Settings_Chat.Text" xml:space="preserve">
     <value>チャット画面表示設定</value>
   </data>
-  <data name="Settings_Chat_AIPosition" xml:space="preserve">
+  <data name="Settings_Chat_AIPosition.Header" xml:space="preserve">
     <value>相手の表示位置</value>
   </data>
-  <data name="Settings_Chat_KeyBindNewLine" xml:space="preserve">
+  <data name="Settings_Chat_KeyBindNewLine.Header" xml:space="preserve">
     <value>チャット入力の改行キー</value>
   </data>
-  <data name="Settings_Chat_KeyBindSend" xml:space="preserve">
+  <data name="Settings_Chat_KeyBindSend.Header" xml:space="preserve">
     <value>チャット入力の送信キー</value>
   </data>
   <data name="Settings_Chat_Top.Description" xml:space="preserve">
@@ -293,10 +293,10 @@
   <data name="Settings_Chat_Top.Header" xml:space="preserve">
     <value>チャット画面の表示設定</value>
   </data>
-  <data name="Settings_Chat_UserColor" xml:space="preserve">
+  <data name="Settings_Chat_UserColor.Header" xml:space="preserve">
     <value>自分の背景色</value>
   </data>
-  <data name="Settings_Chat_UserPosition" xml:space="preserve">
+  <data name="Settings_Chat_UserPosition.Header" xml:space="preserve">
     <value>自分の表示位置</value>
   </data>
   <data name="Settings_Position_Left.Content" xml:space="preserve">
@@ -304,5 +304,20 @@
   </data>
   <data name="Settings_Position_Right.Content" xml:space="preserve">
     <value>右側</value>
+  </data>
+  <data name="Settings_Chat_AIPosition.Description" xml:space="preserve">
+    <value>相手の発言をどちら側に表示するかを指定します。</value>
+  </data>
+  <data name="Settings_Chat_KeyBindNewLine.Description" xml:space="preserve">
+    <value>チャットを入力するテキストボックスで改行を入力するキーを指定します。</value>
+  </data>
+  <data name="Settings_Chat_KeyBindSend.Description" xml:space="preserve">
+    <value>チャットを入力するテキストボックスで送信するショートカットキーを指定します。</value>
+  </data>
+  <data name="Settings_Chat_UserColor.Description" xml:space="preserve">
+    <value>自分の発言の背景の色を指定します。</value>
+  </data>
+  <data name="Settings_Chat_UserPosition.Description" xml:space="preserve">
+    <value>自分の発言をどちら側に表示するかを指定します。</value>
   </data>
 </root>

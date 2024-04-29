@@ -56,22 +56,3 @@ public interface IChatSetting
     }
 }
 
-/// <summary>
-/// Enterキーに関するキーバインドの種類
-/// </summary>
-public enum EnterKeyBond
-{
-    Enter,
-    ShiftEnter,
-    CtrlEnter,
-    AltEnter
-}
-
-/// <summary>
-/// チャット画面で左表示か右表示か
-/// </summary>
-public enum ChatPosition
-{
-    Left,
-    Right
-}
