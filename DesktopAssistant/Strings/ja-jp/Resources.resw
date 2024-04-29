@@ -275,4 +275,34 @@
   <data name="CharacterImage" xml:space="preserve">
     <value>キャラクター画像</value>
   </data>
+  <data name="Settings_Chat.Text" xml:space="preserve">
+    <value>チャット画面表示設定</value>
+  </data>
+  <data name="Settings_Chat_AIPosition" xml:space="preserve">
+    <value>相手の表示位置</value>
+  </data>
+  <data name="Settings_Chat_KeyBindNewLine" xml:space="preserve">
+    <value>チャット入力の改行キー</value>
+  </data>
+  <data name="Settings_Chat_KeyBindSend" xml:space="preserve">
+    <value>チャット入力の送信キー</value>
+  </data>
+  <data name="Settings_Chat_Top.Description" xml:space="preserve">
+    <value>チャット画面の表示設定を行います。入力した設定は保存ボタンをクリックするまで反映されません。</value>
+  </data>
+  <data name="Settings_Chat_Top.Header" xml:space="preserve">
+    <value>チャット画面の表示設定</value>
+  </data>
+  <data name="Settings_Chat_UserColor" xml:space="preserve">
+    <value>自分の背景色</value>
+  </data>
+  <data name="Settings_Chat_UserPosition" xml:space="preserve">
+    <value>自分の表示位置</value>
+  </data>
+  <data name="Settings_Position_Left.Content" xml:space="preserve">
+    <value>左側</value>
+  </data>
+  <data name="Settings_Position_Right.Content" xml:space="preserve">
+    <value>右側</value>
+  </data>
 </root>

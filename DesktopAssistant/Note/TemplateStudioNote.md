@@ -126,3 +126,8 @@ Visibility="{x:Bind ViewModel.IsOpenAI, Converter={StaticResource BoolToVisibili
 ```
 Mode=OneWayが必要ってだけです。気を付けよう。
 
+## 各ページに対して設定したScrollViewまたはScrollViewerが出てこない。
+ScrollViewを表示するには子要素の高さが表示領域を超えなければならないが、
+ShellPageのデフォルトの書き方ではWindowからはみ出てもFrameが伸びるため超えない。
+StackPanelでShellPageの要素を書いているため高さの制限が無いからである。
+StackPanelをやめてGridのRowDefinitionを書いてやることで高さの制限ができてScrollViewerが出るようになる。

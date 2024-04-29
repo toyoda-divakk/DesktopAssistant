@@ -4,50 +4,55 @@ using DesktopAssistant.Core.Enums;
 namespace DesktopAssistant.Contracts.Services;
 
 /// <summary>
-/// API設定を提供
+/// チャット画面設定を提供
 /// </summary>
-public interface IApiSettingService
+public interface IChatSettingService
 {
-    // 保存内容
     /// <summary>
-    /// 生成AIサービス
+    /// ユーザの発言の表示場所
     /// </summary>
-    GenerativeAI GenerativeAI
+    ChatPosition UserPosition
     {
         get;
     }
     /// <summary>
-    /// OpenAIのAPIキー
+    /// ユーザーの吹き出し色
     /// </summary>
-    string OpenAIKey
+    string UserBackgroundColor
     {
         get;
     }
     /// <summary>
-    /// OpenAIのモデル名
+    /// ユーザーの文字色
+    /// ユーザーの吹き出し色から白か黒を決定する
     /// </summary>
-    string OpenAIModel
+    string UserTextColor
+    {
+        get;
+    }
+
+    /// <summary>
+    /// AIの発言の表示場所
+    /// </summary>
+    ChatPosition AIPosition
+    {
+        get;
+    }
+
+    // TODO:実装は後にしよう
+    /// <summary>
+    /// 改行のキーバインド
+    /// デフォルトはEnter
+    /// </summary>
+    EnterKeyBond KeyBindNewLine
     {
         get;
     }
     /// <summary>
-    /// AzureOpenAIのAPIキー
+    /// 送信のキーバインド
+    /// デフォルトはCtrl + Enter
     /// </summary>
-    string AzureOpenAIKey
-    {
-        get;
-    }
-    /// <summary>
-    /// AzureOpenAIのデプロイメント名
-    /// </summary>
-    string AzureOpenAIModel
-    {
-        get;
-    }
-    /// <summary>
-    /// AzureOpenAIのエンドポイント
-    /// </summary>
-    string AzureOpenAIEndpoint
+    EnterKeyBond KeyBindSend
     {
         get;
     }
@@ -64,7 +69,7 @@ public interface IApiSettingService
     /// </summary>
     /// <param name="generativeAI"></param>
     /// <returns></returns>
-    Task SetAndSaveAsync(IApiSetting setting);
+    Task SetAndSaveAsync(IChatSetting setting);
 
     /// <summary>
     /// 設定内容を直ちにアプリに反映する

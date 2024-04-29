@@ -6,7 +6,7 @@ using DesktopAssistant.Helpers;
 namespace DesktopAssistant.Services;
 
 /// <summary>
-/// テーマの選択を管理するサービスを表します。
+/// API設定を管理するサービスを表します。
 /// </summary>
 public class ApiSettingService(ILocalSettingsService localSettingsService) : IApiSettingService, IApiSetting
 {
@@ -57,7 +57,7 @@ public class ApiSettingService(ILocalSettingsService localSettingsService) : IAp
     /// </summary>
     /// <param name="setting"></param>
     /// <returns></returns>
-    public async Task SetGenerativeAIAsync(IApiSetting setting)
+    public async Task SetAndSaveAsync(IApiSetting setting)
     {
         // リフレクションで移す
         FieldCopier.CopyProperties<IApiSetting>(setting, this);

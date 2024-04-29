@@ -15,6 +15,7 @@ public class SampleDataService : ISampleDataService
         var characterId1 = 1;
         var characterId2 = 2;
         var characterId3 = 3;
+        var characterId4 = 4;
         return
         [
             new()
@@ -24,6 +25,8 @@ public class SampleDataService : ISampleDataService
                 Name = "ドンペン",
                 Description = "厳しい口調で話します",
                 Prompt = "とかげ",
+                BackColor = "#202020",
+                TextColor = "#ffffff",
                 Topics =
                 [
                     new()
@@ -113,6 +116,8 @@ public class SampleDataService : ISampleDataService
                 Name = "プランク",
                 Description = "やんちゃな口調で話します",
                 Prompt = "種族未定",
+                BackColor = "#ffffc6",
+                TextColor = "#000000",
                 Topics =
                 [
                     new()
@@ -202,6 +207,8 @@ public class SampleDataService : ISampleDataService
                 Name = "カルモン",
                 Description = "優しく話します",
                 Prompt = "にわとり",
+                BackColor = "#ff9e9e",
+                TextColor = "#000000",
                 Topics =
                 [
                     new()
@@ -274,6 +281,97 @@ public class SampleDataService : ISampleDataService
                             new()
                             {
                                 TopicId = 6,
+                                IsCharacterMessage = true,
+                                Text = "ええええ",
+                                CreatedAt = new DateTime(1997, 9, 22, 10, 13, 00)
+                            }
+                        ],
+                        CreatedAt = new DateTime(1997, 9, 22, 10, 10, 00),
+                        UpdatedAt = new DateTime(1997, 9, 22, 10, 13, 00)
+                    }
+                ]
+            },
+            new()
+            {
+                Id = characterId4,
+                Order = characterId4,
+                Name = "ツン子",
+                Description = "ツンデレです",
+                Prompt = "にんげん",
+                BackColor = "#ffc1c1",
+                TextColor = "#000000",
+                Topics =
+                [
+                    new()
+                    {
+                        Id = 7,
+                        CharacterId = characterId4,
+                        Subject = "朝の挨拶",
+                        Messages =
+                        [
+                            new()
+                            {
+                                TopicId = 7,
+                                IsCharacterMessage = false,
+                                Text = "おはよう",
+                                CreatedAt = new DateTime(1997, 9, 22, 9, 10, 00)
+                            },
+                            new()
+                            {
+                                TopicId = 7,
+                                IsCharacterMessage = true,
+                                Text = "何だ貴様は",
+                                CreatedAt = new DateTime(1997, 9, 22, 9, 11, 00)
+                            },
+                            new()
+                            {
+                                TopicId = 7,
+                                IsCharacterMessage = false,
+                                Text = "ああああ",
+                                CreatedAt = new DateTime(1997, 9, 22, 9, 12, 00)
+                            },
+                            new()
+                            {
+                                TopicId = 7,
+                                IsCharacterMessage = true,
+                                Text = "いいいい",
+                                CreatedAt = new DateTime(1997, 9, 22, 9, 13, 00)
+                            }
+                        ],
+                        CreatedAt = new DateTime(1997, 9, 22, 9, 10, 00),
+                        UpdatedAt = new DateTime(1997, 9, 22, 9, 13, 00)
+                    },
+                    new()
+                    {
+                        Id = 8,
+                        CharacterId = characterId3,
+                        Subject = "昼の挨拶",
+                        Messages =
+                        [
+                            new()
+                            {
+                                TopicId = 8,
+                                IsCharacterMessage = false,
+                                Text = "こんにちは",
+                                CreatedAt = new DateTime(1997, 9, 22, 10, 10, 00)
+                            },
+                            new()
+                            {
+                                TopicId = 8,
+                                IsCharacterMessage = true,
+                                Text = "おう、今日は何の用だ？",
+                                CreatedAt = new DateTime(1997, 9, 22, 10, 11, 00)
+                            },
+                            new()
+                            {
+                                TopicId = 8,
+                                IsCharacterMessage = false,
+                                Text = "うううう",
+                                CreatedAt = new DateTime(1997, 9, 22, 10, 12, 00)
+                            },
+                            new()
+                            {
+                                TopicId = 8,
                                 IsCharacterMessage = true,
                                 Text = "ええええ",
                                 CreatedAt = new DateTime(1997, 9, 22, 10, 13, 00)

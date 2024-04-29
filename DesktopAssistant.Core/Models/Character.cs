@@ -54,6 +54,22 @@ public record Character : IIdentifiable
     }
 
     /// <summary>
+    /// 背景色
+    /// </summary>
+    public string BackColor
+    {
+        get; set;
+    }
+
+    /// <summary>
+    /// 文字色
+    /// </summary>
+    public string TextColor
+    {
+        get; set;
+    }
+
+    /// <summary>
     /// 会話のリスト
     /// </summary>
     public ICollection<Topic> Topics

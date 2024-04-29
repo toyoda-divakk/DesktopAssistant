@@ -15,10 +15,11 @@ using Windows.ApplicationModel;
 
 namespace DesktopAssistant.ViewModels;
 
-public partial class SettingsViewModel : ObservableRecipient, IApiSetting
+public partial class SettingsViewModel : ObservableRecipient, IApiSetting, IChatSetting
 {
     private readonly IThemeSelectorService _themeSelectorService;
     private readonly IApiSettingService _apiSettingService;
+    private readonly IChatSettingService _chatSettingService;
     private readonly ISemanticService _semanticService;
 
     /// <summary>
@@ -27,17 +28,18 @@ public partial class SettingsViewModel : ObservableRecipient, IApiSetting
     [ObservableProperty]
     private bool _isVisibleMessage;
 
+    #region テーマ
     /// <summary>
     /// テーマ
     /// </summary>
     [ObservableProperty]
     private ElementTheme _elementTheme;
 
-    /// <summary>
-    /// バージョン情報
-    /// </summary>
-    [ObservableProperty]
-    private string _versionDescription;
+    ///// <summary>
+    ///// バージョン情報
+    ///// </summary>
+    //[ObservableProperty]
+    //private string _versionDescription;
 
     /// <summary>
     /// テーマ切り替えコマンド
@@ -48,6 +50,9 @@ public partial class SettingsViewModel : ObservableRecipient, IApiSetting
         get;
     }
 
+    #endregion
+
+    #region 生成AI
     /// <summary>
     /// 生成AIサービス切り替えコマンド
     /// </summary>
@@ -78,7 +83,8 @@ public partial class SettingsViewModel : ObservableRecipient, IApiSetting
     {
         get;
     }
-    // https://devlog.mescius.jp/dotnet-community-toolkit-mvvm-command/
+
+    // 表示・非表示に使う
     public bool IsOpenAI => GenerativeAI == GenerativeAI.OpenAI;
     public bool IsAzureOpenAI => GenerativeAI == GenerativeAI.AzureOpenAI;
 
@@ -120,20 +126,55 @@ public partial class SettingsViewModel : ObservableRecipient, IApiSetting
     /// </summary>
     [ObservableProperty]
     private bool _enableTestButton = true;
+    #endregion
 
-    public SettingsViewModel(IThemeSelectorService themeSelectorService, IApiSettingService apiSettingService, ISemanticService semanticService)
+    #region チャット表示設定
+    [ObservableProperty]
+    private ChatPosition _userPosition;
+
+    [ObservableProperty]
+    private string _userBackgroundColor = string.Empty;
+
+    [ObservableProperty]
+    private string _userTextColor = string.Empty;
+
+    [ObservableProperty]
+    private ChatPosition _aIPosition;
+
+    [ObservableProperty]
+    private EnterKeyBond _keyBindNewLine;
+
+    [ObservableProperty]
+    private EnterKeyBond _keyBindSend;
+
+    /// <summary>
+    /// チャット表示設定保存コマンド
+    /// </summary>
+    public ICommand SaveChatCommand
     {
+        get;
+    }
+    #endregion
+
+    public SettingsViewModel(IThemeSelectorService themeSelectorService, IApiSettingService apiSettingService, IChatSettingService chatSettingService, ISemanticService semanticService)
+    {
+        _isVisibleMessage = false;
+
         // サービスの初期化
         _themeSelectorService = themeSelectorService;
         _apiSettingService = apiSettingService;
+        _chatSettingService = chatSettingService;
         _semanticService = semanticService;
 
         // 設定の再読み込み
         _apiSettingService.InitializeAsync();
+        FieldCopier.CopyProperties<IApiSetting>(_apiSettingService, this);
+        _chatSettingService.InitializeAsync();
+        FieldCopier.CopyProperties<IChatSetting>(_chatSettingService, this);
 
         // 表示設定
         _elementTheme = _themeSelectorService.Theme;
-        _versionDescription = GetVersionDescription();
+        //_versionDescription = GetVersionDescription();
 
         // テーマ切り替え処理
         SwitchThemeCommand = new RelayCommand<ElementTheme>(
@@ -159,15 +200,11 @@ public partial class SettingsViewModel : ObservableRecipient, IApiSetting
             }
         );
 
-        // 生成AIの設定
-        FieldCopier.CopyProperties<IApiSetting>(_apiSettingService, this);
-        _isVisibleMessage = false;
-
-        // 保存ボタン処理
+        // API保存ボタン処理
         SaveGenerativeAICommand = new RelayCommand(
             async () =>
             {
-                await _apiSettingService.SetGenerativeAIAsync(this);
+                await _apiSettingService.SetAndSaveAsync(this);
                 ShowAndHideMessageAsync();
             }
         );
@@ -179,6 +216,15 @@ public partial class SettingsViewModel : ObservableRecipient, IApiSetting
                 EnableTestButton = false;
                 GenerateTestResult = await _semanticService.TestGenerativeAIAsync(this, "Hello".GetLocalized());
                 EnableTestButton = true;
+            }
+        );
+
+        // チャット表示設定保存ボタン処理
+        SaveChatCommand = new RelayCommand(
+            async () =>
+            {
+                await _chatSettingService.SetAndSaveAsync(this);
+                ShowAndHideMessageAsync();
             }
         );
     }
@@ -193,27 +239,27 @@ public partial class SettingsViewModel : ObservableRecipient, IApiSetting
         IsVisibleMessage = false;
     }
 
-    /// <summary>
-    /// バージョン情報を取得
-    /// </summary>
-    /// <returns>バージョン情報</returns>
-    private static string GetVersionDescription()
-    {
-        Version version;
+    ///// <summary>
+    ///// バージョン情報を取得
+    ///// </summary>
+    ///// <returns>バージョン情報</returns>
+    //private static string GetVersionDescription()
+    //{
+    //    Version version;
 
-        if (RuntimeHelper.IsMSIX)
-        {
-            // パッケージからバージョン情報を取得
-            var packageVersion = Package.Current.Id.Version;
-            version = new(packageVersion.Major, packageVersion.Minor, packageVersion.Build, packageVersion.Revision);
-        }
-        else
-        {
-            // アセンブリからバージョン情報を取得
-            version = Assembly.GetExecutingAssembly().GetName().Version!;
-        }
+    //    if (RuntimeHelper.IsMSIX)
+    //    {
+    //        // パッケージからバージョン情報を取得
+    //        var packageVersion = Package.Current.Id.Version;
+    //        version = new(packageVersion.Major, packageVersion.Minor, packageVersion.Build, packageVersion.Revision);
+    //    }
+    //    else
+    //    {
+    //        // アセンブリからバージョン情報を取得
+    //        version = Assembly.GetExecutingAssembly().GetName().Version!;
+    //    }
 
-        // アプリ名とバージョン情報を結合して返す
-        return $"{"AppDisplayName".GetLocalized()} - {version.Major}.{version.Minor}.{version.Build}.{version.Revision}";
-    }
+    //    // アプリ名とバージョン情報を結合して返す
+    //    return $"{"AppDisplayName".GetLocalized()} - {version.Major}.{version.Minor}.{version.Build}.{version.Revision}";
+    //}
 }
