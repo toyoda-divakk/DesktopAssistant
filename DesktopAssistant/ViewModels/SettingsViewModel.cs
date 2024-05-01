@@ -45,9 +45,12 @@ public partial class SettingsViewModel : ObservableRecipient, IApiSetting, IChat
     /// テーマ切り替えコマンド
     /// ラジオボタンではバインドできるが、コンボボックスではできない
     /// </summary>
-    public ICommand SwitchThemeCommand
+    [RelayCommand]
+    private async void SwitchTheme(ElementTheme param)
     {
-        get;
+        ElementTheme = param;
+        await _themeSelectorService.SetThemeAsync(param);
+        ShowAndHideMessageAsync();
     }
 
     #endregion
@@ -56,9 +59,13 @@ public partial class SettingsViewModel : ObservableRecipient, IApiSetting, IChat
     /// <summary>
     /// 生成AIサービス切り替えコマンド
     /// </summary>
-    public RelayCommand<GenerativeAI> SwitchGenerativeAICommand
+    [RelayCommand]
+    private void SwitchGenerativeAI(GenerativeAI param)
     {
-        get;
+        if (GenerativeAI != param)
+        {
+            GenerativeAI = param;
+        }
     }
 
     /// <summary>
@@ -71,17 +78,22 @@ public partial class SettingsViewModel : ObservableRecipient, IApiSetting, IChat
     /// <summary>
     /// 生成AI設定保存コマンド
     /// </summary>
-    public ICommand SaveGenerativeAICommand
+    [RelayCommand]
+    private async void SaveGenerativeAI()
     {
-        get;
+        await _apiSettingService.SetAndSaveAsync(this);
+        ShowAndHideMessageAsync();
     }
 
     /// <summary>
     /// 生成AI接続テストコマンド
     /// </summary>
-    public ICommand TestGenerativeAICommand
+    [RelayCommand]
+    private async void TestGenerativeAI()
     {
-        get;
+        EnableTestButton = false;
+        GenerateTestResult = await _semanticService.TestGenerativeAIAsync(this, "Hello".GetLocalized());
+        EnableTestButton = true;
     }
 
     // 表示・非表示に使う
@@ -147,38 +159,50 @@ public partial class SettingsViewModel : ObservableRecipient, IApiSetting, IChat
     [ObservableProperty]
     private EnterKeyBond _keyBindSend;
 
-    // TODO:あれ？コマンドってこうだよね？
-    //[RelayCommand]
-    //private void OnItemClick(ChatPosition? clickedItem)
-    //{
-    //}
-
     /// <summary>
     /// 切り替えコマンド
     /// </summary>
-    public RelayCommand<ChatPosition> SwitchAIPositionCommand
+    [RelayCommand]
+    private void SwitchAIPosition(ChatPosition param)
     {
-        get;
+        if (AIPosition != param)
+        {
+            AIPosition = param;
+        }
     }
-    public RelayCommand<ChatPosition> SwitchUserPositionCommand
+    [RelayCommand]
+    private void SwitchUserPosition(ChatPosition param)
     {
-        get;
+        if (UserPosition != param)
+        {
+            UserPosition = param;
+        }
     }
-    public RelayCommand<EnterKeyBond> SwitchKeyBindNewLineCommand
+    [RelayCommand]
+    private void SwitchKeyBindNewLine(EnterKeyBond param)
     {
-        get;
+        if (KeyBindNewLine != param)
+        {
+            KeyBindNewLine = param;
+        }
     }
-    public RelayCommand<EnterKeyBond> SwitchKeyBindSendCommand
+    [RelayCommand]
+    private void SwitchKeyBindSend(EnterKeyBond param)
     {
-        get;
+        if (KeyBindSend != param) // TODO:KeyBindNewLineと同じ値にしない事
+        {
+            KeyBindSend = param;
+        }
     }
 
     /// <summary>
     /// チャット表示設定保存コマンド
     /// </summary>
-    public ICommand SaveChatCommand
+    [RelayCommand]
+    private async void SaveChat()
     {
-        get;
+        await _chatSettingService.SetAndSaveAsync(this);        // TODO:保存できてないよ
+        ShowAndHideMessageAsync();
     }
     #endregion
 
@@ -202,95 +226,6 @@ public partial class SettingsViewModel : ObservableRecipient, IApiSetting, IChat
         _elementTheme = _themeSelectorService.Theme;
         //_versionDescription = GetVersionDescription();
 
-        // テーマ切り替え処理
-        SwitchThemeCommand = new RelayCommand<ElementTheme>(
-            async (param) =>
-            {
-                if (ElementTheme != param)
-                {
-                    ElementTheme = param;
-                    await _themeSelectorService.SetThemeAsync(param);
-                    ShowAndHideMessageAsync();
-                }
-            }
-        );
-
-        // AIサービスラジオボタン切り替え処理
-        SwitchGenerativeAICommand = new RelayCommand<GenerativeAI>(
-            (param) =>
-            {
-                if (GenerativeAI != param)
-                {
-                    GenerativeAI = param;
-                }
-            }
-        );
-
-        // API保存ボタン処理
-        SaveGenerativeAICommand = new RelayCommand(
-            async () =>
-            {
-                await _apiSettingService.SetAndSaveAsync(this);
-                ShowAndHideMessageAsync();
-            }
-        );
-
-        // AI接続テスト処理
-        TestGenerativeAICommand = new RelayCommand(
-            async () =>
-            {
-                EnableTestButton = false;
-                GenerateTestResult = await _semanticService.TestGenerativeAIAsync(this, "Hello".GetLocalized());
-                EnableTestButton = true;
-            }
-        );
-
-        // チャット表示ラジオボタン切り替え処理
-        SwitchAIPositionCommand = new RelayCommand<ChatPosition>(
-            (param) =>
-            {
-                if (AIPosition != param)
-                {
-                    AIPosition = param;
-                }
-            }
-        );
-        SwitchUserPositionCommand = new RelayCommand<ChatPosition>(
-            (param) =>
-            {
-                if (UserPosition != param)
-                {
-                    UserPosition = param;
-                }
-            }
-        );
-        SwitchKeyBindNewLineCommand = new RelayCommand<EnterKeyBond>(
-            (param) =>
-            {
-                if (KeyBindNewLine != param)
-                {
-                    KeyBindNewLine = param;
-                }
-            }
-        );
-        SwitchKeyBindSendCommand = new RelayCommand<EnterKeyBond>(
-            (param) =>
-            {
-                if (KeyBindSend != param) // TODO:KeyBindNewLineと同じ値にしない事
-                {
-                    KeyBindSend = param;
-                }
-            }
-        );
-
-        // チャット表示設定保存ボタン処理
-        SaveChatCommand = new RelayCommand(
-            async () =>
-            {
-                await _chatSettingService.SetAndSaveAsync(this);
-                ShowAndHideMessageAsync();
-            }
-        );
     }
 
     /// <summary>
