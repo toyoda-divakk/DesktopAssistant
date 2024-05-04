@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using LiteDB;
 
 namespace DesktopAssistant.Core.Models;
 
@@ -38,10 +39,11 @@ public record Topic : IIdentifiable
     /// <summary>
     /// 内容
     /// </summary>
+    [BsonIgnore]
     public List<Message> Messages
     {
         get; init;
-    }
+    } = [];
 
     /// <summary>
     /// 作成日時

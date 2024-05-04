@@ -55,11 +55,16 @@ public partial class ToDoListViewModel(ILiteDbService liteDbService) : Observabl
     /// <summary>
     /// 初期化
     /// カテゴリのリストを読み込む
+    /// カテゴリ内のタスクを読み込む
     /// </summary>
     public void Initialize(Window window)
     {
         var taskCategories = _liteDbService.GetTable<TaskCategory>();
         Categories = SetupCategories(taskCategories);
+        foreach (var category in Categories)
+        {
+            category.TodoTasks = _liteDbService.GetTable<TodoTask>().Where(x => x.CategoryId == category.Id).ToList();
+        }
         _window = window;
     }
 
@@ -81,7 +86,7 @@ public partial class ToDoListViewModel(ILiteDbService liteDbService) : Observabl
             });
             category.DeleteCommand = new RelayCommand(async () =>
             {
-                // TODO:削除確認ダイアログを表示する
+                // 削除確認ダイアログを表示する
                 var dialog1 = new ContentDialog
                 {
                     XamlRoot = _window?.Content.XamlRoot,
@@ -140,7 +145,7 @@ public partial class ToDoListViewModel(ILiteDbService liteDbService) : Observabl
     }
 
     /// <summary>
-    /// 
+    /// カテゴリ切り替え
     /// </summary>
     /// <param name="category"></param>
     [RelayCommand]

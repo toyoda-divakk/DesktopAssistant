@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using LiteDB;
 
 namespace DesktopAssistant.Core.Models;
 
@@ -40,17 +41,20 @@ public record TaskCategory : IIdentifiable
     /// <summary>
     /// 属するタスク
     /// </summary>
+    [BsonIgnore]
     public List<TodoTask> TodoTasks
     {
         get; set;
-    }
+    } = [];
 
     // ※あまりIgnoreみたいなのやりたくないんだけど、ListViewの右クリックメニューに直接処理を付けたい場合これが一番簡単。
     // Ignoreなので、LiteDbServiceで個別に指定する
+    [BsonIgnore]
     public ICommand EditCommand
     {
         get; set;
     }
+    [BsonIgnore]
     public ICommand DeleteCommand
     {
         get; set;

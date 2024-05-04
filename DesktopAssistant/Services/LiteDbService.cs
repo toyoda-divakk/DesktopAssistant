@@ -21,12 +21,6 @@ public class LiteDbService : ILiteDbService
     public LiteDbService(ILocalSettingsService localSettingsService)
     {
         _localSettingsService = localSettingsService;
-
-        // 無視するフィールドなどを設定する
-        var mapper = BsonMapper.Global;
-        mapper.Entity<TaskCategory>()
-            .Ignore(x => x.EditCommand)
-            .Ignore(x => x.DeleteCommand);
     }
 
     public void CreateOrInitializeDatabase()

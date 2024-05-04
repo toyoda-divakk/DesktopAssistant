@@ -88,6 +88,7 @@ public class ActivationService(ActivationHandler<LaunchActivatedEventArgs> defau
     /// <returns></returns>
     private async Task InitializeAsync()
     {
+        // 設定ファイルを初期化
         await themeSelectorService.InitializeAsync().ConfigureAwait(false);
         await apiSettingService.InitializeAsync().ConfigureAwait(false);
         await chatSettingService.InitializeAsync().ConfigureAwait(false);

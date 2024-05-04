@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Diagnostics;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using DesktopAssistant.Contracts.Services;
@@ -6,12 +7,15 @@ using DesktopAssistant.Core.Models;
 using DesktopAssistant.Helpers;
 using DesktopAssistant.Views.Popup;
 using Microsoft.UI.Xaml;
+using Windows.ApplicationModel.DataTransfer;
+using Windows.UI.Popups;
 
 namespace DesktopAssistant.ViewModels;
 
-public partial class MainViewModel(IThemeSelectorService themeSelector) : ObservableRecipient
+public partial class MainViewModel(IThemeSelectorService themeSelector, ILocalSettingsService localSettings) : ObservableRecipient
 {
     private IThemeSelectorService ThemeSelector { get; } = themeSelector;
+    private ILocalSettingsService LocalSettings { get; } = localSettings;
 
     /// <summary>
     /// ToDoListPageをモードレス表示する
@@ -64,6 +68,20 @@ public partial class MainViewModel(IThemeSelectorService themeSelector) : Observ
         };
         newWindow.Content = rootPage;
         newWindow.Activate();
+    }
+
+    /// <summary>
+    /// データフォルダのパスをクリップボードにコピーする
+    /// </summary>
+    [RelayCommand]
+    private void ShowDataFolder()
+    {
+        // アクセス権がないので開くことができない
+        var path = LocalSettings.ApplicationDataFolder;
+        var package = new DataPackage();
+        package.SetText(path);
+        Clipboard.SetContent(package);
+
     }
 
     /// <summary>

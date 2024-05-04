@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using LiteDB;
 
 namespace DesktopAssistant.Core.Models;
 
@@ -72,8 +73,9 @@ public record Character : IIdentifiable
     /// <summary>
     /// 会話のリスト
     /// </summary>
+    [BsonIgnore]
     public ICollection<Topic> Topics
     {
         get; set;
-    }
+    } = [];
 }

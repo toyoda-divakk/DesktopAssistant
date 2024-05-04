@@ -87,7 +87,7 @@
                 Padding="0,10"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Bottom"
-                Command="{x:Bind ViewModel.AddCategoryCommand}" />
+                Command="{x:Bind ViewModel.ShowAllTasksCommand}" />
             <!--  カテゴリ  -->
             <ListView
                 x:Name="CategoryListView"
