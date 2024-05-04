@@ -320,4 +320,13 @@
   <data name="Settings_Chat_UserPosition.Description" xml:space="preserve">
     <value>自分の発言をどちら側に表示するかを指定します。</value>
   </data>
+  <data name="You" xml:space="preserve">
+    <value>You</value>
+  </data>
+  <data name="Settings_Chat_YourName.Description" xml:space="preserve">
+    <value>チャット画面でのユーザーの発言に表示する名前を設定します。表示のみで、AIに認識してもらう名前ではありません。</value>
+  </data>
+  <data name="Settings_Chat_YourName.Header" xml:space="preserve">
+    <value>あなたの表示名</value>
+  </data>
 </root>

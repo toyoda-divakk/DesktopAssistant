@@ -13,6 +13,7 @@
     mc:Ignorable="d">
     <Page.Resources>
         <helpers:EnumToBooleanConverter x:Key="EnumToBooleanConverter" />
+        <helpers:EnumToBooleanNegationConverter x:Key="EnumToBooleanNegationConverter" />
         <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
     </Page.Resources>
     <Grid Margin="0,0,0,24">
@@ -183,6 +184,12 @@
                     </StackPanel>
                 </Button>
                 <controls:SettingsExpander.Items>
+                    <controls:SettingsCard x:Uid="Settings_Chat_YourName">
+                        <TextBox
+                            PlaceholderText="gpt-3.5-turbo"
+                            Text="{x:Bind ViewModel.UserDisplayName, Mode=TwoWay}"
+                            TextWrapping="Wrap" />
+                    </controls:SettingsCard>
                     <controls:SettingsCard x:Uid="Settings_Chat_AIPosition">
                         <StackPanel Margin="{StaticResource SmallTopBottomMargin}" Orientation="Horizontal">
                             <RadioButton
@@ -236,7 +243,8 @@
                                 Content="Enter"
                                 FontSize="15"
                                 GroupName="KeyBindNewLine"
-                                IsChecked="{x:Bind ViewModel.KeyBindNewLine, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Enter, Mode=OneWay}" />
+                                IsChecked="{x:Bind ViewModel.KeyBindNewLine, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Enter, Mode=OneWay}"
+                                IsEnabled="{x:Bind ViewModel.KeyBindSend, Converter={StaticResource EnumToBooleanNegationConverter}, ConverterParameter=Enter, Mode=OneWay}" />
                             <RadioButton
                                 Margin="24,0,0,0"
                                 Command="{x:Bind ViewModel.SwitchKeyBindNewLineCommand}"
@@ -245,7 +253,8 @@
                                 Content="Shift + Enter"
                                 FontSize="15"
                                 GroupName="KeyBindNewLine"
-                                IsChecked="{x:Bind ViewModel.KeyBindNewLine, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=ShiftEnter, Mode=OneWay}" />
+                                IsChecked="{x:Bind ViewModel.KeyBindNewLine, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=ShiftEnter, Mode=OneWay}"
+                                IsEnabled="{x:Bind ViewModel.KeyBindSend, Converter={StaticResource EnumToBooleanNegationConverter}, ConverterParameter=ShiftEnter, Mode=OneWay}" />
                             <RadioButton
                                 Margin="24,0,0,0"
                                 Command="{x:Bind ViewModel.SwitchKeyBindNewLineCommand}"
@@ -254,7 +263,8 @@
                                 Content="Ctrl + Enter"
                                 FontSize="15"
                                 GroupName="KeyBindNewLine"
-                                IsChecked="{x:Bind ViewModel.KeyBindNewLine, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=CtrlEnter, Mode=OneWay}" />
+                                IsChecked="{x:Bind ViewModel.KeyBindNewLine, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=CtrlEnter, Mode=OneWay}"
+                                IsEnabled="{x:Bind ViewModel.KeyBindSend, Converter={StaticResource EnumToBooleanNegationConverter}, ConverterParameter=CtrlEnter, Mode=OneWay}" />
                             <RadioButton
                                 Margin="24,0,0,0"
                                 Command="{x:Bind ViewModel.SwitchKeyBindNewLineCommand}"
@@ -263,12 +273,14 @@
                                 Content="Alt + Enter"
                                 FontSize="15"
                                 GroupName="KeyBindNewLine"
-                                IsChecked="{x:Bind ViewModel.KeyBindNewLine, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=AltEnter, Mode=OneWay}" />
+                                IsChecked="{x:Bind ViewModel.KeyBindNewLine, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=AltEnter, Mode=OneWay}"
+                                IsEnabled="{x:Bind ViewModel.KeyBindSend, Converter={StaticResource EnumToBooleanNegationConverter}, ConverterParameter=AltEnter, Mode=OneWay}" />
                         </StackPanel>
                     </controls:SettingsCard>
 
                     <controls:SettingsCard x:Uid="Settings_Chat_KeyBindSend">
                         <StackPanel Margin="{StaticResource SmallTopBottomMargin}" Orientation="Horizontal">
+                            <!--  ViewModel.KeyBindNewLine==EnterKeyBond.Enterの場合IsEnabledをFalseにする  -->
                             <RadioButton
                                 Command="{x:Bind ViewModel.SwitchKeyBindSendCommand}"
                                 CommandParameter="{helpers:EnumValue Type=xaml1:EnterKeyBond,
@@ -276,7 +288,8 @@
                                 Content="Enter"
                                 FontSize="15"
                                 GroupName="KeyBindSend"
-                                IsChecked="{x:Bind ViewModel.KeyBindSend, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Enter, Mode=OneWay}" />
+                                IsChecked="{x:Bind ViewModel.KeyBindSend, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Enter, Mode=OneWay}"
+                                IsEnabled="{x:Bind ViewModel.KeyBindNewLine, Converter={StaticResource EnumToBooleanNegationConverter}, ConverterParameter=Enter, Mode=OneWay}" />
                             <RadioButton
                                 Margin="24,0,0,0"
                                 Command="{x:Bind ViewModel.SwitchKeyBindSendCommand}"
@@ -285,7 +298,8 @@
                                 Content="Shift + Enter"
                                 FontSize="15"
                                 GroupName="KeyBindSend"
-                                IsChecked="{x:Bind ViewModel.KeyBindSend, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=ShiftEnter, Mode=OneWay}" />
+                                IsChecked="{x:Bind ViewModel.KeyBindSend, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=ShiftEnter, Mode=OneWay}"
+                                IsEnabled="{x:Bind ViewModel.KeyBindNewLine, Converter={StaticResource EnumToBooleanNegationConverter}, ConverterParameter=ShiftEnter, Mode=OneWay}" />
                             <RadioButton
                                 Margin="24,0,0,0"
                                 Command="{x:Bind ViewModel.SwitchKeyBindSendCommand}"
@@ -294,7 +308,8 @@
                                 Content="Ctrl + Enter"
                                 FontSize="15"
                                 GroupName="KeyBindSend"
-                                IsChecked="{x:Bind ViewModel.KeyBindSend, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=CtrlEnter, Mode=OneWay}" />
+                                IsChecked="{x:Bind ViewModel.KeyBindSend, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=CtrlEnter, Mode=OneWay}"
+                                IsEnabled="{x:Bind ViewModel.KeyBindNewLine, Converter={StaticResource EnumToBooleanNegationConverter}, ConverterParameter=CtrlEnter, Mode=OneWay}" />
                             <RadioButton
                                 Margin="24,0,0,0"
                                 Command="{x:Bind ViewModel.SwitchKeyBindSendCommand}"
@@ -303,7 +318,8 @@
                                 Content="Alt + Enter"
                                 FontSize="15"
                                 GroupName="KeyBindSend"
-                                IsChecked="{x:Bind ViewModel.KeyBindSend, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=AltEnter, Mode=OneWay}" />
+                                IsChecked="{x:Bind ViewModel.KeyBindSend, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=AltEnter, Mode=OneWay}"
+                                IsEnabled="{x:Bind ViewModel.KeyBindNewLine, Converter={StaticResource EnumToBooleanNegationConverter}, ConverterParameter=AltEnter, Mode=OneWay}" />
                         </StackPanel>
                     </controls:SettingsCard>
 

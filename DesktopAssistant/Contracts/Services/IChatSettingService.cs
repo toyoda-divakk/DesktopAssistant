@@ -30,6 +30,14 @@ public interface IChatSettingService
     {
         get;
     }
+    /// <summary>
+    /// ユーザーの表示名
+    /// AIに呼んでもらう名前ではない（予定）
+    /// </summary>
+    string UserDisplayName
+    {
+        get;
+    }
 
     /// <summary>
     /// AIの発言の表示場所

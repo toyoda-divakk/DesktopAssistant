@@ -142,6 +142,9 @@ public partial class SettingsViewModel : ObservableRecipient, IApiSetting, IChat
     private string _userBackgroundColor = string.Empty;
 
     [ObservableProperty]
+    private string _userDisplayName = string.Empty;
+
+    [ObservableProperty]
     private string _userTextColor = string.Empty;
 
     [ObservableProperty]
@@ -183,7 +186,7 @@ public partial class SettingsViewModel : ObservableRecipient, IApiSetting, IChat
     [RelayCommand]
     private void SwitchKeyBindSend(EnterKeyBond param)
     {
-        if (KeyBindSend != param) // TODO:KeyBindNewLineと同じ値にしない事
+        if (KeyBindSend != param)
         {
             KeyBindSend = param;
         }

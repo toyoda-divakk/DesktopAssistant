@@ -20,7 +20,14 @@ namespace DesktopAssistant.Services;
 /// アクティベーションハンドラの処理
 /// テーマの設定など
 /// </summary>
-public class ActivationService(ActivationHandler<LaunchActivatedEventArgs> defaultHandler, IEnumerable<IActivationHandler> activationHandlers, IThemeSelectorService themeSelectorService, IApiSettingService apiSettingService, ILiteDbService liteDbService, ISampleDataService sampleDataService, ILocalSettingsService localSettingsService) : IActivationService
+public class ActivationService(ActivationHandler<LaunchActivatedEventArgs> defaultHandler, 
+    IEnumerable<IActivationHandler> activationHandlers,
+    IThemeSelectorService themeSelectorService,
+    IApiSettingService apiSettingService,
+    IChatSettingService chatSettingService,
+    ILiteDbService liteDbService,
+    ISampleDataService sampleDataService,
+    ILocalSettingsService localSettingsService) : IActivationService
 {
     private UIElement? _shell = null;
     private UIElement? _main = null;
@@ -83,6 +90,7 @@ public class ActivationService(ActivationHandler<LaunchActivatedEventArgs> defau
     {
         await themeSelectorService.InitializeAsync().ConfigureAwait(false);
         await apiSettingService.InitializeAsync().ConfigureAwait(false);
+        await chatSettingService.InitializeAsync().ConfigureAwait(false);
 
         // 初回起動限定タスクの実行
         if (!liteDbService.IsExistDatabase())

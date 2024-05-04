@@ -16,6 +16,8 @@ public class ChatSettingService(ILocalSettingsService localSettingsService) : IC
 
     public string UserTextColor { get; set; } = string.Empty;
 
+    public string UserDisplayName { get; set; } = string.Empty;
+
     public ChatPosition AIPosition { get; set; } = ChatPosition.Left;
 
     public EnterKeyBond KeyBindNewLine { get; set; } = EnterKeyBond.Enter;
@@ -68,6 +70,7 @@ public class ChatSettingService(ILocalSettingsService localSettingsService) : IC
         UserPosition = Enum.TryParse(localSettingsService.ReadSetting<string>(nameof(UserPosition)), out ChatPosition userPosition) ? userPosition : ChatPosition.Right;
         UserBackgroundColor = localSettingsService.ReadSetting<string>(nameof(UserBackgroundColor)) ?? "#a3d1ff";
         UserTextColor = localSettingsService.ReadSetting<string>(nameof(UserTextColor)) ?? "#000000";
+        UserDisplayName = localSettingsService.ReadSetting<string>(nameof(UserDisplayName)) ?? "You".GetLocalized();
         AIPosition = Enum.TryParse(localSettingsService.ReadSetting<string>(nameof(AIPosition)), out ChatPosition aiPosition) ? aiPosition : ChatPosition.Left;
         KeyBindNewLine = Enum.TryParse(localSettingsService.ReadSetting<string>(nameof(KeyBindNewLine)), out EnterKeyBond keyBindNewLineStringValue) ? keyBindNewLineStringValue : EnterKeyBond.Enter;
         KeyBindSend = Enum.TryParse(localSettingsService.ReadSetting<string>(nameof(KeyBindSend)), out EnterKeyBond keyBindSendStringValue) ?  keyBindSendStringValue : EnterKeyBond.CtrlEnter;
@@ -78,6 +81,7 @@ public class ChatSettingService(ILocalSettingsService localSettingsService) : IC
         localSettingsService.SaveSetting(nameof(UserPosition), UserPosition.ToString());
         localSettingsService.SaveSetting(nameof(UserBackgroundColor), UserBackgroundColor);
         localSettingsService.SaveSetting(nameof(UserTextColor), UserTextColor);
+        localSettingsService.SaveSetting(nameof(UserDisplayName), UserDisplayName);
         localSettingsService.SaveSetting(nameof(AIPosition), AIPosition.ToString());
         localSettingsService.SaveSetting(nameof(KeyBindNewLine), KeyBindNewLine.ToString());
         localSettingsService.SaveSetting(nameof(KeyBindSend), KeyBindSend.ToString());

@@ -15,6 +15,13 @@ public interface IChatSetting
         get;
     }
     /// <summary>
+    /// ユーザーの表示名
+    /// </summary>
+    string UserDisplayName
+    {
+        get;
+    }
+    /// <summary>
     /// ユーザーの吹き出し色
     /// </summary>
     string UserBackgroundColor
