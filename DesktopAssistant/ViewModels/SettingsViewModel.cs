@@ -22,12 +22,6 @@ public partial class SettingsViewModel : ObservableRecipient, IApiSetting, IChat
     private readonly IChatSettingService _chatSettingService;
     private readonly ISemanticService _semanticService;
 
-    /// <summary>
-    /// 保存メッセージの表示
-    /// </summary>
-    [ObservableProperty]
-    private bool _isVisibleMessage;
-
     #region テーマ
     /// <summary>
     /// テーマ
@@ -82,7 +76,7 @@ public partial class SettingsViewModel : ObservableRecipient, IApiSetting, IChat
     private async void SaveGenerativeAI()
     {
         await _apiSettingService.SetAndSaveAsync(this);
-        ShowAndHideMessageAsync();
+        ShowAndHideApiMessageAsync();
     }
 
     /// <summary>
@@ -201,14 +195,16 @@ public partial class SettingsViewModel : ObservableRecipient, IApiSetting, IChat
     [RelayCommand]
     private async void SaveChat()
     {
-        await _chatSettingService.SetAndSaveAsync(this);        // TODO:保存できてないよ
-        ShowAndHideMessageAsync();
+        await _chatSettingService.SetAndSaveAsync(this);
+        ShowAndHideChatMessageAsync();
     }
     #endregion
 
     public SettingsViewModel(IThemeSelectorService themeSelectorService, IApiSettingService apiSettingService, IChatSettingService chatSettingService, ISemanticService semanticService)
     {
         _isVisibleMessage = false;
+        _isVisibleApiMessage = false;
+        _isVisibleChatMessage = false;
 
         // サービスの初期化
         _themeSelectorService = themeSelectorService;
@@ -228,8 +224,21 @@ public partial class SettingsViewModel : ObservableRecipient, IApiSetting, IChat
 
     }
 
+    #region 保存メッセージ表示
+    // 本当はRefにしたいけどasyncだから無理
+    /// <summary>
+    /// 保存メッセージの表示
+    /// </summary>
+    [ObservableProperty]
+    private bool _isVisibleMessage;
+    [ObservableProperty]
+    private bool _isVisibleApiMessage;
+    [ObservableProperty]
+    private bool _isVisibleChatMessage;
+
     /// <summary>
     /// 3秒後にメッセージを非表示にする
+    /// 一番上のメッセージ表示用
     /// </summary>
     private async void ShowAndHideMessageAsync()
     {
@@ -237,6 +246,29 @@ public partial class SettingsViewModel : ObservableRecipient, IApiSetting, IChat
         await Task.Delay(3000);
         IsVisibleMessage = false;
     }
+
+    /// <summary>
+    /// 3秒後にメッセージを非表示にする
+    /// API保存用
+    /// </summary>
+    private async void ShowAndHideApiMessageAsync()
+    {
+        IsVisibleApiMessage = true;
+        await Task.Delay(3000);
+        IsVisibleApiMessage = false;
+    }
+
+    /// <summary>
+    /// 3秒後にメッセージを非表示にする
+    /// チャット設定保存用
+    /// </summary>
+    private async void ShowAndHideChatMessageAsync()
+    {
+        IsVisibleChatMessage = true;
+        await Task.Delay(3000);
+        IsVisibleChatMessage = false;
+    }
+    #endregion
 
     ///// <summary>
     ///// バージョン情報を取得

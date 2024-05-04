@@ -17,13 +17,13 @@
     </Page.Resources>
     <Grid Margin="0,0,0,24">
         <StackPanel x:Name="ContentArea">
+            <!--  個人設定（Resourcesから直接取ってくる）  -->
+            <TextBlock x:Uid="Settings_Personalization" Style="{ThemeResource SubtitleTextBlockStyle}" />
             <InfoBar
                 x:Uid="Saved"
                 IsClosable="False"
                 IsOpen="{x:Bind ViewModel.IsVisibleMessage, Mode=OneWay}"
                 Severity="Success" />
-            <!--  個人設定（Resourcesから直接取ってくる）  -->
-            <TextBlock x:Uid="Settings_Personalization" Style="{ThemeResource SubtitleTextBlockStyle}" />
 
             <!--  コンボボックスにしたかったが、物凄い手間なので断念。少なくともEnumの多言語化と、専用クラスの作成が必要。コマンドとの直バインドは出来ないのでOnChangingを使用など。  -->
             <controls:SettingsCard x:Uid="Settings_Theme" HeaderIcon="{ui:FontIcon Glyph=&#xE799;}">
@@ -66,6 +66,11 @@
                 x:Uid="Settings_Api"
                 Margin="0,24,0,0"
                 Style="{ThemeResource SubtitleTextBlockStyle}" />
+            <InfoBar
+                x:Uid="Saved"
+                IsClosable="False"
+                IsOpen="{x:Bind ViewModel.IsVisibleApiMessage, Mode=OneWay}"
+                Severity="Success" />
             <controls:SettingsExpander x:Uid="Settings_Api_Top" HeaderIcon="{ui:FontIcon Glyph=&#xE799;}">
 
                 <Button Command="{x:Bind ViewModel.SaveGenerativeAICommand}" Style="{StaticResource AccentButtonStyle}">
@@ -158,7 +163,6 @@
                         </StackPanel>
                     </controls:SettingsCard>
                 </controls:SettingsExpander.Items>
-
             </controls:SettingsExpander>
 
             <!--  Chat表示の設定  -->
@@ -166,8 +170,13 @@
                 x:Uid="Settings_Chat"
                 Margin="0,24,0,0"
                 Style="{ThemeResource SubtitleTextBlockStyle}" />
+            <InfoBar
+                x:Uid="Saved"
+                IsClosable="False"
+                IsOpen="{x:Bind ViewModel.IsVisibleChatMessage, Mode=OneWay}"
+                Severity="Success" />
             <controls:SettingsExpander x:Uid="Settings_Chat_Top" HeaderIcon="{ui:FontIcon Glyph=&#xE799;}">
-                <Button Command="{x:Bind ViewModel.SaveGenerativeAICommand}" Style="{StaticResource AccentButtonStyle}">
+                <Button Command="{x:Bind ViewModel.SaveChatCommand}" Style="{StaticResource AccentButtonStyle}">
                     <StackPanel Orientation="Horizontal">
                         <FontIcon Glyph="&#xE74E;" />
                         <TextBlock x:Uid="Button_Save" Margin="5,0,0,0" />
