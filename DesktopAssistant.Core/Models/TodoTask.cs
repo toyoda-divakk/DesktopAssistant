@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using LiteDB;
+using System.Windows.Input;
 
 namespace DesktopAssistant.Core.Models;
 
@@ -87,6 +89,24 @@ public record TodoTask : IIdentifiable
     /// タスクの期限
     /// </summary>
     public DateTime? Deadline
+    {
+        get; set;
+    }
+
+    // どうする？
+    // クリックで詳細に遷移。右クリックで編集、完了、削除。詳細からも編集、完了、削除できる。
+    [BsonIgnore]
+    public ICommand EditCommand
+    {
+        get; set;
+    }
+    [BsonIgnore]
+    public ICommand CompleteCommand
+    {
+        get; set;
+    }
+    [BsonIgnore]
+    public ICommand DeleteCommand
     {
         get; set;
     }

@@ -30,7 +30,7 @@ public class ActivationService(ActivationHandler<LaunchActivatedEventArgs> defau
     ILocalSettingsService localSettingsService) : IActivationService
 {
     private UIElement? _shell = null;
-    private UIElement? _main = null;
+    //private UIElement? _main = null;
 
     /// <summary>
     /// アプリケーションの起動時に呼び出される
@@ -128,12 +128,22 @@ public class ActivationService(ActivationHandler<LaunchActivatedEventArgs> defau
             {
                 Event = SystemEvents.Initial_SetCharacoers,
                 Content = "DBにプリセットのキャラを登録する。",
-                IsDone = false, // TODO: まだ実装しないのでここはfalseにしておく
+                IsDone = true,
                 CreatedAt = DateTime.UtcNow,
                 UpdatedAt = DateTime.UtcNow
             });
-            sampleDataService.GetSampleCharacters();
-            // TODO: サンプルデータを登録
+
+            // サンプルデータを登録
+            var characters = sampleDataService.GetSampleCharacters();
+            foreach (var character in characters)
+            {
+                character.FaceImagePath = Path.Combine(GetImageFolder(), character.Id.ToString());
+                liteDbService.Insert(character);
+                foreach (var topic in character.Topics)
+                {
+                    liteDbService.Insert(topic);
+                }
+            }
 
             // 埋め込みリソースからサンプル画像を取得してアプリケーションフォルダにコピーする
             CreateImageFolderIfNotExists();
@@ -141,24 +151,39 @@ public class ActivationService(ActivationHandler<LaunchActivatedEventArgs> defau
             CopyResorceImageToDataFolder("DesktopAssistant.SampleImages.ookami.png", "Images/2.png");
             CopyResorceImageToDataFolder("DesktopAssistant.SampleImages.slime.png", "Images/3.png");
             CopyResorceImageToDataFolder("DesktopAssistant.SampleImages.tsundere.png", "Images/4.png");
-
         }
 
         await Task.CompletedTask;
     }
 
+    /// <summary>
+    /// 画像フォルダのパスを取得する
+    /// </summary>
+    private string GetImageFolder()
+    {
+        var appFolder = localSettingsService.ApplicationDataFolder;
+        var imageFolder = Path.Combine(appFolder, "Images");
+        return imageFolder;
+    }
+
+    /// <summary>
+    /// 画像フォルダが無ければ作成する
+    /// </summary>
     private void CreateImageFolderIfNotExists()
     {
         // アプリケーションフォルダのパスを取得  
-        var appFolder = localSettingsService.ApplicationDataFolder;
-        var imagePath = Path.Combine(appFolder, "Images");
-
-        if (!Directory.Exists(imagePath))
+        var imageFolder = GetImageFolder();
+        if (!Directory.Exists(imageFolder))
         {
-            Directory.CreateDirectory(imagePath);
+            Directory.CreateDirectory(imageFolder);
         }
     }
 
+    /// <summary>
+    /// 埋め込まれたリソースをデータフォルダにコピーする
+    /// </summary>
+    /// <param name="source"></param>
+    /// <param name="destination"></param>
     private void CopyResorceImageToDataFolder(string source, string destination)
     {
         // アプリケーションフォルダのパスを取得  

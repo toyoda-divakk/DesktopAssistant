@@ -83,18 +83,12 @@ public partial class App : Application
             services.AddTransient<ChatPage>();
             services.AddTransient<ToDoListViewModel>();
             services.AddTransient<ToDoListPage>();
-            services.AddTransient<CharacterSettingsDetailViewModel>();      // キャラクター設定の詳細画面のViewModel
-            services.AddTransient<CharacterSettingsDetailPage>();
-            services.AddTransient<CharacterSettingsViewModel>();
-            services.AddTransient<CharacterSettingsPage>();
             services.AddTransient<SettingsViewModel>();
             services.AddTransient<SettingsPage>();
             services.AddTransient<PersonalDetailViewModel>();
             services.AddTransient<PersonalDetailPage>();
             services.AddTransient<PersonalViewModel>();
             services.AddTransient<PersonalPage>();
-            services.AddTransient<WelcomeViewModel>();
-            services.AddTransient<WelcomePage>();
             services.AddTransient<MainViewModel>();
             services.AddTransient<MainPage>();
             services.AddTransient<ShellPage>();

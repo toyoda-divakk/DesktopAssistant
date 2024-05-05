@@ -63,12 +63,13 @@
                         <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xe7c3;" />
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
-                <NavigationViewItem x:Uid="Shell_Welcome" helpers:NavigationHelper.NavigateTo="DesktopAssistant.ViewModels.WelcomeViewModel">
+                <NavigationViewItem x:Uid="Shell_Personal" helpers:NavigationHelper.NavigateTo="DesktopAssistant.ViewModels.PersonalViewModel">
                     <NavigationViewItem.Icon>
-                        <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xe7c3;" />
+                        <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xf0e2;" />
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
-                <NavigationViewItem
+                <!--  サブメニューはこうやって書く  -->
+                <!--<NavigationViewItem
                     Content="Character"
                     Icon="Contact"
                     Tag="SamplePage2"
@@ -85,27 +86,7 @@
                             </NavigationViewItem.Icon>
                         </NavigationViewItem>
                     </NavigationViewItem.MenuItems>
-                </NavigationViewItem>
-                <!--<NavigationViewItem x:Uid="Shell_Personal" helpers:NavigationHelper.NavigateTo="DesktopAssistant.ViewModels.PersonalViewModel">
-                    <NavigationViewItem.Icon>
-                        <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xf0e2;" />
-                    </NavigationViewItem.Icon>
-                </NavigationViewItem>
-                <NavigationViewItem x:Uid="Shell_CharacterSettings" helpers:NavigationHelper.NavigateTo="DesktopAssistant.ViewModels.CharacterSettingsViewModel">
-                    <NavigationViewItem.Icon>
-                        <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xf0e2;" />
-                    </NavigationViewItem.Icon>
                 </NavigationViewItem>-->
-                <!--<NavigationViewItem x:Uid="Shell_Chat" helpers:NavigationHelper.NavigateTo="DesktopAssistant.ViewModels.ChatViewModel">
-                        <NavigationViewItem.Icon>
-                            <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xe7c3;"/>
-                        </NavigationViewItem.Icon>
-                    </NavigationViewItem>-->
-                <!--<NavigationViewItem x:Uid="Shell_CharacterImage" helpers:NavigationHelper.NavigateTo="DesktopAssistant.ViewModels.CharacterImageViewModel">
-                        <NavigationViewItem.Icon>
-                            <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xe7c3;"/>
-                        </NavigationViewItem.Icon>
-                    </NavigationViewItem>-->
             </NavigationView.MenuItems>
             <NavigationView.HeaderTemplate>
                 <DataTemplate>

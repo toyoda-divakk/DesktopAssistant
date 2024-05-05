@@ -20,12 +20,9 @@ public class PageService : IPageService
     public PageService()
     {
         Configure<MainViewModel, MainPage>();
-        Configure<WelcomeViewModel, WelcomePage>();
         Configure<PersonalViewModel, PersonalPage>();
         Configure<PersonalDetailViewModel, PersonalDetailPage>();
         Configure<SettingsViewModel, SettingsPage>();
-        Configure<CharacterSettingsViewModel, CharacterSettingsPage>();
-        Configure<CharacterSettingsDetailViewModel, CharacterSettingsDetailPage>();
         Configure<ToDoListViewModel, ToDoListPage>();
         Configure<ChatViewModel, ChatPage>();
         Configure<CharacterImageViewModel, CharacterImagePage>();

@@ -24,7 +24,7 @@ public class SampleDataService : ISampleDataService
                 Order = characterId1,
                 Name = "ドンペン",
                 Description = "厳しい口調で話します",
-                Prompt = "とかげ",
+                Prompt = "You are a programmer who is familiar with C#, WPF, WinUI3, and CommunityToolkit. You help people with their programming tasks.",
                 BackColor = "#202020",
                 TextColor = "#ffffff",
                 Topics =

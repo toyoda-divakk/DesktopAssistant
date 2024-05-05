@@ -24,6 +24,7 @@
                 <DataTemplate x:DataType="models:Character">
                     <Grid x:Name="itemThumbnail" Padding="{StaticResource XSmallLeftTopRightBottomMargin}">
                         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+
                             <!--<FontIcon
                                 Glyph="{x:Bind Symbol}"
                                 AutomationProperties.Name="{x:Bind SymbolName}" />-->

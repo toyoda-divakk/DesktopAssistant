@@ -60,89 +60,93 @@ public partial class ToDoListViewModel(ILiteDbService liteDbService) : Observabl
     public void Initialize(Window window)
     {
         var taskCategories = _liteDbService.GetTable<TaskCategory>();
-        Categories = SetupCategories(taskCategories);
-        foreach (var category in Categories)
+        foreach (var category in taskCategories)
         {
+            SetupCategory(category);
             category.TodoTasks = _liteDbService.GetTable<TodoTask>().Where(x => x.CategoryId == category.Id).ToList();
+            Categories.Add(category);
         }
         _window = window;
     }
 
     /// <summary>
-    /// 全カテゴリ取得
+    /// カテゴリに対して右クリック時の処理を設定する
     /// </summary>
     /// <param name="taskCategories"></param>
     /// <returns></returns>
-    private ObservableCollection<TaskCategory> SetupCategories(IEnumerable<TaskCategory> taskCategories)
+    private void SetupCategory(TaskCategory category)
     {
-        var categories = taskCategories.ToList();
-
-        // 右クリック時の処理を設定する
-        foreach (var category in categories)
+        category.EditCommand = new RelayCommand(() =>
         {
-            category.EditCommand = new RelayCommand(() =>
+            // TODO:編集ダイアログを表示する→遷移できるならそっちの方が良いなあWindowにFrameを持たせるとか（たぶんできない。それは確認すること。）
+        });
+        category.DeleteCommand = new RelayCommand(async () =>
+        {
+            // 削除確認ダイアログを表示する
+            // TODO:結構かさばるから共通化したい。
+            var dialog1 = new ContentDialog
             {
-                // TODO:編集ダイアログを表示する
-            });
-            category.DeleteCommand = new RelayCommand(async () =>
+                XamlRoot = _window?.Content.XamlRoot,
+                Title = "Message_DeleteCategory".GetLocalized(),
+                PrimaryButtonText = "Button_Delete".GetLocalized(),
+                CloseButtonText = "Button_Cancel".GetLocalized(),
+                DefaultButton = ContentDialogButton.Primary,
+                Content = new ContentDialogContent("Dialog_DeleteTask1".GetLocalized(), "Dialog_DeleteTask2".GetLocalized())
+            };
+
+            var result1 = await dialog1.ShowAsync();
+            if (result1 == ContentDialogResult.Primary)
             {
-                // 削除確認ダイアログを表示する
-                var dialog1 = new ContentDialog
+                var dialog2 = new ContentDialog
                 {
                     XamlRoot = _window?.Content.XamlRoot,
-                    Title = "Message_DeleteCategory".GetLocalized(),
+                    Title = "Message_ConfirmDelete1".GetLocalized(),
                     PrimaryButtonText = "Button_Delete".GetLocalized(),
                     CloseButtonText = "Button_Cancel".GetLocalized(),
                     DefaultButton = ContentDialogButton.Primary,
                     Content = new ContentDialogContent("Dialog_DeleteTask1".GetLocalized(), "Dialog_DeleteTask2".GetLocalized())
                 };
-
-                var result1 = await dialog1.ShowAsync();
-                if (result1 == ContentDialogResult.Primary)
+                var result2 = await dialog2.ShowAsync();
+                if (result2 == ContentDialogResult.Primary)
                 {
-                    var dialog2 = new ContentDialog
+                    var dialog3 = new ContentDialog
                     {
                         XamlRoot = _window?.Content.XamlRoot,
-                        Title = "Message_ConfirmDelete1".GetLocalized(),
-                        PrimaryButtonText = "Button_Delete".GetLocalized(),
+                        Title = "Message_ConfirmDelete2".GetLocalized(),
+                        PrimaryButtonText = "Button_NoRegrets".GetLocalized(),
                         CloseButtonText = "Button_Cancel".GetLocalized(),
                         DefaultButton = ContentDialogButton.Primary,
                         Content = new ContentDialogContent("Dialog_DeleteTask1".GetLocalized(), "Dialog_DeleteTask2".GetLocalized())
                     };
-                    var result2 = await dialog2.ShowAsync();
-                    if (result2 == ContentDialogResult.Primary)
+                    var result3 = await dialog3.ShowAsync();
+                    if (result3 == ContentDialogResult.Primary)
                     {
-                        var dialog3 = new ContentDialog
-                        {
-                            XamlRoot = _window?.Content.XamlRoot,
-                            Title = "Message_ConfirmDelete2".GetLocalized(),
-                            PrimaryButtonText = "Button_NoRegrets".GetLocalized(),
-                            CloseButtonText = "Button_Cancel".GetLocalized(),
-                            DefaultButton = ContentDialogButton.Primary,
-                            Content = new ContentDialogContent("Dialog_DeleteTask1".GetLocalized(), "Dialog_DeleteTask2".GetLocalized())
-                        };
-                        var result3 = await dialog3.ShowAsync();
-                        if (result3 == ContentDialogResult.Primary)
-                        {
-                            // カテゴリ内のタスクを全て削除する
-                            var tasks = _liteDbService.GetTable<TodoTask>().Where(x => x.CategoryId == category.Id);
-                            foreach (var task in tasks)
-                            {
-                                _liteDbService.Delete(task);
-                            }
-                            // カテゴリを削除する
-                            _liteDbService.Delete(category);
-                            Categories.Remove(category);
-                            SetTasks([]);
+                        DeleteCategory(category);
 
-                        }
                     }
                 }
-
-            });
-        }
-        return new ObservableCollection<TaskCategory>(categories);
+            }
+        });
     }
+
+    /// <summary>
+    /// DBと画面表示からカテゴリ削除
+    /// </summary>
+    /// <param name="category"></param>
+    private void DeleteCategory(TaskCategory category)
+    {
+        // カテゴリ内のタスクを全て削除する
+        var tasks = _liteDbService.GetTable<TodoTask>().Where(x => x.CategoryId == category.Id);
+        foreach (var task in tasks)
+        {
+            _liteDbService.Delete(task);
+        }
+        // カテゴリを削除する
+        _liteDbService.Delete(category);
+        Categories.Remove(category);
+        SetTasks([]);
+    }
+
 
     /// <summary>
     /// カテゴリ切り替え

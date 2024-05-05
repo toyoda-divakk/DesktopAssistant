@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using LiteDB;
 
 namespace DesktopAssistant.Core.Models;
 
 // Character -> Topic -> Message
-// NoSQLでは紐づけ方が分からないので、子オブジェクトは親のIdを持たせる
 /// <summary>
 /// キャラクター
 /// </summary>
@@ -71,6 +71,14 @@ public record Character : IIdentifiable
     }
 
     /// <summary>
+    /// 画像パス
+    /// </summary>
+    public string FaceImagePath
+    {
+        get; set;
+    }
+
+    /// <summary>
     /// 会話のリスト
     /// </summary>
     [BsonIgnore]
@@ -78,4 +86,17 @@ public record Character : IIdentifiable
     {
         get; set;
     } = [];
+
+    // キャラ選択も右クリック。または詳細画面でボタンクリック。
+    // 基本的に、右クリックでも左クリックでも編集や削除ができるようにすればいいでしょう。
+    [BsonIgnore]
+    public ICommand EditCommand
+    {
+        get; set;
+    }
+    [BsonIgnore]
+    public ICommand DeleteCommand
+    {
+        get; set;
+    }
 }
