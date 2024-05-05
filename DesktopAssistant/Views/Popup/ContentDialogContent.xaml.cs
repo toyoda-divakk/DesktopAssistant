@@ -20,10 +20,20 @@ namespace DesktopAssistant.Views.Popup;
 /// </summary>
 public sealed partial class ContentDialogContent : Page
 {
+    private readonly string _text1;
+    private readonly string _text2;
     public ContentDialogContent(string text1, string text2)
     {
-        this.InitializeComponent();
+        InitializeComponent();
         Text_Content1.Text = text1;
         Text_Content2.Text = text2;
+
+        _text1 = text1;  // 外からアクセスできるようにする
+        _text2 = text2;
+    }
+
+    public ContentDialogContent CopyContent()
+    {
+        return new ContentDialogContent(_text1, _text2);
     }
 }

@@ -49,50 +49,15 @@ public partial class PersonalViewModel(INavigationService navigationService, ILi
         });
         character.DeleteCommand = new RelayCommand(async () =>
         {
-            //// 削除確認ダイアログを表示する
-            //// TODO:結構かさばるから共通化したい。
-            //var dialog1 = new ContentDialog
-            //{
-            //    XamlRoot = _window?.Content.XamlRoot,
-            //    Title = "Message_DeleteCategory".GetLocalized(),
-            //    PrimaryButtonText = "Button_Delete".GetLocalized(),
-            //    CloseButtonText = "Button_Cancel".GetLocalized(),
-            //    DefaultButton = ContentDialogButton.Primary,
-            //    Content = new ContentDialogContent("Dialog_DeleteTask1".GetLocalized(), "Dialog_DeleteTask2".GetLocalized())
-            //};
+            // 現在のWindowを取得する
+            var window = Window.Current;
 
-            //var result1 = await dialog1.ShowAsync();
-            //if (result1 == ContentDialogResult.Primary)
-            //{
-            //    var dialog2 = new ContentDialog
-            //    {
-            //        XamlRoot = _window?.Content.XamlRoot,
-            //        Title = "Message_ConfirmDelete1".GetLocalized(),
-            //        PrimaryButtonText = "Button_Delete".GetLocalized(),
-            //        CloseButtonText = "Button_Cancel".GetLocalized(),
-            //        DefaultButton = ContentDialogButton.Primary,
-            //        Content = new ContentDialogContent("Dialog_DeleteTask1".GetLocalized(), "Dialog_DeleteTask2".GetLocalized())
-            //    };
-            //    var result2 = await dialog2.ShowAsync();
-            //    if (result2 == ContentDialogResult.Primary)
-            //    {
-            //        var dialog3 = new ContentDialog
-            //        {
-            //            XamlRoot = _window?.Content.XamlRoot,
-            //            Title = "Message_ConfirmDelete2".GetLocalized(),
-            //            PrimaryButtonText = "Button_NoRegrets".GetLocalized(),
-            //            CloseButtonText = "Button_Cancel".GetLocalized(),
-            //            DefaultButton = ContentDialogButton.Primary,
-            //            Content = new ContentDialogContent("Dialog_DeleteTask1".GetLocalized(), "Dialog_DeleteTask2".GetLocalized())
-            //        };
-            //        var result3 = await dialog3.ShowAsync();
-            //        if (result3 == ContentDialogResult.Primary)
-            //        {
-            //            DeleteCharactor(character);
-
-            //        }
-            //    }
-            //}
+            // 削除確認ダイアログを表示する
+            var contentDialogContent = new ContentDialogContent("Dialog_DeleteTask1".GetLocalized(), "Dialog_DeleteTask2".GetLocalized());      // TODO:メッセージを直すこと
+            if (await DialogHelper.ShowDeleteDialog(window, "Message_DeleteCategory".GetLocalized(), contentDialogContent))
+            {
+                DeleteCharactor(character);
+            }
         });
     }
 
