@@ -43,7 +43,7 @@ public class DialogHelper
                 PrimaryButtonText = "Button_Delete".GetLocalized(),
                 CloseButtonText = "Button_Cancel".GetLocalized(),
                 DefaultButton = ContentDialogButton.Primary,
-                Content = content.CopyContent()
+                Content = content.CopyContent()     // 引数のcontentは使用中で使いまわせない。例外が出るのでコピーする
             };
             var result2 = await dialog2.ShowAsync();
             if (result2 == ContentDialogResult.Primary)
