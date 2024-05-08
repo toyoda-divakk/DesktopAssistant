@@ -137,7 +137,7 @@ public class ActivationService(ActivationHandler<LaunchActivatedEventArgs> defau
             var characters = sampleDataService.GetSampleCharacters();
             foreach (var character in characters)
             {
-                character.FaceImagePath = Path.Combine(GetImageFolder(), character.Id.ToString());
+                character.FaceImagePath = Path.Combine(GetImageFolder(), $"{character.Id.ToString()}.png");
                 liteDbService.Insert(character);
                 foreach (var topic in character.Topics)
                 {
