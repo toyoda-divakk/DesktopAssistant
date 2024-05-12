@@ -20,6 +20,7 @@ public class SampleDataService : ISampleDataService
         [
             new()
             {
+                IsSelected = true,
                 Id = characterId1,
                 Order = characterId1,
                 Name = "ドンペン",
@@ -111,6 +112,7 @@ public class SampleDataService : ISampleDataService
             },
             new()
             {
+                IsSelected = false,
                 Id = characterId2,
                 Order = characterId2,
                 Name = "プランク",
@@ -202,6 +204,7 @@ public class SampleDataService : ISampleDataService
             },
             new()
             {
+                IsSelected = false,
                 Id = characterId3,
                 Order = characterId3,
                 Name = "カルモン",
@@ -293,6 +296,7 @@ public class SampleDataService : ISampleDataService
             },
             new()
             {
+                IsSelected = false,
                 Id = characterId4,
                 Order = characterId4,
                 Name = "ツン子",

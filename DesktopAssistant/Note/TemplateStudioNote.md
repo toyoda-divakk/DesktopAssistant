@@ -131,3 +131,6 @@ ScrollViewを表示するには子要素の高さが表示領域を超えなけ�
 ShellPageのデフォルトの書き方ではWindowからはみ出てもFrameが伸びるため超えない。
 StackPanelでShellPageの要素を書いているため高さの制限が無いからである。
 StackPanelをやめてGridのRowDefinitionを書いてやることで高さの制限ができてScrollViewerが出るようになる。
+
+## CommandParameterにBindingが使えない
+これは元々できないので、使わずに済む構造になるように作る。

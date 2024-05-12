@@ -6,9 +6,11 @@ using CommunityToolkit.Mvvm.Input;
 
 using DesktopAssistant.Contracts.Services;
 using DesktopAssistant.Contracts.ViewModels;
+using DesktopAssistant.Core.Contracts.Interfaces;
 using DesktopAssistant.Core.Contracts.Services;
 using DesktopAssistant.Core.Models;
 using DesktopAssistant.Helpers;
+using DesktopAssistant.Services;
 using DesktopAssistant.Views.Popup;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
@@ -18,12 +20,34 @@ namespace DesktopAssistant.ViewModels;
 /// <summary>
 /// キャラ選択画面のViewModel
 /// </summary>
-public partial class PersonalViewModel(INavigationService navigationService, ILiteDbService liteDbService) : ObservableRecipient, INavigationAware
+public partial class PersonalViewModel(INavigationService navigationService, ILiteDbService liteDbService, ICharacterSettingService characterSettingService) : ObservableRecipient, INavigationAware, ICharacterSetting
 {
     private readonly INavigationService _navigationService = navigationService;
     private readonly ILiteDbService _liteDbService = liteDbService;
+    private readonly ICharacterSettingService _characterSettingService = characterSettingService;
 
     public ObservableCollection<Character> Source { get; } = [];
+
+    public Character CurrentCharacter => Source.First(x => x.Id == CurrentCharacterId);
+    public long CurrentCharacterId
+    {
+        get; set;
+    }
+
+    private void SwitchCharacter(long id)
+    {
+        // 表示に反映させる
+        foreach (var character in Source)
+        {
+            character.IsSelected = character.Id == id;
+        }
+        // 設定に反映させる
+        if (CurrentCharacterId != id)
+        {
+            CurrentCharacterId = id;
+            _characterSettingService.SetAndSaveAsync(this);
+        }
+    }
 
     public void OnNavigatedTo(object parameter)
     {
@@ -34,6 +58,10 @@ public partial class PersonalViewModel(INavigationService navigationService, ILi
             character.Topics = _liteDbService.GetTable<Topic>().Where(x => x.CharacterId == character.Id).ToList();
             Source.Add(character);
         }
+
+        // _characterSettingServiceから選択中のキャラクターを取得して選択状態にする
+        CurrentCharacterId = _characterSettingService.CurrentCharacter.Id;
+        SwitchCharacter(CurrentCharacterId);
     }
 
     /// <summary>
@@ -50,7 +78,7 @@ public partial class PersonalViewModel(INavigationService navigationService, ILi
         character.DeleteCommand = new RelayCommand(async () =>
         {
             // 現在のWindowを取得する
-            var window = Window.Current;
+            var window = App.MainWindow;
 
             // 削除確認ダイアログを表示する
             var contentDialogContent = new ContentDialogContent("Dialog_DeleteTask1".GetLocalized(), "Dialog_DeleteTask2".GetLocalized());      // TODO:メッセージを直すこと
@@ -58,6 +86,10 @@ public partial class PersonalViewModel(INavigationService navigationService, ILi
             {
                 DeleteCharactor(character);
             }
+        });
+        character.SwitchCommand = new RelayCommand(() =>
+        {
+            SwitchCharacter(character.Id);
         });
     }
 

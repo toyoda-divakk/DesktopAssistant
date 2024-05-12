@@ -63,6 +63,7 @@ public partial class App : Application
             services.AddSingleton<IThemeSelectorService, ThemeSelectorService>();   // テーマの変更と保存
             services.AddSingleton<IApiSettingService, ApiSettingService>();         // APIの変更と保存
             services.AddSingleton<IChatSettingService, ChatSettingService>();         // Chat表示の変更と保存
+            services.AddSingleton<ICharacterSettingService, CharacterSettingService>();         // キャラクターの変更と保存
             services.AddTransient<INavigationViewService, NavigationViewService>(); // NavigationViewの操作を補助する
 
             services.AddSingleton<IActivationService, ActivationService>();     // アプリケーション起動時の処理を行う

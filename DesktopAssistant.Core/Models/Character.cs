@@ -79,6 +79,15 @@ public record Character : IIdentifiable
     }
 
     /// <summary>
+    /// 現在使用中か
+    /// </summary>
+    [BsonIgnore]
+    public bool IsSelected
+    {
+        get; set;
+    }
+
+    /// <summary>
     /// 会話のリスト
     /// </summary>
     [BsonIgnore]
@@ -96,6 +105,15 @@ public record Character : IIdentifiable
     }
     [BsonIgnore]
     public ICommand DeleteCommand
+    {
+        get; set;
+    }
+
+    /// <summary>
+    /// キャラクター切り替えコマンド
+    /// </summary>
+    [BsonIgnore]
+    public ICommand SwitchCommand
     {
         get; set;
     }
