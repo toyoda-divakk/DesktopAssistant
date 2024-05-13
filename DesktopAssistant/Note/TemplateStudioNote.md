@@ -132,5 +132,11 @@ ShellPageのデフォルトの書き方ではWindowからはみ出てもFrameが
 StackPanelでShellPageの要素を書いているため高さの制限が無いからである。
 StackPanelをやめてGridのRowDefinitionを書いてやることで高さの制限ができてScrollViewerが出るようになる。
 
-## CommandParameterにBindingが使えない
+## コンバータ内のParameterにBindingが使えない
 これは元々できないので、使わずに済む構造になるように作る。
+
+## 動的なラジオボタン表示で原因不明のエラーになる
+固定なら問題発生しないっぽい。
+ToggleButtonのIsCheckedにBindingを使っていて、クリック時にCommandを呼ぶ場合時々エラーになる。
+画面遷移時でも発生する。
+

@@ -28,13 +28,12 @@ public partial class PersonalViewModel(INavigationService navigationService, ILi
 
     public ObservableCollection<Character> Source { get; } = [];
 
-    public Character CurrentCharacter => Source.First(x => x.Id == CurrentCharacterId);
     public long CurrentCharacterId
     {
         get; set;
     }
 
-    private void SwitchCharacter(long id)
+    private void SwitchCharacter(long id)       // 普通にラジオボタンクリックでここを呼んでも落ちる。エラーにToggleButtonがどうこう書いてあるので、ラジオボタンやめた方がよさそう。
     {
         // 表示に反映させる
         foreach (var character in Source)
@@ -61,7 +60,10 @@ public partial class PersonalViewModel(INavigationService navigationService, ILi
 
         // _characterSettingServiceから選択中のキャラクターを取得して選択状態にする
         CurrentCharacterId = _characterSettingService.CurrentCharacter.Id;
-        SwitchCharacter(CurrentCharacterId);
+        foreach (var character in Source)
+        {
+            //character.IsSelected = character.Id == CurrentCharacterId;                    // TODO:この処理がダメらしい。ラジオボタンの選択状態を変えるにはどうすればいいのか？
+        }
     }
 
     /// <summary>

@@ -8,14 +8,6 @@ namespace DesktopAssistant.Core.Contracts.Interfaces;
 /// </summary>
 public interface ICharacterSetting
 {
-    ///// <summary>
-    ///// 現在選択中のキャラクター
-    ///// </summary>
-    //Character CurrentCharacter
-    //{
-    //    get;
-    //}
-
     // クラスだとリフレクションで映すのが面倒なのでIDのみ
     public long CurrentCharacterId
     {

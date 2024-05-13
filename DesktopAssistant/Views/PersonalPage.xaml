@@ -31,6 +31,7 @@
                             Grid.Row="1"
                             Background="{Binding BackColor}"
                             CornerRadius="5" />
+                        <!--  TODO:ラジオボタンを置いて何回か遷移するとエラーになる。選択ボタンと、背景色で対応させよう。または、やり方間違ってる？  -->
                         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top">
                             <RadioButton
                                 Command="{x:Bind SwitchCommand}"
@@ -39,8 +40,7 @@
                                 FontSize="15"
                                 Foreground="{Binding TextColor}"
                                 GroupName="SelectCharacter"
-                                IsChecked="{x:Bind IsSelected, Mode=OneWay}" >
-                            </RadioButton>
+                                IsChecked="{x:Bind IsSelected, Mode=OneWay}" />
                         </StackPanel>
                         <Image Source="{Binding FaceImagePath}" />
                         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Bottom">
