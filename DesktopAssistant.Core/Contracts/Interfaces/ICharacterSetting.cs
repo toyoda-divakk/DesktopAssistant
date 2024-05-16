@@ -3,6 +3,7 @@ using DesktopAssistant.Core.Models;
 
 namespace DesktopAssistant.Core.Contracts.Interfaces;
 
+// TODO:いらないんじゃないかな？
 /// <summary>
 /// キャラクターに関する設定項目のインターフェース
 /// </summary>

@@ -65,6 +65,7 @@ private string? name;
 
 ## コマンド
 GreetUserCommandが生成されるので、これをバインドすること。
+OnItemClickだと、Onが消されてItemClickCommandになる。
 ```
 [RelayCommand]
 private void GreetUser(User user)
@@ -113,3 +114,7 @@ private bool CanGreetUser(User? user)
 [RelayCommand(IncludeCancelCommand = true)]
 ```
 
+## Animation
+SetListDataItemForNextConnectedAnimationとは？
+詳しくはCommunityToolkitサンプルアプリの"Connected Animations"を参照。（WinUI3の機能らしい）
+https://learn.microsoft.com/ja-jp/windows/apps/design/motion/connected-animation

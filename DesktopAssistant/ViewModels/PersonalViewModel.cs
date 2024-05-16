@@ -17,15 +17,13 @@ using Microsoft.UI.Xaml.Controls;
 
 namespace DesktopAssistant.ViewModels;
 
-// , ICharacterSettingService characterSettingService   // ラジオボタンの都合で、消す
 /// <summary>
 /// キャラ選択画面のViewModel
 /// </summary>
-public partial class PersonalViewModel(INavigationService navigationService, ILiteDbService liteDbService) : ObservableRecipient, INavigationAware, ICharacterSetting
+public partial class PersonalViewModel(INavigationService navigationService, ILiteDbService liteDbService) : ObservableRecipient, INavigationAware
 {
     private readonly INavigationService _navigationService = navigationService;
     private readonly ILiteDbService _liteDbService = liteDbService;
-    //private readonly ICharacterSettingService _characterSettingService = characterSettingService;
 
     public ObservableCollection<Character> Source { get; } = [];
 
@@ -34,25 +32,18 @@ public partial class PersonalViewModel(INavigationService navigationService, ILi
         get; set;
     }
 
-    private void SwitchCharacter(long id)       // 普通にラジオボタンクリックでここを呼んでも落ちる。エラーにToggleButtonがどうこう書いてあるので、ラジオボタンやめた方がよさそう。
+    private void SwitchCharacter(long id)
     {
-        //// 表示に反映させる
-        //foreach (var character in Source)
-        //{
-        //    character.IsSelected = character.Id == id;
-        //}
         // 設定に反映させる
         if (CurrentCharacterId != id)
         {
-            //_characterSettingService.SetAndSaveAsync(this);
-
             var beforeCharacter = _liteDbService.GetTable<Character>().First(x => x.Id == CurrentCharacterId);
             beforeCharacter.IsSelected = false;
             var afterCharacter = _liteDbService.GetTable<Character>().First(x => x.Id == id);
             afterCharacter.IsSelected = true;
             CurrentCharacterId = id;
 
-            // TODO:DBに反映させる（変更前と変更後の2件）
+            // DBに反映させる（変更前と変更後の2件）
             _liteDbService.Upsert(beforeCharacter);
             _liteDbService.Upsert(afterCharacter);
         }
@@ -60,6 +51,7 @@ public partial class PersonalViewModel(INavigationService navigationService, ILi
 
     public void OnNavigatedTo(object parameter)
     {
+        // キャラクター一覧を取得して、現在選択中のキャラクターを設定する
         var characters = _liteDbService.GetTable<Character>();
         foreach (var character in characters)
         {
@@ -67,15 +59,7 @@ public partial class PersonalViewModel(INavigationService navigationService, ILi
             character.Topics = _liteDbService.GetTable<Topic>().Where(x => x.CharacterId == character.Id).ToList();
             Source.Add(character);
         }
-
         CurrentCharacterId = Source.First(x => x.IsSelected).Id;
-
-        //// _characterSettingServiceから選択中のキャラクターを取得して選択状態にする
-        //CurrentCharacterId = _characterSettingService.CurrentCharacter.Id;
-        //foreach (var character in Source)
-        //{
-        //    //character.IsSelected = character.Id == CurrentCharacterId;                    // TODO:この処理がダメらしい。ラジオボタンの選択状態を変えるにはどうすればいいのか？
-        //}
     }
 
     /// <summary>
@@ -87,7 +71,7 @@ public partial class PersonalViewModel(INavigationService navigationService, ILi
     {
         character.EditCommand = new RelayCommand(() =>
         {
-            // TODO:編集ダイアログを表示する→遷移できるならそっちの方が良いなあWindowにFrameを持たせるとか（たぶんできない。それは確認すること。）
+            // TODO:編集ダイアログを表示する→遷移できるならそっちの方が良いなあ
         });
         character.DeleteCommand = new RelayCommand(async () =>
         {
@@ -126,15 +110,21 @@ public partial class PersonalViewModel(INavigationService navigationService, ILi
 
     public void OnNavigatedFrom()
     {
+        // 画面から遷移する直前に呼び出される
+        // 遷移元の画面が破棄される前に必要な後処理を実行する（データを保存するなど）
     }
 
+    /// <summary>
+    /// キャラクターをクリックした際の処理
+    /// </summary>
+    /// <param name="clickedItem"></param>
     [RelayCommand]
     private void OnItemClick(Character? clickedItem)
     {
         if (clickedItem != null)
         {
-            _navigationService.SetListDataItemForNextConnectedAnimation(clickedItem);
-            _navigationService.NavigateTo(typeof(PersonalDetailViewModel).FullName!, clickedItem.Id);
+            _navigationService.SetListDataItemForNextConnectedAnimation(clickedItem);       // 次のフレームナビゲーション中に使用されるオブジェクトを設定（よくわからん）
+            _navigationService.NavigateTo(typeof(PersonalDetailViewModel).FullName!, clickedItem.Id);   // 行先とパラメータを指定して遷移する
         }
     }
 }

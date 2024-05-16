@@ -24,5 +24,7 @@ public interface INavigationService
 
     bool GoBack();
 
-    void SetListDataItemForNextConnectedAnimation(object item);
+    // これなに？
+    // https://learn.microsoft.com/ja-jp/windows/apps/design/motion/connected-animation
+    void SetListDataItemForNextConnectedAnimation(object item); 
 }
