@@ -30,11 +30,11 @@ public interface ILiteDbService
     IEnumerable<T> GetTable<T>();
 
     /// <summary>
-    /// 任意のテーブルにデータを追加
+    /// 任意のテーブルにデータを追加または更新
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="data"></param>
-    void Insert<T>(T data);
+    void Upsert<T>(T data);
 
     /// <summary>
     /// 対象のデータを削除する

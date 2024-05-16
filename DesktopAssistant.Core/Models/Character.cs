@@ -78,10 +78,10 @@ public record Character : IIdentifiable
         get; set;
     }
 
+    //[BsonIgnore]やっぱ保存する
     /// <summary>
     /// 現在使用中か
     /// </summary>
-    [BsonIgnore]
     public bool IsSelected
     {
         get; set;

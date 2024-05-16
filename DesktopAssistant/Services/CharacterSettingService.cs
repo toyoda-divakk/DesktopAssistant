@@ -6,6 +6,8 @@ using DesktopAssistant.Helpers;
 
 namespace DesktopAssistant.Services;
 
+// TODO:多分使わないので、キャラ実装できたら消すこと
+
 /// <summary>
 /// チャットで使用するキャラクターの設定を管理するサービスを表します。
 /// </summary>

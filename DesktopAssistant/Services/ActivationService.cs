@@ -104,7 +104,7 @@ public class ActivationService(ActivationHandler<LaunchActivatedEventArgs> defau
         var systemEvents = liteDbService.GetTable<SystemEvent>().ToList();
         if (!systemEvents.Exists(e => e.Event == SystemEvents.Initial_SetTasks))
         {
-            liteDbService.Insert(new SystemEvent()
+            liteDbService.Upsert(new SystemEvent()
             {
                 Event = SystemEvents.Initial_SetTasks,
                 Content = "DBにプリセットのタスクを登録する。",
@@ -117,16 +117,16 @@ public class ActivationService(ActivationHandler<LaunchActivatedEventArgs> defau
             var taskCategories = sampleDataService.GetSampleTodoTasks();
             foreach (var taskCategory in taskCategories)
             {
-                liteDbService.Insert(taskCategory);
+                liteDbService.Upsert(taskCategory);
                 foreach (var task in taskCategory.TodoTasks)
                 {
-                    liteDbService.Insert(task);
+                    liteDbService.Upsert(task);
                 }
             }
         }
         if (!systemEvents.ToList().Exists(e => e.Event == SystemEvents.Initial_SetCharacoers))
         {
-            liteDbService.Insert(new SystemEvent()
+            liteDbService.Upsert(new SystemEvent()
             {
                 Event = SystemEvents.Initial_SetCharacoers,
                 Content = "DBにプリセットのキャラを登録する。",
@@ -140,10 +140,10 @@ public class ActivationService(ActivationHandler<LaunchActivatedEventArgs> defau
             foreach (var character in characters)
             {
                 character.FaceImagePath = Path.Combine(GetImageFolder(), $"{character.Id.ToString()}.png");
-                liteDbService.Insert(character);
+                liteDbService.Upsert(character);
                 foreach (var topic in character.Topics)
                 {
-                    liteDbService.Insert(topic);
+                    liteDbService.Upsert(topic);
                 }
             }
 

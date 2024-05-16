@@ -17,14 +17,15 @@ using Microsoft.UI.Xaml.Controls;
 
 namespace DesktopAssistant.ViewModels;
 
+// , ICharacterSettingService characterSettingService   // ラジオボタンの都合で、消す
 /// <summary>
 /// キャラ選択画面のViewModel
 /// </summary>
-public partial class PersonalViewModel(INavigationService navigationService, ILiteDbService liteDbService, ICharacterSettingService characterSettingService) : ObservableRecipient, INavigationAware, ICharacterSetting
+public partial class PersonalViewModel(INavigationService navigationService, ILiteDbService liteDbService) : ObservableRecipient, INavigationAware, ICharacterSetting
 {
     private readonly INavigationService _navigationService = navigationService;
     private readonly ILiteDbService _liteDbService = liteDbService;
-    private readonly ICharacterSettingService _characterSettingService = characterSettingService;
+    //private readonly ICharacterSettingService _characterSettingService = characterSettingService;
 
     public ObservableCollection<Character> Source { get; } = [];
 
@@ -35,16 +36,25 @@ public partial class PersonalViewModel(INavigationService navigationService, ILi
 
     private void SwitchCharacter(long id)       // 普通にラジオボタンクリックでここを呼んでも落ちる。エラーにToggleButtonがどうこう書いてあるので、ラジオボタンやめた方がよさそう。
     {
-        // 表示に反映させる
-        foreach (var character in Source)
-        {
-            character.IsSelected = character.Id == id;
-        }
+        //// 表示に反映させる
+        //foreach (var character in Source)
+        //{
+        //    character.IsSelected = character.Id == id;
+        //}
         // 設定に反映させる
         if (CurrentCharacterId != id)
         {
+            //_characterSettingService.SetAndSaveAsync(this);
+
+            var beforeCharacter = _liteDbService.GetTable<Character>().First(x => x.Id == CurrentCharacterId);
+            beforeCharacter.IsSelected = false;
+            var afterCharacter = _liteDbService.GetTable<Character>().First(x => x.Id == id);
+            afterCharacter.IsSelected = true;
             CurrentCharacterId = id;
-            _characterSettingService.SetAndSaveAsync(this);
+
+            // TODO:DBに反映させる（変更前と変更後の2件）
+            _liteDbService.Upsert(beforeCharacter);
+            _liteDbService.Upsert(afterCharacter);
         }
     }
 
@@ -58,12 +68,14 @@ public partial class PersonalViewModel(INavigationService navigationService, ILi
             Source.Add(character);
         }
 
-        // _characterSettingServiceから選択中のキャラクターを取得して選択状態にする
-        CurrentCharacterId = _characterSettingService.CurrentCharacter.Id;
-        foreach (var character in Source)
-        {
-            //character.IsSelected = character.Id == CurrentCharacterId;                    // TODO:この処理がダメらしい。ラジオボタンの選択状態を変えるにはどうすればいいのか？
-        }
+        CurrentCharacterId = Source.First(x => x.IsSelected).Id;
+
+        //// _characterSettingServiceから選択中のキャラクターを取得して選択状態にする
+        //CurrentCharacterId = _characterSettingService.CurrentCharacter.Id;
+        //foreach (var character in Source)
+        //{
+        //    //character.IsSelected = character.Id == CurrentCharacterId;                    // TODO:この処理がダメらしい。ラジオボタンの選択状態を変えるにはどうすればいいのか？
+        //}
     }
 
     /// <summary>

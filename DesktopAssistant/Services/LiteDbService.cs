@@ -42,11 +42,11 @@ public class LiteDbService : ILiteDbService
         return table.FindAll().ToList();
     }
 
-    public void Insert<T>(T data)
+    public void Upsert<T>(T data)
     {
         using var context = GetContext;
         var table = context.GetCollection<T>(typeof(T).Name.Pluralize());
-        table.Insert(data);
+        table.Upsert(data);
     }
 
     public void Delete<T>(T target) where T : IIdentifiable
