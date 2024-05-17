@@ -1,21 +1,15 @@
 ﻿using System.Collections.ObjectModel;
-using System.Windows.Input;
-
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-
 using DesktopAssistant.Contracts.Services;
 using DesktopAssistant.Contracts.ViewModels;
-using DesktopAssistant.Core.Contracts.Interfaces;
-using DesktopAssistant.Core.Contracts.Services;
 using DesktopAssistant.Core.Models;
 using DesktopAssistant.Helpers;
-using DesktopAssistant.Services;
 using DesktopAssistant.Views.Popup;
-using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Controls;
 
 namespace DesktopAssistant.ViewModels;
+// TODO:新規追加ボタンを作ろう
+// TODO:コピー処理を作ろう（データ追加処理という点では↑と同じ）
 
 /// <summary>
 /// キャラ選択画面のViewModel
@@ -38,14 +32,25 @@ public partial class PersonalViewModel(INavigationService navigationService, ILi
         if (CurrentCharacterId != id)
         {
             var beforeCharacter = _liteDbService.GetTable<Character>().First(x => x.Id == CurrentCharacterId);
+            Source.First(x => x.Id == CurrentCharacterId).IsSelected = false;
             beforeCharacter.IsSelected = false;
+            var beforeSource = Source.First(x => x.Id == CurrentCharacterId);
+            beforeSource.IsSelected = false;
+
             var afterCharacter = _liteDbService.GetTable<Character>().First(x => x.Id == id);
             afterCharacter.IsSelected = true;
+            var afterSource = Source.First(x => x.Id == id);
+            afterSource.IsSelected = true;
             CurrentCharacterId = id;
 
-            // DBに反映させる（変更前と変更後の2件）
-            _liteDbService.Upsert(beforeCharacter);
+            _liteDbService.Upsert(beforeCharacter); // DBに反映させる
             _liteDbService.Upsert(afterCharacter);
+
+            // 表示更新
+            var beforeIndex = Source.IndexOf(beforeSource);
+            Source[beforeIndex] = beforeSource;
+            var afterIndex = Source.IndexOf(afterSource);
+            Source[afterIndex] = afterSource;
         }
     }
 
@@ -53,13 +58,30 @@ public partial class PersonalViewModel(INavigationService navigationService, ILi
     {
         // キャラクター一覧を取得して、現在選択中のキャラクターを設定する
         var characters = _liteDbService.GetTable<Character>();
+        if (!characters.Any())
+        {
+            return;
+        }
         foreach (var character in characters)
         {
             SetupCaracter(character);
             character.Topics = _liteDbService.GetTable<Topic>().Where(x => x.CharacterId == character.Id).ToList();
             Source.Add(character);
         }
-        CurrentCharacterId = Source.First(x => x.IsSelected).Id;
+        var selectedCharacter = characters.FirstOrDefault(x => x.IsSelected);
+        if (selectedCharacter == null)
+        {
+            var chara = characters.First();
+            chara.IsSelected = true;
+            _liteDbService.Upsert(chara);
+            Source.First(x => x.Id == chara.Id).IsSelected = true;
+            CurrentCharacterId = chara.Id;
+        }
+        else
+        {
+            CurrentCharacterId = selectedCharacter.Id;
+        }
+
     }
 
     /// <summary>
@@ -89,6 +111,7 @@ public partial class PersonalViewModel(INavigationService navigationService, ILi
         {
             SwitchCharacter(character.Id);
         });
+        // TODO:CopyCommandを作る
     }
 
     /// <summary>

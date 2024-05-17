@@ -4,13 +4,18 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:animations="using:CommunityToolkit.WinUI.UI.Animations"
     xmlns:controls="using:CommunityToolkit.WinUI.UI.Controls"
+    xmlns:converters="using:CommunityToolkit.WinUI.UI.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:helpers="using:DesktopAssistant.Helpers"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="using:DesktopAssistant.Core.Models"
     mc:Ignorable="d">
     <Page.Resources>
-        <helpers:EqualityToBooleanConverter x:Key="EqualityToBooleanConverter" />
+        <converters:BoolToObjectConverter
+            x:Key="BoolToObjectConverter"
+            FalseValue="&#xF781;"
+            TrueValue="&#xE939;" />
+
     </Page.Resources>
 
     <Grid x:Name="ContentArea">
@@ -20,36 +25,59 @@
             DesiredWidth="180"
             IsItemClickEnabled="True"
             ItemClickCommand="{x:Bind ViewModel.ItemClickCommand}"
-            ItemHeight="300"
+            ItemHeight="330"
             ItemsSource="{x:Bind ViewModel.Source, Mode=OneWay}"
             SelectionMode="None"
             StretchContentForSingleRow="False">
             <controls:AdaptiveGridView.ItemTemplate>
                 <DataTemplate x:DataType="models:Character">
-                    <Grid x:Name="itemThumbnail" Padding="{StaticResource XSmallLeftTopRightBottomMargin}">
-                        <Border
-                            Grid.Row="1"
-                            Background="{Binding BackColor}"
-                            CornerRadius="5" />
-                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top">
-                            <!--  やっぱ原因不明のエラーで落ちるのでRadioButtonは使用しない。代わりに可愛いtoggleボタンを置こう。  -->
-                            <!--<RadioButton
+                    <Grid>
+                        <!--  右クリックメニュー  -->
+                        <Grid.ContextFlyout>
+                            <MenuFlyout>
+                                <!--<MenuFlyoutItem
+                                    x:Uid="Menu_Switch"
+                                    Command="{x:Bind SwitchCommand}"/>-->
+                                <MenuFlyoutItem x:Uid="Menu_Edit" Command="{x:Bind EditCommand}" />
+                                <!--<MenuFlyoutItem
+                                    x:Uid="Menu_Copy"
+                                    Command="{x:Bind CopyCommand}"/>-->
+                                <MenuFlyoutItem x:Uid="Menu_Delete" Command="{x:Bind DeleteCommand}" />
+                            </MenuFlyout>
+                        </Grid.ContextFlyout>
+                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Bottom">
+                            <Grid
+                                x:Name="itemThumbnail"
+                                Height="300"
+                                Padding="{StaticResource XSmallLeftTopRightBottomMargin}">
+                                <Border
+                                    Grid.Row="1"
+                                    Margin="0,0,0,0"
+                                    Background="{Binding BackColor}"
+                                    CornerRadius="5" />
+                                <TextBlock
+                                    HorizontalAlignment="Center"
+                                    Foreground="{x:Bind TextColor}"
+                                    Text="{x:Bind Name}" />
+                                <Image HorizontalAlignment="Center" Source="{Binding FaceImagePath}" />
+                                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Bottom">
+                                    <TextBlock
+                                        Margin="{StaticResource XXSmallTopMargin}"
+                                        HorizontalAlignment="Center"
+                                        Foreground="{Binding TextColor}"
+                                        Style="{ThemeResource BodyTextStyle}"
+                                        Text="{x:Bind Description}" />
+                                </StackPanel>
+                            </Grid>
+                            <ToggleButton
+                                Width="140"
+                                Margin="0,0,0,0"
+                                HorizontalAlignment="Center"
                                 Command="{x:Bind SwitchCommand}"
                                 CommandParameter="{x:Bind Id}"
-                                Content="{x:Bind Name}"
-                                FontSize="15"
-                                Foreground="{Binding TextColor}"
-                                GroupName="SelectCharacter"
-                                IsChecked="{x:Bind IsSelected, Mode=TwoWay}" />-->
-                        </StackPanel>
-                        <Image Source="{Binding FaceImagePath}" />
-                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Bottom">
-                            <TextBlock
-                                Margin="{StaticResource XXSmallTopMargin}"
-                                HorizontalAlignment="Center"
-                                Foreground="{Binding TextColor}"
-                                Style="{ThemeResource BodyTextStyle}"
-                                Text="{x:Bind Description}" />
+                                IsChecked="{x:Bind IsSelected, Mode=TwoWay}">
+                                <FontIcon Glyph="{x:Bind IsSelected, Converter={StaticResource BoolToObjectConverter}, Mode=OneWay}" />
+                            </ToggleButton>
                         </StackPanel>
                     </Grid>
                 </DataTemplate>

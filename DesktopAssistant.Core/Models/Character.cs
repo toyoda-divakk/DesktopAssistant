@@ -27,7 +27,7 @@ public record Character : IIdentifiable
     /// </summary>
     public int Order
     {
-        get; init;
+        get; set;
     }
 
     /// <summary>
@@ -35,7 +35,7 @@ public record Character : IIdentifiable
     /// </summary>
     public string Name
     {
-        get; init;
+        get; set;
     }
 
     /// <summary>
@@ -43,7 +43,7 @@ public record Character : IIdentifiable
     /// </summary>
     public string Description
     {
-        get; init;
+        get; set;
     }
 
     /// <summary>
@@ -51,7 +51,7 @@ public record Character : IIdentifiable
     /// </summary>
     public string Prompt
     {
-        get; init;
+        get; set;
     }
 
     /// <summary>

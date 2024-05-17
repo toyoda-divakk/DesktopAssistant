@@ -18,14 +18,9 @@
                 <!--  右クリックメニュー  -->
                 <Grid.ContextFlyout>
                     <MenuFlyout>
-                        <MenuFlyoutItem
-                            x:Uid="Menu_Edit"
-                            Command="{x:Bind EditCommand}"
-                            Text="Edit" />
-                        <MenuFlyoutItem
-                            x:Uid="Menu_Delete"
-                            Command="{x:Bind DeleteCommand}"
-                            Text="Delete" />
+                        <!--  TODO:コピーがあると便利！  -->
+                        <MenuFlyoutItem x:Uid="Menu_Edit" Command="{x:Bind EditCommand}" />
+                        <MenuFlyoutItem x:Uid="Menu_Delete" Command="{x:Bind DeleteCommand}" />
                     </MenuFlyout>
                 </Grid.ContextFlyout>
 
