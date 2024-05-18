@@ -42,4 +42,11 @@ public interface ILiteDbService
     /// <typeparam name="T"></typeparam>
     /// <param name="target"></param>
     void Delete<T>(T target) where T : IIdentifiable;
+
+    /// <summary>
+    /// 指定したテーブルの最後のIDを取得
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <returns></returns>
+    long GetLastId<T>();
 }

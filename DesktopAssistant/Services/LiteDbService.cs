@@ -11,21 +11,15 @@ namespace DesktopAssistant.Services;
 /// LiteDB
 /// アプリ固有の操作はなるべく実装しないように
 /// </summary>
-public class LiteDbService : ILiteDbService
+public class LiteDbService(ILocalSettingsService localSettingsService) : ILiteDbService
 {
-    private readonly ILocalSettingsService _localSettingsService;
     private readonly string _filename = "data.db";
-    private string FilePath => Path.Combine(_localSettingsService.ApplicationDataFolder, _filename);
+    private string FilePath => Path.Combine(localSettingsService.ApplicationDataFolder, _filename);
     private LiteDatabase GetContext => new(FilePath);
-
-    public LiteDbService(ILocalSettingsService localSettingsService)
-    {
-        _localSettingsService = localSettingsService;
-    }
 
     public void CreateOrInitializeDatabase()
     {
-        var localPath = _localSettingsService.ApplicationDataFolder;
+        var localPath = localSettingsService.ApplicationDataFolder;
         if (IsExistDatabase())
         {
             //データベースファイルが存在している場合は削除
@@ -55,4 +49,12 @@ public class LiteDbService : ILiteDbService
         var table = context.GetCollection<T>(typeof(T).Name.Pluralize());
         table.Delete(target.Id);
     }
+
+    // IIdentifiableが無ければ-1を返す
+    public long GetLastId<T>()
+    {
+        // TがIIdentifiableを実装しているか
+        return typeof(T).GetInterfaces().Contains(typeof(IIdentifiable)) ? GetTable<T>().Max(x => (x as IIdentifiable)!.Id) : -1;
+    }
 }
+

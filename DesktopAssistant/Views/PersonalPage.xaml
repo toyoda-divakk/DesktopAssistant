@@ -35,13 +35,8 @@
                         <!--  右クリックメニュー  -->
                         <Grid.ContextFlyout>
                             <MenuFlyout>
-                                <!--<MenuFlyoutItem
-                                    x:Uid="Menu_Switch"
-                                    Command="{x:Bind SwitchCommand}"/>-->
                                 <MenuFlyoutItem x:Uid="Menu_Edit" Command="{x:Bind EditCommand}" />
-                                <!--<MenuFlyoutItem
-                                    x:Uid="Menu_Copy"
-                                    Command="{x:Bind CopyCommand}"/>-->
+                                <MenuFlyoutItem x:Uid="Menu_Copy" Command="{x:Bind CopyCommand}" />
                                 <MenuFlyoutItem x:Uid="Menu_Delete" Command="{x:Bind DeleteCommand}" />
                             </MenuFlyout>
                         </Grid.ContextFlyout>

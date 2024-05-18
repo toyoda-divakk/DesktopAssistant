@@ -5,11 +5,12 @@ using DesktopAssistant.Contracts.Services;
 using DesktopAssistant.Contracts.ViewModels;
 using DesktopAssistant.Core.Models;
 using DesktopAssistant.Helpers;
+using DesktopAssistant.Services;
 using DesktopAssistant.Views.Popup;
+using Microsoft.UI.Xaml.Controls;
 
 namespace DesktopAssistant.ViewModels;
-// TODO:新規追加ボタンを作ろう
-// TODO:コピー処理を作ろう（データ追加処理という点では↑と同じ）
+// TODO:キャラクターのコピーと追加削除はテストしてないし、同じような処理がコピーと追加にあるので共通化すべき
 
 /// <summary>
 /// キャラ選択画面のViewModel
@@ -95,6 +96,35 @@ public partial class PersonalViewModel(INavigationService navigationService, ILi
         {
             // TODO:編集ダイアログを表示する→遷移できるならそっちの方が良いなあ
         });
+        character.CopyCommand = new RelayCommand(() =>
+        {
+            // このキャラクターをコピーしてDBに新規追加する
+            var newCharacter = new Character()
+            {
+                Name = character.Name,
+                Description = character.Description,
+                Prompt = character.Prompt,
+                BackColor = character.BackColor,
+                TextColor = character.TextColor,
+                IsSelected = false,
+                Order = (int)_liteDbService.GetLastId<Character>() + 1    // 現在のID+1を取得する
+            };
+            var newId = newCharacter.Order; // Orderと同じ番号を採番する前提とする
+            newCharacter.FaceImagePath = Path.Combine(Path.GetDirectoryName(character.FaceImagePath)!, $"{newId}.png");
+
+            // DB更新
+            _liteDbService.Upsert(newCharacter);
+            newCharacter = _liteDbService.GetTable<Character>().Last(x => x.Order == newCharacter.Order);   // 採番したので取り直す
+
+            // 画像をコピー
+            File.Copy(character.FaceImagePath, newCharacter.FaceImagePath);
+
+            // 画面に追加する
+            Source.Add(newCharacter);
+
+            // 右クリック処理の設定
+            SetupCaracter(newCharacter);
+        });
         character.DeleteCommand = new RelayCommand(async () =>
         {
             // 現在のWindowを取得する
@@ -111,7 +141,6 @@ public partial class PersonalViewModel(INavigationService navigationService, ILi
         {
             SwitchCharacter(character.Id);
         });
-        // TODO:CopyCommandを作る
     }
 
     /// <summary>
@@ -120,12 +149,23 @@ public partial class PersonalViewModel(INavigationService navigationService, ILi
     /// <param name="character"></param>
     private void DeleteCharactor(Character character)
     {
+        // キャラクターが残り1剣の場合は削除しない
+        if (Source.Count == 1)
+        {
+            // ダイアログを表示する
+            DialogHelper.ShowMessageDialog(App.MainWindow, "Message_Error".GetLocalized(), "Message_CannotDeleteLastCharacter".GetLocalized());
+            return;
+        }
+
         // キャラクター内の会話を全て削除する
         var topics = _liteDbService.GetTable<Topic>().Where(x => x.CharacterId == character.Id);
         foreach (var topic in topics)
         {
             _liteDbService.Delete(topic);
         }
+        // キャラクターの画像を削除する
+        File.Delete(character.FaceImagePath);
+
         // キャラクターを削除する
         _liteDbService.Delete(character);
         Source.Remove(character);
@@ -149,5 +189,33 @@ public partial class PersonalViewModel(INavigationService navigationService, ILi
             _navigationService.SetListDataItemForNextConnectedAnimation(clickedItem);       // 次のフレームナビゲーション中に使用されるオブジェクトを設定（よくわからん）
             _navigationService.NavigateTo(typeof(PersonalDetailViewModel).FullName!, clickedItem.Id);   // 行先とパラメータを指定して遷移する
         }
+    }
+
+
+    // TODO:生成したままなので要テスト
+    // キャラクター新規追加コマンド
+    // 空のキャラクターデータを作成してDBに追加する
+    [RelayCommand]
+    private void AddNewCharacter()
+    {
+        var firstCharacter = _liteDbService.GetTable<Character>().First();
+        var newId = (int)_liteDbService.GetLastId<Character>() + 1;    // 現在のID+1を取得する
+
+        var newCharacter = new Character()
+        {
+            Name = "New Character",
+            Description = "New Description",
+            Prompt = "New Prompt",
+            BackColor = "#FF000000",
+            TextColor = "#FFFFFFFF",
+            FaceImagePath = Path.Combine(Path.GetDirectoryName(firstCharacter.FaceImagePath)!, $"{newId}.png"),
+            IsSelected = false,
+            Order = newId
+        };
+        _liteDbService.Upsert(newCharacter);
+        newCharacter = _liteDbService.GetTable<Character>().Last(x => x.Order == newCharacter.Order);
+        File.Copy(firstCharacter.FaceImagePath, newCharacter.FaceImagePath);
+        Source.Add(newCharacter);
+        SetupCaracter(newCharacter);
     }
 }

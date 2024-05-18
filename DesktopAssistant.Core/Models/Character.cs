@@ -96,13 +96,18 @@ public record Character : IIdentifiable
         get; set;
     } = [];
 
-    // キャラ選択も右クリック。または詳細画面でボタンクリック。
-    // 基本的に、右クリックでも左クリックでも編集や削除ができるようにすればいいでしょう。
     [BsonIgnore]
     public ICommand EditCommand
     {
         get; set;
     }
+
+    [BsonIgnore]
+    public ICommand CopyCommand
+    {
+        get; set;
+    }
+
     [BsonIgnore]
     public ICommand DeleteCommand
     {

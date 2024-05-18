@@ -66,4 +66,22 @@ public class DialogHelper
         }
         return false;
     }
+
+    /// <summary>
+    /// メッセージダイアログを表示する
+    /// </summary>
+    /// <param name="mainWindow"></param>
+    /// <param name="title"></param>
+    /// <param name="message"></param>
+    internal static void ShowMessageDialog(WindowEx mainWindow, string title, string message)
+    {
+        var dialog = new ContentDialog
+        {
+            XamlRoot = mainWindow.Content.XamlRoot,
+            Title = title,
+            Content = message,
+            CloseButtonText = "Button_Close".GetLocalized()
+        };
+        _ = dialog.ShowAsync();
+    }
 }
