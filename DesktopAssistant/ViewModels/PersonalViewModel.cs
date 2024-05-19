@@ -10,7 +10,7 @@ using DesktopAssistant.Views.Popup;
 using Microsoft.UI.Xaml.Controls;
 
 namespace DesktopAssistant.ViewModels;
-// TODO:キャラクターのコピーと追加削除はテストしてないし、同じような処理がコピーと追加にあるので共通化すべき
+// TODO:キャラクターのコピー・追加・削除はテストしてないし、コピーと追加は同じような処理があるので共通化すべき
 
 /// <summary>
 /// キャラ選択画面のViewModel
@@ -192,7 +192,6 @@ public partial class PersonalViewModel(INavigationService navigationService, ILi
     }
 
 
-    // TODO:生成したままなので要テスト
     // キャラクター新規追加コマンド
     // 空のキャラクターデータを作成してDBに追加する
     [RelayCommand]

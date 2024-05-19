@@ -24,6 +24,13 @@ public sealed partial class PersonalDetailPage : Page
     protected override void OnNavigatedTo(NavigationEventArgs e)
     {
         base.OnNavigatedTo(e);
+        // アニメーションのやり方
+        // 遷移元：
+        // animations: Connected.ListItemKey = "animationKeyContentGrid"のように指定したキーを指定することで、アニメーションを適用することができる。
+        // リストのうちどれか1つを選択するような時、Connected.ListItemElementName="itemThumbnail"も指定する。
+        // そして、リストの要素1つを表示するGrid等にx:Name="itemThumbnail"と指定することで、その領域にアニメーションを適用するみたい。
+        // 遷移先：
+        // x:Name="itemHero"と指定することで、その領域にアニメーションを適用するみたい。
         this.RegisterElementForConnectedAnimation("animationKeyContentGrid", itemHero);
     }
 
