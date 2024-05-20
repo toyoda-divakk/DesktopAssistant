@@ -341,4 +341,7 @@
   <data name="Message_Error" xml:space="preserve">
     <value>Error</value>
   </data>
+  <data name="Shell_PersonalEdit.Content" xml:space="preserve">
+    <value>PersonalEdit</value>
+  </data>
 </root>

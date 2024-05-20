@@ -26,6 +26,7 @@ public class PageService : IPageService
         Configure<ToDoListViewModel, ToDoListPage>();
         Configure<ChatViewModel, ChatPage>();
         Configure<CharacterImageViewModel, CharacterImagePage>();
+        Configure<PersonalEditViewModel, PersonalEditPage>();
     }
 
     public Type GetPageType(string key)

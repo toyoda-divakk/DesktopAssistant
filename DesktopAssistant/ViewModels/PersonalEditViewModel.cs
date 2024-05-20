@@ -1,27 +1,11 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using DesktopAssistant.Contracts.Services;
 using DesktopAssistant.Contracts.ViewModels;
-using DesktopAssistant.Core.Contracts.Services;
 using DesktopAssistant.Core.Models;
-
+using DesktopAssistant.Services;
 namespace DesktopAssistant.ViewModels;
 
-// TODO:キャラ・キャラクター → アシスタント
-
-// 編集用の画面を別に作成する→GPT4-oに作ってもらおうか。
-
-// この画面は、キャラクターの詳細を表示する画面
-// 要素
-// ・編集ボタン：編集画面に遷移
-// ・削除ボタン：削除して前の画面に遷移
-// ・キャラクター名
-// ・キャラクターの画像
-// ・キャラクターの説明
-// ・キャラクターのプロンプト
-
-
-
-public partial class PersonalDetailViewModel(INavigationService navigationService, ILiteDbService liteDbService) : ObservableRecipient, INavigationAware
+public partial class PersonalEditViewModel(INavigationService navigationService, ILiteDbService liteDbService) : ObservableRecipient, INavigationAware
 {
     private readonly INavigationService _navigationService = navigationService;
     private readonly ILiteDbService _liteDbService = liteDbService;

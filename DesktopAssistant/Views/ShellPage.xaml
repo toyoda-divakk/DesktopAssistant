@@ -87,6 +87,11 @@
                         </NavigationViewItem>
                     </NavigationViewItem.MenuItems>
                 </NavigationViewItem>-->
+                <!--<NavigationViewItem x:Uid="Shell_PersonalEdit" helpers:NavigationHelper.NavigateTo="DesktopAssistant.ViewModels.PersonalEditViewModel">
+                    <NavigationViewItem.Icon>
+                        <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xe7c3;"/>
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>-->
             </NavigationView.MenuItems>
             <NavigationView.HeaderTemplate>
                 <DataTemplate>

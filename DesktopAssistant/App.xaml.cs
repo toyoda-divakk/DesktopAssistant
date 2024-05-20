@@ -78,6 +78,8 @@ public partial class App : Application
 
             // ★画面追加すると、ここも更新されるみたい
             // Views and ViewModels
+            services.AddTransient<PersonalEditViewModel>();
+            services.AddTransient<PersonalEditPage>();
             services.AddTransient<CharacterImageViewModel>();
             services.AddTransient<CharacterImagePage>();
             services.AddTransient<ChatViewModel>();
