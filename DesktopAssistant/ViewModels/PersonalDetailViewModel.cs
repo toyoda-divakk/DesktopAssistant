@@ -6,9 +6,6 @@ using DesktopAssistant.Core.Models;
 
 namespace DesktopAssistant.ViewModels;
 
-// TODO:キャラ・キャラクター → アシスタント
-// TODO:Character → Assistant
-
 // 編集用の画面を別に作成する→GPT4-oに作ってもらおうか。
 
 // この画面は、アシスタントの詳細を表示する画面
@@ -28,13 +25,13 @@ public partial class PersonalDetailViewModel(INavigationService navigationServic
     private readonly ILiteDbService _liteDbService = liteDbService;
 
     [ObservableProperty]
-    private Character? item;
+    private Assistant? item;
 
     public void OnNavigatedTo(object parameter)
     {
-        if (parameter is long characterId)
+        if (parameter is long assistantId)
         {
-            Item = _liteDbService.GetTable<Character>().First(x => x.Id == characterId);
+            Item = _liteDbService.GetTable<Assistant>().First(x => x.Id == assistantId);
         }
     }
 

@@ -25,7 +25,7 @@ public class PageService : IPageService
         Configure<SettingsViewModel, SettingsPage>();
         Configure<ToDoListViewModel, ToDoListPage>();
         Configure<ChatViewModel, ChatPage>();
-        Configure<CharacterImageViewModel, CharacterImagePage>();
+        Configure<AssistantImageViewModel, AssistantImagePage>();
         Configure<PersonalEditViewModel, PersonalEditPage>();
     }
 

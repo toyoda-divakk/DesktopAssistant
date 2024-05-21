@@ -11,23 +11,23 @@ namespace DesktopAssistant.Services;
 /// <summary>
 /// チャットで使用するアシスタントの設定を管理するサービスを表します。
 /// </summary>
-public class CharacterSettingService(ILocalSettingsService localSettingsService, ILiteDbService liteDbService) : ICharacterSettingService, ICharacterSetting
+public class AssistantSettingService(ILocalSettingsService localSettingsService, ILiteDbService liteDbService) : IAssistantSettingService, IAssistantSetting
 {
     // ※保存するのはIDだけでよい、これは持っておくだけ
-    private Character _currentCharacter = null!;
-    public Character CurrentCharacter
+    private Assistant _currentAssistant = null!;
+    public Assistant CurrentAssistant
     {
         get
         {
-            if (_currentCharacter == null || _currentCharacter.Id != CurrentCharacterId)
+            if (_currentAssistant == null || _currentAssistant.Id != CurrentAssistantId)
             {
-                _currentCharacter = liteDbService.GetTable<Character>().First(x => x.Id == CurrentCharacterId);
+                _currentAssistant = liteDbService.GetTable<Assistant>().First(x => x.Id == CurrentAssistantId);
             }
-            return _currentCharacter;
+            return _currentAssistant;
         }
     }
 
-    public long CurrentCharacterId
+    public long CurrentAssistantId
     {
         get; set;
     }
@@ -49,12 +49,12 @@ public class CharacterSettingService(ILocalSettingsService localSettingsService,
     /// </summary>
     /// <param name="setting"></param>
     /// <returns></returns>
-    public async Task SetAndSaveAsync(ICharacterSetting setting)
+    public async Task SetAndSaveAsync(IAssistantSetting setting)
     {
         // リフレクションで移す
-        FieldCopier.CopyProperties<ICharacterSetting>(setting, this);
+        FieldCopier.CopyProperties<IAssistantSetting>(setting, this);
 
-        _currentCharacter = liteDbService.GetTable<Character>().First(x => x.Id == CurrentCharacterId);
+        _currentAssistant = liteDbService.GetTable<Assistant>().First(x => x.Id == CurrentAssistantId);
         await SetRequestedSettingAsync();      // すぐにアプリに反映
         SaveSetting();
     }
@@ -76,12 +76,12 @@ public class CharacterSettingService(ILocalSettingsService localSettingsService,
     /// <returns></returns>
     private void ReLoadSettings()
     {
-        var currentCharacterId = localSettingsService.ReadSetting<long>(nameof(CurrentCharacterId));
-        CurrentCharacterId = currentCharacterId == 0 ? 1L : currentCharacterId;
+        var currentAssistantId = localSettingsService.ReadSetting<long>(nameof(CurrentAssistantId));
+        CurrentAssistantId = currentAssistantId == 0 ? 1L : currentAssistantId;
     }
 
     private void SaveSetting()
     {
-        localSettingsService.SaveSetting(nameof(CurrentCharacterId), CurrentCharacter.Id);
+        localSettingsService.SaveSetting(nameof(CurrentAssistantId), CurrentAssistant.Id);
     }
 }

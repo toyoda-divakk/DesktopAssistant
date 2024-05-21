@@ -54,15 +54,15 @@ public partial class MainViewModel(IThemeSelectorService themeSelector, ILocalSe
     }
 
     /// <summary>
-    /// CharacterPageをモードレス表示する
+    /// AssistantPageをモードレス表示する
     /// </summary>
     [RelayCommand]
-    private void ShowCharacter()
+    private void ShowAssistant()
     {
         var newWindow = WindowHelper.CreateWindow();
         newWindow.SetWindowSize(860, 600);      // TODO:画像ファイルからサイズを決定すること
-        newWindow.Title = "CharacterImage".GetLocalized();
-        var rootPage = new CharacterImagePage
+        newWindow.Title = "AssistantImage".GetLocalized();
+        var rootPage = new AssistantImagePage
         {
             RequestedTheme = ThemeSelector.Theme
         };

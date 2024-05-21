@@ -16,7 +16,7 @@ namespace DesktopAssistant.ViewModels.Popup;
 // →面倒なので設定反映ボタンを付けるとか、閉じちゃうとか。
 // →開きっぱなしでAI設定変更されたら流石にまずいので、チャット画面開いたまま変更画面の表示は出来ないようにする。
 
-public partial class ChatViewModel(IChatSettingService chatSettingService) : ObservableRecipient, IChatSetting // TODO:ICharacterSetting
+public partial class ChatViewModel(IChatSettingService chatSettingService) : ObservableRecipient, IChatSetting
 {
     /// <summary>
     /// チャット表示設定

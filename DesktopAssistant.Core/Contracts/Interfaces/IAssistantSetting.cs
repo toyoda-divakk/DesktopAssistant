@@ -7,10 +7,10 @@ namespace DesktopAssistant.Core.Contracts.Interfaces;
 /// <summary>
 /// アシスタントに関する設定項目のインターフェース
 /// </summary>
-public interface ICharacterSetting
+public interface IAssistantSetting
 {
     // クラスだとリフレクションで映すのが面倒なのでIDのみ
-    public long CurrentCharacterId
+    public long CurrentAssistantId
     {
         get; set;
     }

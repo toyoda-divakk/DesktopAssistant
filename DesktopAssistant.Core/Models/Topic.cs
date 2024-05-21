@@ -23,7 +23,7 @@ public record Topic : IIdentifiable
     /// <summary>
     /// アシスタント
     /// </summary>
-    public long CharacterId
+    public long AssistantId
     {
         get; init;
     }

@@ -8,11 +8,11 @@ using LiteDB;
 
 namespace DesktopAssistant.Core.Models;
 
-// Character -> Topic -> Message
+// Assistant -> Topic -> Message
 /// <summary>
 /// アシスタント
 /// </summary>
-public record Character : IIdentifiable
+public record Assistant : IIdentifiable
 {
     /// <summary>
     /// ID

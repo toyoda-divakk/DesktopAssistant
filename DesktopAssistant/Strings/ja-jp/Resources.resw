@@ -161,7 +161,7 @@
   <data name="SettingsPage_PrivacyTermsLink.NavigateUri" xml:space="preserve">
     <value>https://YourPrivacyUrlGoesHere/</value>
   </data>
-  <data name="Shell_CharacterSettings.Content" xml:space="preserve">
+  <data name="Shell_AssistantSettings.Content" xml:space="preserve">
     <value>アシスタント作成</value>
   </data>
   <data name="Settings_Api.Text" xml:space="preserve">
@@ -272,7 +272,7 @@
   <data name="Chat" xml:space="preserve">
     <value>チャット</value>
   </data>
-  <data name="CharacterImage" xml:space="preserve">
+  <data name="AssistantImage" xml:space="preserve">
     <value>アシスタント画像</value>
   </data>
   <data name="Settings_Chat.Text" xml:space="preserve">
@@ -335,7 +335,7 @@
   <data name="Button_Close" xml:space="preserve">
     <value>OK</value>
   </data>
-  <data name="Message_CannotDeleteLastCharacter" xml:space="preserve">
+  <data name="Message_CannotDeleteLastAssistant" xml:space="preserve">
     <value>最後のアシスタントは削除できません。</value>
   </data>
   <data name="Message_Error" xml:space="preserve">

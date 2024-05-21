@@ -31,7 +31,7 @@ public record Message : IIdentifiable
     /// アシスタントの発言ならTrue
     /// ユーザーの発言ならFalse
     /// </summary>
-    public bool IsCharacterMessage
+    public bool IsAssistantMessage
     {
         get; init;
     }

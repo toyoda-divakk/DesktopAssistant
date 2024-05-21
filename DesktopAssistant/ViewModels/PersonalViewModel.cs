@@ -20,32 +20,32 @@ public partial class PersonalViewModel(INavigationService navigationService, ILi
     private readonly INavigationService _navigationService = navigationService;
     private readonly ILiteDbService _liteDbService = liteDbService;
 
-    public ObservableCollection<Character> Source { get; } = [];
+    public ObservableCollection<Assistant> Source { get; } = [];
 
-    public long CurrentCharacterId
+    public long CurrentAssistantId
     {
         get; set;
     }
 
-    private void SwitchCharacter(long id)
+    private void SwitchAssistant(long id)
     {
         // 設定に反映させる
-        if (CurrentCharacterId != id)
+        if (CurrentAssistantId != id)
         {
-            var beforeCharacter = _liteDbService.GetTable<Character>().First(x => x.Id == CurrentCharacterId);
-            Source.First(x => x.Id == CurrentCharacterId).IsSelected = false;
-            beforeCharacter.IsSelected = false;
-            var beforeSource = Source.First(x => x.Id == CurrentCharacterId);
+            var beforeAssistant = _liteDbService.GetTable<Assistant>().First(x => x.Id == CurrentAssistantId);
+            Source.First(x => x.Id == CurrentAssistantId).IsSelected = false;
+            beforeAssistant.IsSelected = false;
+            var beforeSource = Source.First(x => x.Id == CurrentAssistantId);
             beforeSource.IsSelected = false;
 
-            var afterCharacter = _liteDbService.GetTable<Character>().First(x => x.Id == id);
-            afterCharacter.IsSelected = true;
+            var afterAssistant = _liteDbService.GetTable<Assistant>().First(x => x.Id == id);
+            afterAssistant.IsSelected = true;
             var afterSource = Source.First(x => x.Id == id);
             afterSource.IsSelected = true;
-            CurrentCharacterId = id;
+            CurrentAssistantId = id;
 
-            _liteDbService.Upsert(beforeCharacter); // DBに反映させる
-            _liteDbService.Upsert(afterCharacter);
+            _liteDbService.Upsert(beforeAssistant); // DBに反映させる
+            _liteDbService.Upsert(afterAssistant);
 
             // 表示更新
             var beforeIndex = Source.IndexOf(beforeSource);
@@ -58,29 +58,29 @@ public partial class PersonalViewModel(INavigationService navigationService, ILi
     public void OnNavigatedTo(object parameter)
     {
         // アシスタント一覧を取得して、現在選択中のアシスタントを設定する
-        var characters = _liteDbService.GetTable<Character>();
-        if (!characters.Any())
+        var assistants = _liteDbService.GetTable<Assistant>();
+        if (!assistants.Any())
         {
             return;
         }
-        foreach (var character in characters)
+        foreach (var character in assistants)
         {
             SetupCaracter(character);
-            character.Topics = _liteDbService.GetTable<Topic>().Where(x => x.CharacterId == character.Id).ToList();
+            character.Topics = _liteDbService.GetTable<Topic>().Where(x => x.AssistantId == character.Id).ToList();
             Source.Add(character);
         }
-        var selectedCharacter = characters.FirstOrDefault(x => x.IsSelected);
-        if (selectedCharacter == null)
+        var selectedAssistant = assistants.FirstOrDefault(x => x.IsSelected);
+        if (selectedAssistant == null)
         {
-            var chara = characters.First();
+            var chara = assistants.First();
             chara.IsSelected = true;
             _liteDbService.Upsert(chara);
             Source.First(x => x.Id == chara.Id).IsSelected = true;
-            CurrentCharacterId = chara.Id;
+            CurrentAssistantId = chara.Id;
         }
         else
         {
-            CurrentCharacterId = selectedCharacter.Id;
+            CurrentAssistantId = selectedAssistant.Id;
         }
 
     }
@@ -88,44 +88,44 @@ public partial class PersonalViewModel(INavigationService navigationService, ILi
     /// <summary>
     /// アシスタントに対して右クリック時の処理を設定する
     /// </summary>
-    /// <param name="character"></param>
+    /// <param name="assistant"></param>
     /// <returns></returns>
-    private void SetupCaracter(Character character)
+    private void SetupCaracter(Assistant assistant)
     {
-        character.EditCommand = new RelayCommand(() =>
+        assistant.EditCommand = new RelayCommand(() =>
         {
             // TODO:編集ダイアログを表示する→遷移できるならそっちの方が良いなあ
         });
-        character.CopyCommand = new RelayCommand(() =>
+        assistant.CopyCommand = new RelayCommand(() =>
         {
             // このアシスタントをコピーしてDBに新規追加する
-            var newCharacter = new Character()
+            var newAssistant = new Assistant()
             {
-                Name = character.Name,
-                Description = character.Description,
-                Prompt = character.Prompt,
-                BackColor = character.BackColor,
-                TextColor = character.TextColor,
+                Name = assistant.Name,
+                Description = assistant.Description,
+                Prompt = assistant.Prompt,
+                BackColor = assistant.BackColor,
+                TextColor = assistant.TextColor,
                 IsSelected = false,
-                Order = (int)_liteDbService.GetLastId<Character>() + 1    // 現在のID+1を取得する
+                Order = (int)_liteDbService.GetLastId<Assistant>() + 1    // 現在のID+1を取得する
             };
-            var newId = newCharacter.Order; // Orderと同じ番号を採番する前提とする
-            newCharacter.FaceImagePath = Path.Combine(Path.GetDirectoryName(character.FaceImagePath)!, $"{newId}.png");
+            var newId = newAssistant.Order; // Orderと同じ番号を採番する前提とする
+            newAssistant.FaceImagePath = Path.Combine(Path.GetDirectoryName(assistant.FaceImagePath)!, $"{newId}.png");
 
             // DB更新
-            _liteDbService.Upsert(newCharacter);
-            newCharacter = _liteDbService.GetTable<Character>().Last(x => x.Order == newCharacter.Order);   // 採番したので取り直す
+            _liteDbService.Upsert(newAssistant);
+            newAssistant = _liteDbService.GetTable<Assistant>().Last(x => x.Order == newAssistant.Order);   // 採番したので取り直す
 
             // 画像をコピー
-            File.Copy(character.FaceImagePath, newCharacter.FaceImagePath);
+            File.Copy(assistant.FaceImagePath, newAssistant.FaceImagePath);
 
             // 画面に追加する
-            Source.Add(newCharacter);
+            Source.Add(newAssistant);
 
             // 右クリック処理の設定
-            SetupCaracter(newCharacter);
+            SetupCaracter(newAssistant);
         });
-        character.DeleteCommand = new RelayCommand(async () =>
+        assistant.DeleteCommand = new RelayCommand(async () =>
         {
             // 現在のWindowを取得する
             var window = App.MainWindow;
@@ -134,41 +134,41 @@ public partial class PersonalViewModel(INavigationService navigationService, ILi
             var contentDialogContent = new ContentDialogContent("Dialog_DeleteTask1".GetLocalized(), "Dialog_DeleteTask2".GetLocalized());      // TODO:メッセージを直すこと
             if (await DialogHelper.ShowDeleteDialog(window, "Message_DeleteCategory".GetLocalized(), contentDialogContent))
             {
-                DeleteCharactor(character);
+                DeleteCharactor(assistant);
             }
         });
-        character.SwitchCommand = new RelayCommand(() =>
+        assistant.SwitchCommand = new RelayCommand(() =>
         {
-            SwitchCharacter(character.Id);
+            SwitchAssistant(assistant.Id);
         });
     }
 
     /// <summary>
     /// DBと画面表示からアシスタント削除
     /// </summary>
-    /// <param name="character"></param>
-    private void DeleteCharactor(Character character)
+    /// <param name="assistant"></param>
+    private void DeleteCharactor(Assistant assistant)
     {
         // アシスタントが残り1剣の場合は削除しない
         if (Source.Count == 1)
         {
             // ダイアログを表示する
-            DialogHelper.ShowMessageDialog(App.MainWindow, "Message_Error".GetLocalized(), "Message_CannotDeleteLastCharacter".GetLocalized());
+            DialogHelper.ShowMessageDialog(App.MainWindow, "Message_Error".GetLocalized(), "Message_CannotDeleteLastAssistant".GetLocalized());
             return;
         }
 
         // アシスタント内の会話を全て削除する
-        var topics = _liteDbService.GetTable<Topic>().Where(x => x.CharacterId == character.Id);
+        var topics = _liteDbService.GetTable<Topic>().Where(x => x.AssistantId == assistant.Id);
         foreach (var topic in topics)
         {
             _liteDbService.Delete(topic);
         }
         // アシスタントの画像を削除する
-        File.Delete(character.FaceImagePath);
+        File.Delete(assistant.FaceImagePath);
 
         // アシスタントを削除する
-        _liteDbService.Delete(character);
-        Source.Remove(character);
+        _liteDbService.Delete(assistant);
+        Source.Remove(assistant);
     }
 
     public void OnNavigatedFrom()
@@ -182,7 +182,7 @@ public partial class PersonalViewModel(INavigationService navigationService, ILi
     /// </summary>
     /// <param name="clickedItem"></param>
     [RelayCommand]
-    private void OnItemClick(Character? clickedItem)
+    private void OnItemClick(Assistant? clickedItem)
     {
         if (clickedItem != null)
         {
@@ -195,26 +195,26 @@ public partial class PersonalViewModel(INavigationService navigationService, ILi
     // アシスタント新規追加コマンド
     // 空のアシスタントデータを作成してDBに追加する
     [RelayCommand]
-    private void AddNewCharacter()
+    private void AddNewAssistant()
     {
-        var firstCharacter = _liteDbService.GetTable<Character>().First();
-        var newId = (int)_liteDbService.GetLastId<Character>() + 1;    // 現在のID+1を取得する
+        var firstAssistant = _liteDbService.GetTable<Assistant>().First();
+        var newId = (int)_liteDbService.GetLastId<Assistant>() + 1;    // 現在のID+1を取得する
 
-        var newCharacter = new Character()
+        var newAssistant = new Assistant()
         {
-            Name = "New Character",
+            Name = "New Assistant",
             Description = "New Description",
             Prompt = "New Prompt",
             BackColor = "#FF000000",
             TextColor = "#FFFFFFFF",
-            FaceImagePath = Path.Combine(Path.GetDirectoryName(firstCharacter.FaceImagePath)!, $"{newId}.png"),
+            FaceImagePath = Path.Combine(Path.GetDirectoryName(firstAssistant.FaceImagePath)!, $"{newId}.png"),
             IsSelected = false,
             Order = newId
         };
-        _liteDbService.Upsert(newCharacter);
-        newCharacter = _liteDbService.GetTable<Character>().Last(x => x.Order == newCharacter.Order);
-        File.Copy(firstCharacter.FaceImagePath, newCharacter.FaceImagePath);
-        Source.Add(newCharacter);
-        SetupCaracter(newCharacter);
+        _liteDbService.Upsert(newAssistant);
+        newAssistant = _liteDbService.GetTable<Assistant>().Last(x => x.Order == newAssistant.Order);
+        File.Copy(firstAssistant.FaceImagePath, newAssistant.FaceImagePath);
+        Source.Add(newAssistant);
+        SetupCaracter(newAssistant);
     }
 }

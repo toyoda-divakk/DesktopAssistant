@@ -30,7 +30,7 @@
             SelectionMode="None"
             StretchContentForSingleRow="False">
             <controls:AdaptiveGridView.ItemTemplate>
-                <DataTemplate x:DataType="models:Character">
+                <DataTemplate x:DataType="models:Assistant">
                     <Grid>
                         <!--  右クリックメニュー  -->
                         <Grid.ContextFlyout>

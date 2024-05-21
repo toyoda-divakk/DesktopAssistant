@@ -151,7 +151,7 @@
     <value>About this application</value>
   </data>
   <data name="Settings_AboutDescription.Text" xml:space="preserve">
-    <value>Display a mascot character on your desktop to support your work.</value>
+    <value>Display an assistant on your desktop to support your work.</value>
   </data>
   <data name="SettingsPage_PrivacyTermsLink.Content" xml:space="preserve">
     <value>Privacy Statement</value>
@@ -159,8 +159,8 @@
   <data name="SettingsPage_PrivacyTermsLink.NavigateUri" xml:space="preserve">
     <value>https://YourPrivacyUrlGoesHere/</value>
   </data>
-  <data name="Shell_CharacterSettings.Content" xml:space="preserve">
-    <value>CharacterSettings</value>
+  <data name="Shell_AssistantSettings.Content" xml:space="preserve">
+    <value>AssistantSettings</value>
   </data>
   <data name="Settings_Api_AzureOpenAI.Content" xml:space="preserve">
     <value>Azure OpenAI Service</value>
@@ -272,8 +272,8 @@
   <data name="Chat" xml:space="preserve">
     <value>Chat</value>
   </data>
-  <data name="CharacterImage" xml:space="preserve">
-    <value>CharacterImage</value>
+  <data name="AssistantImage" xml:space="preserve">
+    <value>AssistantImage</value>
   </data>
   <data name="Settings_Chat.Text" xml:space="preserve">
     <value>チャット画面表示設定</value>
@@ -335,7 +335,7 @@
   <data name="Button_Close" xml:space="preserve">
     <value>OK</value>
   </data>
-  <data name="Message_CannotDeleteLastCharacter" xml:space="preserve">
+  <data name="Message_CannotDeleteLastAssistant" xml:space="preserve">
     <value>最後のアシスタントは削除できません。</value>
   </data>
   <data name="Message_Error" xml:space="preserve">

@@ -70,7 +70,7 @@
                 </NavigationViewItem>
                 <!--  サブメニューはこうやって書く  -->
                 <!--<NavigationViewItem
-                    Content="Character"
+                    Content="Assistant"
                     Icon="Contact"
                     Tag="SamplePage2"
                     ToolTipService.ToolTip="Account">
@@ -80,7 +80,7 @@
                                 <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xf0e2;" />
                             </NavigationViewItem.Icon>
                         </NavigationViewItem>
-                        <NavigationViewItem x:Uid="Shell_CharacterSettings" helpers:NavigationHelper.NavigateTo="DesktopAssistant.ViewModels.CharacterSettingsViewModel">
+                        <NavigationViewItem x:Uid="Shell_AssistantSettings" helpers:NavigationHelper.NavigateTo="DesktopAssistant.ViewModels.AssistantSettingsViewModel">
                             <NavigationViewItem.Icon>
                                 <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xf0e2;" />
                             </NavigationViewItem.Icon>

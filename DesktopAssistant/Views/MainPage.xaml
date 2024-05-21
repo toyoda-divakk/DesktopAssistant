@@ -14,7 +14,7 @@
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
             <Button Command="{x:Bind ViewModel.ShowToDoListCommand}" Content="Show ToDo List" />
             <Button Command="{x:Bind ViewModel.ChatCommand}" Content="Chat" />
-            <Button Command="{x:Bind ViewModel.ShowCharacterCommand}" Content="Show Character" />
+            <Button Command="{x:Bind ViewModel.ShowAssistantCommand}" Content="Show Assistant" />
             <Button Command="{x:Bind ViewModel.ShowDataFolderCommand}" Content="Show Data Folder" />
             <Button Command="{x:Bind ViewModel.CloseCommand}" Content="Close" />
         </StackPanel>
@@ -29,7 +29,7 @@
             SelectionMode="None"
             StretchContentForSingleRow="False">
             <controls:AdaptiveGridView.ItemTemplate>
-                <DataTemplate x:DataType="models:Character">
+                <DataTemplate x:DataType="models:Assistant">
                     <Grid x:Name="itemThumbnail" Padding="{StaticResource XSmallLeftTopRightBottomMargin}">
                         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
         -->

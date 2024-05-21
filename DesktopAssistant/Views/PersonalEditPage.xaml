@@ -19,11 +19,11 @@
                 FontSize="24"
                 FontWeight="Bold"
                 Text="名前" />
-            <TextBox FontSize="20" Text="{Binding Character.Name, Mode=TwoWay}" />
+            <TextBox FontSize="20" Text="{Binding Assistant.Name, Mode=TwoWay}" />
             <Image
                 Width="200"
                 Height="200"
-                Source="{Binding Character.FaceImagePath}"
+                Source="{Binding Assistant.FaceImagePath}"
                 Stretch="Uniform" />
         </StackPanel>
 
@@ -37,13 +37,13 @@
                 Margin="0,5,0,15"
                 AcceptsReturn="True"
                 FontSize="16"
-                Text="{Binding Character.Description, Mode=TwoWay}"
+                Text="{Binding Assistant.Description, Mode=TwoWay}"
                 TextWrapping="Wrap" />
             <TextBlock
                 FontSize="18"
                 FontWeight="Bold"
                 Text="プロンプト" />
-            <TextBox FontSize="16" Text="{Binding Character.Prompt, Mode=TwoWay}" />
+            <TextBox FontSize="16" Text="{Binding Assistant.Prompt, Mode=TwoWay}" />
         </StackPanel>
 
         <!--  更新ボタン  -->

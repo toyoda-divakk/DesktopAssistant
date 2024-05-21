@@ -8,12 +8,12 @@ namespace DesktopAssistant.Contracts.Services;
 /// <summary>
 /// アシスタント設定を提供
 /// </summary>
-public interface ICharacterSettingService
+public interface IAssistantSettingService
 {
     /// <summary>
     /// 現在選択中のアシスタント
     /// </summary>
-    Character CurrentCharacter
+    Assistant CurrentAssistant
     {
         get;
     }
@@ -30,7 +30,7 @@ public interface ICharacterSettingService
     /// </summary>
     /// <param name="generativeAI"></param>
     /// <returns></returns>
-    Task SetAndSaveAsync(ICharacterSetting setting);
+    Task SetAndSaveAsync(IAssistantSetting setting);
 
     /// <summary>
     /// 設定内容を直ちにアプリに反映する

@@ -2,7 +2,6 @@
 using DesktopAssistant.Contracts.Services;
 using DesktopAssistant.Core.Contracts.Services;
 using DesktopAssistant.Core.Services;
-using DesktopAssistant.Helpers;
 using DesktopAssistant.Models;
 using DesktopAssistant.Services;
 using DesktopAssistant.ViewModels;
@@ -63,7 +62,7 @@ public partial class App : Application
             services.AddSingleton<IThemeSelectorService, ThemeSelectorService>();   // テーマの変更と保存
             services.AddSingleton<IApiSettingService, ApiSettingService>();         // APIの変更と保存
             services.AddSingleton<IChatSettingService, ChatSettingService>();         // Chat表示の変更と保存
-            services.AddSingleton<ICharacterSettingService, CharacterSettingService>();         // アシスタントの変更と保存
+            services.AddSingleton<IAssistantSettingService, AssistantSettingService>();         // アシスタントの変更と保存
             services.AddTransient<INavigationViewService, NavigationViewService>(); // NavigationViewの操作を補助する
 
             services.AddSingleton<IActivationService, ActivationService>();     // アプリケーション起動時の処理を行う
@@ -80,8 +79,8 @@ public partial class App : Application
             // Views and ViewModels
             services.AddTransient<PersonalEditViewModel>();
             services.AddTransient<PersonalEditPage>();
-            services.AddTransient<CharacterImageViewModel>();
-            services.AddTransient<CharacterImagePage>();
+            services.AddTransient<AssistantImageViewModel>();
+            services.AddTransient<AssistantImagePage>();
             services.AddTransient<ChatViewModel>();
             services.AddTransient<ChatPage>();
             services.AddTransient<ToDoListViewModel>();

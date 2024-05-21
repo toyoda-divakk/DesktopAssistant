@@ -25,7 +25,7 @@ public class ActivationService(ActivationHandler<LaunchActivatedEventArgs> defau
     IThemeSelectorService themeSelectorService,
     IApiSettingService apiSettingService,
     IChatSettingService chatSettingService,
-    ICharacterSettingService characterSettingService,
+    IAssistantSettingService characterSettingService,
     ILiteDbService liteDbService,
     ISampleDataService sampleDataService,
     ILocalSettingsService localSettingsService) : IActivationService
@@ -136,12 +136,12 @@ public class ActivationService(ActivationHandler<LaunchActivatedEventArgs> defau
             });
 
             // サンプルデータを登録
-            var characters = sampleDataService.GetSampleCharacters();
-            foreach (var character in characters)
+            var assistants = sampleDataService.GetSampleAssistants();
+            foreach (var assistant in assistants)
             {
-                character.FaceImagePath = Path.Combine(GetImageFolder(), $"{character.Id.ToString()}.png");
-                liteDbService.Upsert(character);
-                foreach (var topic in character.Topics)
+                assistant.FaceImagePath = Path.Combine(GetImageFolder(), $"{assistant.Id.ToString()}.png");
+                liteDbService.Upsert(assistant);
+                foreach (var topic in assistant.Topics)
                 {
                     liteDbService.Upsert(topic);
                 }

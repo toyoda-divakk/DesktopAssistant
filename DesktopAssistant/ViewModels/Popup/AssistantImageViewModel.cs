@@ -2,9 +2,9 @@
 
 namespace DesktopAssistant.ViewModels.Popup;
 
-public partial class CharacterImageViewModel : ObservableRecipient
+public partial class AssistantImageViewModel : ObservableRecipient
 {
-    public CharacterImageViewModel()
+    public AssistantImageViewModel()
     {
     }
 }

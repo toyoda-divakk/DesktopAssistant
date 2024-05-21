@@ -11,13 +11,13 @@ public partial class PersonalEditViewModel(INavigationService navigationService,
     private readonly ILiteDbService _liteDbService = liteDbService;
 
     [ObservableProperty]
-    private Character? item;
+    private Assistant? item;
 
     public void OnNavigatedTo(object parameter)
     {
         if (parameter is long characterId)
         {
-            Item = _liteDbService.GetTable<Character>().First(x => x.Id == characterId);
+            Item = _liteDbService.GetTable<Assistant>().First(x => x.Id == characterId);
         }
     }
 

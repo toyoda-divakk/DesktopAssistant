@@ -10,7 +10,7 @@ namespace DesktopAssistant.Core.Services;
 /// </summary>
 public class SampleDataService : ISampleDataService
 {
-    public IEnumerable<Character> GetSampleCharacters()
+    public IEnumerable<Assistant> GetSampleAssistants()
     {
         var characterId1 = 1;
         var characterId2 = 2;
@@ -33,35 +33,35 @@ public class SampleDataService : ISampleDataService
                     new()
                     {
                         Id = 1,
-                        CharacterId = characterId1,
+                        AssistantId = characterId1,
                         Subject = "朝の挨拶",
                         Messages =
                         [
                             new()
                             {
                                 TopicId = 1,
-                                IsCharacterMessage = false,
+                                IsAssistantMessage = false,
                                 Text = "おはよう",
                                 CreatedAt = new DateTime(1997, 9, 22, 9, 10, 00)
                             },
                             new()
                             {
                                 TopicId = 1,
-                                IsCharacterMessage = true,
+                                IsAssistantMessage = true,
                                 Text = "何だ貴様は",
                                 CreatedAt = new DateTime(1997, 9, 22, 9, 11, 00)
                             },
                             new()
                             {
                                 TopicId = 1,
-                                IsCharacterMessage = false,
+                                IsAssistantMessage = false,
                                 Text = "ああああ",
                                 CreatedAt = new DateTime(1997, 9, 22, 9, 12, 00)
                             },
                             new()
                             {
                                 TopicId = 1,
-                                IsCharacterMessage = true,
+                                IsAssistantMessage = true,
                                 Text = "いいいい",
                                 CreatedAt = new DateTime(1997, 9, 22, 9, 13, 00)
                             }
@@ -72,35 +72,35 @@ public class SampleDataService : ISampleDataService
                     new()
                     {
                         Id = 2,
-                        CharacterId = characterId1,
+                        AssistantId = characterId1,
                         Subject = "昼の挨拶",
                         Messages =
                         [
                             new()
                             {
                                 TopicId = 2,
-                                IsCharacterMessage = false,
+                                IsAssistantMessage = false,
                                 Text = "こんにちは",
                                 CreatedAt = new DateTime(1997, 9, 22, 10, 10, 00)
                             },
                             new()
                             {
                                 TopicId = 2,
-                                IsCharacterMessage = true,
+                                IsAssistantMessage = true,
                                 Text = "おう、今日は何の用だ？",
                                 CreatedAt = new DateTime(1997, 9, 22, 10, 11, 00)
                             },
                             new()
                             {
                                 TopicId = 2,
-                                IsCharacterMessage = false,
+                                IsAssistantMessage = false,
                                 Text = "うううう",
                                 CreatedAt = new DateTime(1997, 9, 22, 10, 12, 00)
                             },
                             new()
                             {
                                 TopicId = 2,
-                                IsCharacterMessage = true,
+                                IsAssistantMessage = true,
                                 Text = "ええええ",
                                 CreatedAt = new DateTime(1997, 9, 22, 10, 13, 00)
                             }
@@ -125,35 +125,35 @@ public class SampleDataService : ISampleDataService
                     new()
                     {
                         Id = 3,
-                        CharacterId = characterId2,
+                        AssistantId = characterId2,
                         Subject = "朝の挨拶",
                         Messages =
                         [
                             new()
                             {
                                 TopicId = 3,
-                                IsCharacterMessage = false,
+                                IsAssistantMessage = false,
                                 Text = "おはよう",
                                 CreatedAt = new DateTime(1997, 9, 22, 9, 10, 00)
                             },
                             new()
                             {
                                 TopicId = 3,
-                                IsCharacterMessage = true,
+                                IsAssistantMessage = true,
                                 Text = "何だ貴様は",
                                 CreatedAt = new DateTime(1997, 9, 22, 9, 11, 00)
                             },
                             new()
                             {
                                 TopicId = 3,
-                                IsCharacterMessage = false,
+                                IsAssistantMessage = false,
                                 Text = "ああああ",
                                 CreatedAt = new DateTime(1997, 9, 22, 9, 12, 00)
                             },
                             new()
                             {
                                 TopicId = 3,
-                                IsCharacterMessage = true,
+                                IsAssistantMessage = true,
                                 Text = "いいいい",
                                 CreatedAt = new DateTime(1997, 9, 22, 9, 13, 00)
                             }
@@ -164,35 +164,35 @@ public class SampleDataService : ISampleDataService
                     new()
                     {
                         Id = 4,
-                        CharacterId = characterId2,
+                        AssistantId = characterId2,
                         Subject = "昼の挨拶",
                         Messages =
                         [
                             new()
                             {
                                 TopicId = 4,
-                                IsCharacterMessage = false,
+                                IsAssistantMessage = false,
                                 Text = "こんにちは",
                                 CreatedAt = new DateTime(1997, 9, 22, 10, 10, 00)
                             },
                             new()
                             {
                                 TopicId = 4,
-                                IsCharacterMessage = true,
+                                IsAssistantMessage = true,
                                 Text = "おう、今日は何の用だ？",
                                 CreatedAt = new DateTime(1997, 9, 22, 10, 11, 00)
                             },
                             new()
                             {
                                 TopicId = 4,
-                                IsCharacterMessage = false,
+                                IsAssistantMessage = false,
                                 Text = "うううう",
                                 CreatedAt = new DateTime(1997, 9, 22, 10, 12, 00)
                             },
                             new()
                             {
                                 TopicId = 4,
-                                IsCharacterMessage = true,
+                                IsAssistantMessage = true,
                                 Text = "ええええ",
                                 CreatedAt = new DateTime(1997, 9, 22, 10, 13, 00)
                             }
@@ -217,35 +217,35 @@ public class SampleDataService : ISampleDataService
                     new()
                     {
                         Id = 5,
-                        CharacterId = characterId3,
+                        AssistantId = characterId3,
                         Subject = "朝の挨拶",
                         Messages =
                         [
                             new()
                             {
                                 TopicId = 5,
-                                IsCharacterMessage = false,
+                                IsAssistantMessage = false,
                                 Text = "おはよう",
                                 CreatedAt = new DateTime(1997, 9, 22, 9, 10, 00)
                             },
                             new()
                             {
                                 TopicId = 5,
-                                IsCharacterMessage = true,
+                                IsAssistantMessage = true,
                                 Text = "何だ貴様は",
                                 CreatedAt = new DateTime(1997, 9, 22, 9, 11, 00)
                             },
                             new()
                             {
                                 TopicId = 5,
-                                IsCharacterMessage = false,
+                                IsAssistantMessage = false,
                                 Text = "ああああ",
                                 CreatedAt = new DateTime(1997, 9, 22, 9, 12, 00)
                             },
                             new()
                             {
                                 TopicId = 5,
-                                IsCharacterMessage = true,
+                                IsAssistantMessage = true,
                                 Text = "いいいい",
                                 CreatedAt = new DateTime(1997, 9, 22, 9, 13, 00)
                             }
@@ -256,35 +256,35 @@ public class SampleDataService : ISampleDataService
                     new()
                     {
                         Id = 6,
-                        CharacterId = characterId3,
+                        AssistantId = characterId3,
                         Subject = "昼の挨拶",
                         Messages =
                         [
                             new()
                             {
                                 TopicId = 6,
-                                IsCharacterMessage = false,
+                                IsAssistantMessage = false,
                                 Text = "こんにちは",
                                 CreatedAt = new DateTime(1997, 9, 22, 10, 10, 00)
                             },
                             new()
                             {
                                 TopicId = 6,
-                                IsCharacterMessage = true,
+                                IsAssistantMessage = true,
                                 Text = "おう、今日は何の用だ？",
                                 CreatedAt = new DateTime(1997, 9, 22, 10, 11, 00)
                             },
                             new()
                             {
                                 TopicId = 6,
-                                IsCharacterMessage = false,
+                                IsAssistantMessage = false,
                                 Text = "うううう",
                                 CreatedAt = new DateTime(1997, 9, 22, 10, 12, 00)
                             },
                             new()
                             {
                                 TopicId = 6,
-                                IsCharacterMessage = true,
+                                IsAssistantMessage = true,
                                 Text = "ええええ",
                                 CreatedAt = new DateTime(1997, 9, 22, 10, 13, 00)
                             }
@@ -309,35 +309,35 @@ public class SampleDataService : ISampleDataService
                     new()
                     {
                         Id = 7,
-                        CharacterId = characterId4,
+                        AssistantId = characterId4,
                         Subject = "朝の挨拶",
                         Messages =
                         [
                             new()
                             {
                                 TopicId = 7,
-                                IsCharacterMessage = false,
+                                IsAssistantMessage = false,
                                 Text = "おはよう",
                                 CreatedAt = new DateTime(1997, 9, 22, 9, 10, 00)
                             },
                             new()
                             {
                                 TopicId = 7,
-                                IsCharacterMessage = true,
+                                IsAssistantMessage = true,
                                 Text = "何だ貴様は",
                                 CreatedAt = new DateTime(1997, 9, 22, 9, 11, 00)
                             },
                             new()
                             {
                                 TopicId = 7,
-                                IsCharacterMessage = false,
+                                IsAssistantMessage = false,
                                 Text = "ああああ",
                                 CreatedAt = new DateTime(1997, 9, 22, 9, 12, 00)
                             },
                             new()
                             {
                                 TopicId = 7,
-                                IsCharacterMessage = true,
+                                IsAssistantMessage = true,
                                 Text = "いいいい",
                                 CreatedAt = new DateTime(1997, 9, 22, 9, 13, 00)
                             }
@@ -348,35 +348,35 @@ public class SampleDataService : ISampleDataService
                     new()
                     {
                         Id = 8,
-                        CharacterId = characterId3,
+                        AssistantId = characterId3,
                         Subject = "昼の挨拶",
                         Messages =
                         [
                             new()
                             {
                                 TopicId = 8,
-                                IsCharacterMessage = false,
+                                IsAssistantMessage = false,
                                 Text = "こんにちは",
                                 CreatedAt = new DateTime(1997, 9, 22, 10, 10, 00)
                             },
                             new()
                             {
                                 TopicId = 8,
-                                IsCharacterMessage = true,
+                                IsAssistantMessage = true,
                                 Text = "おう、今日は何の用だ？",
                                 CreatedAt = new DateTime(1997, 9, 22, 10, 11, 00)
                             },
                             new()
                             {
                                 TopicId = 8,
-                                IsCharacterMessage = false,
+                                IsAssistantMessage = false,
                                 Text = "うううう",
                                 CreatedAt = new DateTime(1997, 9, 22, 10, 12, 00)
                             },
                             new()
                             {
                                 TopicId = 8,
-                                IsCharacterMessage = true,
+                                IsAssistantMessage = true,
                                 Text = "ええええ",
                                 CreatedAt = new DateTime(1997, 9, 22, 10, 13, 00)
                             }
