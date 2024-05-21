@@ -4,14 +4,14 @@ using DesktopAssistant.Core.Models;
 
 namespace DesktopAssistant.Contracts.Services;
 
-// TODO:選択中のキャラクターはDBに保存することにしたので、最悪この保存はいらなくなるかもしれない
+// TODO:選択中のアシスタントはDBに保存することにしたので、最悪この保存はいらなくなるかもしれない
 /// <summary>
-/// キャラクター設定を提供
+/// アシスタント設定を提供
 /// </summary>
 public interface ICharacterSettingService
 {
     /// <summary>
-    /// 現在選択中のキャラクター
+    /// 現在選択中のアシスタント
     /// </summary>
     Character CurrentCharacter
     {

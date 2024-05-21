@@ -336,7 +336,7 @@
     <value>OK</value>
   </data>
   <data name="Message_CannotDeleteLastCharacter" xml:space="preserve">
-    <value>最後のキャラクターは削除できません。</value>
+    <value>最後のアシスタントは削除できません。</value>
   </data>
   <data name="Message_Error" xml:space="preserve">
     <value>Error</value>

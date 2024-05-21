@@ -18,7 +18,7 @@ public enum SystemEvents
     Initial_SetTasks = 0,
 
     /// <summary>
-    /// 初回起動：キャラクター登録
+    /// 初回起動：アシスタント登録
     /// </summary>
     Initial_SetCharacoers = 1,
 }

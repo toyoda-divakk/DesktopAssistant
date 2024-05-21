@@ -23,7 +23,7 @@ public partial class ChatViewModel(IChatSettingService chatSettingService) : Obs
     /// </summary>
     private readonly IChatSettingService _chatSettingService = chatSettingService;
 
-    // TODO:キャラクター設定を追加する。選択キャラは1人。まずはキャラクター編集画面を作る。デフォルトは開発補助のプロンプトを付けて効率UPしよう
+    // TODO:アシスタント設定を追加する。選択アシスタントは1人。まずはアシスタント編集画面を作る。デフォルトは開発補助のプロンプトを付けて効率UPしよう
 
     [ObservableProperty]
     private string userMessage = string.Empty;

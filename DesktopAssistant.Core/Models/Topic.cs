@@ -21,7 +21,7 @@ public record Topic : IIdentifiable
     }
 
     /// <summary>
-    /// キャラクター
+    /// アシスタント
     /// </summary>
     public long CharacterId
     {

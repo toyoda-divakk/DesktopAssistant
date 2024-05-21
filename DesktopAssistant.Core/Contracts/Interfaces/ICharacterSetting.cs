@@ -5,7 +5,7 @@ namespace DesktopAssistant.Core.Contracts.Interfaces;
 
 // TODO:いらないんじゃないかな？
 /// <summary>
-/// キャラクターに関する設定項目のインターフェース
+/// アシスタントに関する設定項目のインターフェース
 /// </summary>
 public interface ICharacterSetting
 {

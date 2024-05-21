@@ -28,7 +28,7 @@ public record Message : IIdentifiable
     }
 
     /// <summary>
-    /// キャラクターの発言ならTrue
+    /// アシスタントの発言ならTrue
     /// ユーザーの発言ならFalse
     /// </summary>
     public bool IsCharacterMessage

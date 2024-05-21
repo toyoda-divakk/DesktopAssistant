@@ -129,7 +129,7 @@ public class ActivationService(ActivationHandler<LaunchActivatedEventArgs> defau
             liteDbService.Upsert(new SystemEvent()
             {
                 Event = SystemEvents.Initial_SetCharacoers,
-                Content = "DBにプリセットのキャラを登録する。",
+                Content = "DBにプリセットのアシスタントを登録する。",
                 IsDone = true,
                 CreatedAt = DateTime.UtcNow,
                 UpdatedAt = DateTime.UtcNow

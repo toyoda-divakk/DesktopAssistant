@@ -10,7 +10,7 @@ namespace DesktopAssistant.Core.Models;
 
 // Character -> Topic -> Message
 /// <summary>
-/// キャラクター
+/// アシスタント
 /// </summary>
 public record Character : IIdentifiable
 {
@@ -115,7 +115,7 @@ public record Character : IIdentifiable
     }
 
     /// <summary>
-    /// キャラクター切り替えコマンド
+    /// アシスタント切り替えコマンド
     /// </summary>
     [BsonIgnore]
     public ICommand SwitchCommand

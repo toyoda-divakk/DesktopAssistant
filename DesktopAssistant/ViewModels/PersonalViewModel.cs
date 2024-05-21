@@ -10,10 +10,10 @@ using DesktopAssistant.Views.Popup;
 using Microsoft.UI.Xaml.Controls;
 
 namespace DesktopAssistant.ViewModels;
-// TODO:キャラクターのコピー・追加・削除はテストしてないし、コピーと追加は同じような処理があるので共通化すべき
+// TODO:アシスタントのコピー・追加・削除はテストしてないし、コピーと追加は同じような処理があるので共通化すべき
 
 /// <summary>
-/// キャラ選択画面のViewModel
+/// アシスタント選択画面のViewModel
 /// </summary>
 public partial class PersonalViewModel(INavigationService navigationService, ILiteDbService liteDbService) : ObservableRecipient, INavigationAware
 {
@@ -57,7 +57,7 @@ public partial class PersonalViewModel(INavigationService navigationService, ILi
 
     public void OnNavigatedTo(object parameter)
     {
-        // キャラクター一覧を取得して、現在選択中のキャラクターを設定する
+        // アシスタント一覧を取得して、現在選択中のアシスタントを設定する
         var characters = _liteDbService.GetTable<Character>();
         if (!characters.Any())
         {
@@ -86,7 +86,7 @@ public partial class PersonalViewModel(INavigationService navigationService, ILi
     }
 
     /// <summary>
-    /// キャラクターに対して右クリック時の処理を設定する
+    /// アシスタントに対して右クリック時の処理を設定する
     /// </summary>
     /// <param name="character"></param>
     /// <returns></returns>
@@ -98,7 +98,7 @@ public partial class PersonalViewModel(INavigationService navigationService, ILi
         });
         character.CopyCommand = new RelayCommand(() =>
         {
-            // このキャラクターをコピーしてDBに新規追加する
+            // このアシスタントをコピーしてDBに新規追加する
             var newCharacter = new Character()
             {
                 Name = character.Name,
@@ -144,12 +144,12 @@ public partial class PersonalViewModel(INavigationService navigationService, ILi
     }
 
     /// <summary>
-    /// DBと画面表示からキャラクター削除
+    /// DBと画面表示からアシスタント削除
     /// </summary>
     /// <param name="character"></param>
     private void DeleteCharactor(Character character)
     {
-        // キャラクターが残り1剣の場合は削除しない
+        // アシスタントが残り1剣の場合は削除しない
         if (Source.Count == 1)
         {
             // ダイアログを表示する
@@ -157,16 +157,16 @@ public partial class PersonalViewModel(INavigationService navigationService, ILi
             return;
         }
 
-        // キャラクター内の会話を全て削除する
+        // アシスタント内の会話を全て削除する
         var topics = _liteDbService.GetTable<Topic>().Where(x => x.CharacterId == character.Id);
         foreach (var topic in topics)
         {
             _liteDbService.Delete(topic);
         }
-        // キャラクターの画像を削除する
+        // アシスタントの画像を削除する
         File.Delete(character.FaceImagePath);
 
-        // キャラクターを削除する
+        // アシスタントを削除する
         _liteDbService.Delete(character);
         Source.Remove(character);
     }
@@ -178,7 +178,7 @@ public partial class PersonalViewModel(INavigationService navigationService, ILi
     }
 
     /// <summary>
-    /// キャラクターをクリックした際の処理
+    /// アシスタントをクリックした際の処理
     /// </summary>
     /// <param name="clickedItem"></param>
     [RelayCommand]
@@ -192,8 +192,8 @@ public partial class PersonalViewModel(INavigationService navigationService, ILi
     }
 
 
-    // キャラクター新規追加コマンド
-    // 空のキャラクターデータを作成してDBに追加する
+    // アシスタント新規追加コマンド
+    // 空のアシスタントデータを作成してDBに追加する
     [RelayCommand]
     private void AddNewCharacter()
     {

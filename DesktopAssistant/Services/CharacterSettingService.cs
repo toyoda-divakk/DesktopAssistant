@@ -6,10 +6,10 @@ using DesktopAssistant.Helpers;
 
 namespace DesktopAssistant.Services;
 
-// TODO:多分使わないので、キャラ実装できたら消すこと
+// TODO:多分使わないので、アシスタント実装できたら消すこと
 
 /// <summary>
-/// チャットで使用するキャラクターの設定を管理するサービスを表します。
+/// チャットで使用するアシスタントの設定を管理するサービスを表します。
 /// </summary>
 public class CharacterSettingService(ILocalSettingsService localSettingsService, ILiteDbService liteDbService) : ICharacterSettingService, ICharacterSetting
 {
