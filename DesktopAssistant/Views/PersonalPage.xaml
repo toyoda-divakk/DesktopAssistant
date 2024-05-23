@@ -16,6 +16,11 @@
             FalseValue="&#xF781;"
             TrueValue="&#xE939;" />
 
+        <converters:BoolToObjectConverter
+            x:Key="BoolToStyleConverter"
+            FalseValue="{StaticResource DefaultButtonStyle}"
+            TrueValue="{StaticResource AccentButtonStyle}" />
+
     </Page.Resources>
 
     <Grid x:Name="ContentArea">
@@ -64,15 +69,16 @@
                                         Text="{x:Bind Description}" />
                                 </StackPanel>
                             </Grid>
-                            <ToggleButton
+                            <!--  IsChecked="{x:Bind IsSelected, Mode=TwoWay}"  -->
+                            <Button
                                 Width="140"
                                 Margin="0,0,0,0"
                                 HorizontalAlignment="Center"
                                 Command="{x:Bind SwitchCommand}"
                                 CommandParameter="{x:Bind Id}"
-                                IsChecked="{x:Bind IsSelected, Mode=TwoWay}">
+                                Style="{x:Bind IsSelected, Converter={StaticResource BoolToStyleConverter}}">
                                 <FontIcon Glyph="{x:Bind IsSelected, Converter={StaticResource BoolToObjectConverter}}" />
-                            </ToggleButton>
+                            </Button>
                         </StackPanel>
                     </Grid>
                 </DataTemplate>

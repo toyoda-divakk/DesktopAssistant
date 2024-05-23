@@ -231,9 +231,6 @@
   <data name="Button_Cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
-  <data name="Button_Delete" xml:space="preserve">
-    <value>Delete</value>
-  </data>
   <data name="Button_NoRegrets" xml:space="preserve">
     <value>No regrets</value>
   </data>
@@ -251,9 +248,6 @@
   </data>
   <data name="Message_DeleteCategory" xml:space="preserve">
     <value>Do you want to delete a category?</value>
-  </data>
-  <data name="Button_Edit" xml:space="preserve">
-    <value>Edit</value>
   </data>
   <data name="Menu_Delete.Text" xml:space="preserve">
     <value>削除</value>
@@ -344,19 +338,16 @@
   <data name="Shell_PersonalEdit.Content" xml:space="preserve">
     <value>PersonalEdit</value>
   </data>
-  <data name="Btn_Back.Content" xml:space="preserve">
+  <data name="Button_Back.Text" xml:space="preserve">
     <value>戻る</value>
   </data>
-  <data name="Btn_Delete.Content" xml:space="preserve">
+  <data name="Button_Delete.Text" xml:space="preserve">
     <value>削除</value>
   </data>
-  <data name="Btn_Edit.Content" xml:space="preserve">
+  <data name="Button_Edit.Text" xml:space="preserve">
     <value>編集</value>
   </data>
-  <data name="Btn_List.Content" xml:space="preserve">
+  <data name="Button_List.Text" xml:space="preserve">
     <value>一覧に戻る</value>
-  </data>
-  <data name="Btn_Update.Content" xml:space="preserve">
-    <value>更新</value>
   </data>
 </root>

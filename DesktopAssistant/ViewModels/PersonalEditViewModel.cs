@@ -6,6 +6,8 @@ using DesktopAssistant.Core.Models;
 using DesktopAssistant.Services;
 namespace DesktopAssistant.ViewModels;
 
+// TODO:チャット画面とTodo画面のボタンをリソースごと直すこと。削除確認画面を出すこと。
+
 public partial class PersonalEditViewModel(INavigationService navigationService, ILiteDbService liteDbService) : ObservableRecipient, INavigationAware
 {
     private readonly INavigationService _navigationService = navigationService;

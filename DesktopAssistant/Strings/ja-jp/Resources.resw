@@ -130,7 +130,7 @@
     <value>未定♪</value>
   </data>
   <data name="Shell_Personal.Content" xml:space="preserve">
-    <value>アシスタント選択</value>
+    <value>アシスタント</value>
   </data>
   <data name="Settings_Personalization.Text" xml:space="preserve">
     <value>表示設定</value>
@@ -232,12 +232,14 @@
   </data>
   <data name="Button_Cancel" xml:space="preserve">
     <value>キャンセル</value>
+    <comment>どこで使ってる？Textが無いということはアイコンがついてない</comment>
   </data>
-  <data name="Button_Delete" xml:space="preserve">
+  <data name="Button_Delete.Text" xml:space="preserve">
     <value>削除</value>
   </data>
   <data name="Button_NoRegrets" xml:space="preserve">
     <value>後悔しない</value>
+    <comment>削除確認ダイアログ用</comment>
   </data>
   <data name="Dialog_DeleteTask1" xml:space="preserve">
     <value>カテゴリ内のタスクも全て削除されます。</value>
@@ -254,7 +256,7 @@
   <data name="Message_DeleteCategory" xml:space="preserve">
     <value>カテゴリを削除しますか？</value>
   </data>
-  <data name="Button_Edit" xml:space="preserve">
+  <data name="Button_Edit.Text" xml:space="preserve">
     <value>編集</value>
   </data>
   <data name="Menu_Delete.Text" xml:space="preserve">
@@ -265,9 +267,11 @@
   </data>
   <data name="Button_AddCategory.Content" xml:space="preserve">
     <value>カテゴリの追加</value>
+    <comment>Textに変えてアイコンを付けること</comment>
   </data>
   <data name="Button_AllTasks.Content" xml:space="preserve">
     <value>全てのタスクを表示</value>
+    <comment>Textに変えてアイコンを付けること</comment>
   </data>
   <data name="Chat" xml:space="preserve">
     <value>チャット</value>
@@ -334,6 +338,7 @@
   </data>
   <data name="Button_Close" xml:space="preserve">
     <value>OK</value>
+    <comment>どこで使ってる？Textが無いということはアイコンがついてない</comment>
   </data>
   <data name="Message_CannotDeleteLastAssistant" xml:space="preserve">
     <value>最後のアシスタントは削除できません。</value>
@@ -344,19 +349,10 @@
   <data name="Shell_PersonalEdit.Content" xml:space="preserve">
     <value>アシスタント編集</value>
   </data>
-  <data name="Btn_Back.Content" xml:space="preserve">
+  <data name="Button_Back.Text" xml:space="preserve">
     <value>戻る</value>
   </data>
-  <data name="Btn_Delete.Content" xml:space="preserve">
-    <value>削除</value>
-  </data>
-  <data name="Btn_Edit.Content" xml:space="preserve">
-    <value>編集</value>
-  </data>
-  <data name="Btn_List.Content" xml:space="preserve">
+  <data name="Button_List.Text" xml:space="preserve">
     <value>一覧に戻る</value>
-  </data>
-  <data name="Btn_Update.Content" xml:space="preserve">
-    <value>更新</value>
   </data>
 </root>

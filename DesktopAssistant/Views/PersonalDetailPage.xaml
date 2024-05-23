@@ -18,7 +18,7 @@
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1*" />
-                    <RowDefinition Height="50" />
+                    <RowDefinition Height="60" />
                 </Grid.RowDefinitions>
 
                 <!--  左側の内容  -->
@@ -55,9 +55,14 @@
                     VerticalAlignment="Bottom"
                     Orientation="Horizontal">
                     <Button
-                        x:Uid="Btn_Back"
                         Margin="0,0,10,0"
-                        Command="{x:Bind ViewModel.GoBackCommand}" />
+                        Command="{x:Bind ViewModel.GoBackCommand}"
+                        Style="{StaticResource AccentButtonStyle}">
+                        <StackPanel Orientation="Horizontal">
+                            <FontIcon Glyph="&#xE72B;" />
+                            <TextBlock x:Uid="Button_Back" Margin="5,0,0,0" />
+                        </StackPanel>
+                    </Button>
                 </StackPanel>
                 <StackPanel
                     Grid.Row="1"
@@ -67,14 +72,24 @@
                     VerticalAlignment="Bottom"
                     Orientation="Horizontal">
                     <Button
-                        x:Uid="Btn_Edit"
                         Margin="0,0,10,0"
-                        Command="{x:Bind ViewModel.EditCommand}" />
+                        Command="{x:Bind ViewModel.EditCommand}"
+                        Style="{StaticResource AccentButtonStyle}">
+                        <StackPanel Orientation="Horizontal">
+                            <FontIcon Glyph="&#xE70F;" />
+                            <TextBlock x:Uid="Button_Edit" Margin="5,0,0,0" />
+                        </StackPanel>
+                    </Button>
                     <Button
-                        x:Uid="Btn_Delete"
+                        Margin="0,0,10,0"
                         Background="{ThemeResource SystemFillColorCriticalBackgroundBrush}"
                         Command="{x:Bind ViewModel.DeleteCommand}"
-                        Foreground="{ThemeResource SystemFillColorCriticalBrush}" />
+                        Foreground="{ThemeResource SystemFillColorCriticalBrush}">
+                        <StackPanel Orientation="Horizontal">
+                            <FontIcon Glyph="&#xE74D;" />
+                            <TextBlock x:Uid="Button_Delete" Margin="5,0,0,0" />
+                        </StackPanel>
+                    </Button>
                 </StackPanel>
             </Grid>
         </ScrollViewer>

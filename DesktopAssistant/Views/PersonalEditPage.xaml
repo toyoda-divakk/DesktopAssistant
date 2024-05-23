@@ -14,7 +14,7 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="1*" />
-            <RowDefinition Height="50" />
+            <RowDefinition Height="60" />
         </Grid.RowDefinitions>
 
         <!--  左側の内容  -->
@@ -45,7 +45,6 @@
                 Text="見出し・説明" />
             <TextBox
                 Margin="0,5,0,15"
-                AcceptsReturn="True"
                 FontSize="16"
                 Text="{x:Bind ViewModel.Item.Description, Mode=TwoWay}" />
             <TextBlock
@@ -53,6 +52,7 @@
                 FontWeight="Bold"
                 Text="プロンプト" />
             <TextBox
+                AcceptsReturn="True"
                 FontSize="16"
                 Text="{x:Bind ViewModel.Item.Prompt, Mode=TwoWay}"
                 TextWrapping="Wrap" />
@@ -67,13 +67,23 @@
             VerticalAlignment="Bottom"
             Orientation="Horizontal">
             <Button
-                x:Uid="Btn_List"
                 Margin="0,0,10,0"
-                Command="{x:Bind ViewModel.BackToListCommand}" />
+                Command="{x:Bind ViewModel.BackToListCommand}"
+                Style="{StaticResource AccentButtonStyle}">
+                <StackPanel Orientation="Horizontal">
+                    <FontIcon Glyph="&#xE700;" />
+                    <TextBlock x:Uid="Button_List" Margin="5,0,0,0" />
+                </StackPanel>
+            </Button>
             <Button
-                x:Uid="Btn_Back"
                 Margin="0,0,10,0"
-                Command="{x:Bind ViewModel.GoBackCommand}" />
+                Command="{x:Bind ViewModel.GoBackCommand}"
+                Style="{StaticResource AccentButtonStyle}">
+                <StackPanel Orientation="Horizontal">
+                    <FontIcon Glyph="&#xE72B;" />
+                    <TextBlock x:Uid="Button_Back" Margin="5,0,0,0" />
+                </StackPanel>
+            </Button>
         </StackPanel>
         <StackPanel
             Grid.Row="1"
@@ -83,17 +93,24 @@
             VerticalAlignment="Bottom"
             Orientation="Horizontal">
             <Button
-                x:Uid="Btn_Update"
                 Margin="0,0,10,0"
-                Background="{ThemeResource SystemFillColorCautionBackgroundBrush}"
                 Command="{x:Bind ViewModel.UpdateCommand}"
-                Foreground="{ThemeResource SystemFillColorCautionBrush}" />
+                Style="{StaticResource AccentButtonStyle}">
+                <StackPanel Orientation="Horizontal">
+                    <FontIcon Glyph="&#xE74E;" />
+                    <TextBlock x:Uid="Button_Save" Margin="5,0,0,0" />
+                </StackPanel>
+            </Button>
             <Button
-                x:Uid="Btn_Delete"
                 Margin="0,0,10,0"
                 Background="{ThemeResource SystemFillColorCriticalBackgroundBrush}"
                 Command="{x:Bind ViewModel.DeleteCommand}"
-                Foreground="{ThemeResource SystemFillColorCriticalBrush}" />
+                Foreground="{ThemeResource SystemFillColorCriticalBrush}">
+                <StackPanel Orientation="Horizontal">
+                    <FontIcon Glyph="&#xE74D;" />
+                    <TextBlock x:Uid="Button_Delete" Margin="5,0,0,0" />
+                </StackPanel>
+            </Button>
         </StackPanel>
     </Grid>
 </Page>
