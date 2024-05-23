@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using DesktopAssistant.Contracts.Services;
 using DesktopAssistant.Contracts.ViewModels;
 using DesktopAssistant.Core.Models;
@@ -12,6 +13,43 @@ public partial class PersonalEditViewModel(INavigationService navigationService,
 
     [ObservableProperty]
     private Assistant? item;
+
+    /// <summary>
+    /// 更新してアシスタント一覧に戻る
+    /// </summary>
+    [RelayCommand]
+    public void Update()
+    {
+        _liteDbService.Upsert(Item!);
+        _navigationService.NavigateTo(typeof(PersonalViewModel).FullName!);
+    }
+
+    /// <summary>
+    /// 一覧に戻る
+    /// </summary>
+    [RelayCommand]
+    public void BackToList()
+    {
+        _navigationService.NavigateTo(typeof(PersonalViewModel).FullName!);
+    }
+
+    /// <summary>
+    /// 前に戻る（詳細画面）
+    /// </summary>
+    [RelayCommand]
+    public void GoBack()
+    {
+        _navigationService.GoBack();
+    }
+
+    /// <summary>
+    /// 削除して一覧に戻る
+    /// </summary>
+    [RelayCommand]
+    public void Delete()
+    {
+        _navigationService.NavigateTo(typeof(PersonalViewModel).FullName!);
+    }
 
     public void OnNavigatedTo(object parameter)
     {

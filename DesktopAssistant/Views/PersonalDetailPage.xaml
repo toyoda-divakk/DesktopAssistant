@@ -10,73 +10,16 @@
 
     <Grid x:Name="ContentArea">
         <ScrollViewer IsTabStop="True">
-            <!--<StackPanel x:Name="contentPanel">
-                <Grid
-                    x:Name="itemHero"
-                    Width="200"
-                    Height="200"
-                    Margin="{StaticResource SmallRightMargin}"
-                    Padding="{StaticResource XSmallLeftTopRightBottomMargin}"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Top"
-                    RelativePanel.AlignLeftWithPanel="True"
-                    RelativePanel.AlignTopWithPanel="True">
-                    <Image HorizontalAlignment="Center" Source="{x:Bind ViewModel.Item.FaceImagePath}" />
-                </Grid>
-
-                <TextBlock
-                    x:Name="title"
-                    Margin="{StaticResource XXSmallTopMargin}"
-                    RelativePanel.Above="itemHero"
-                    RelativePanel.AlignTopWithPanel="True"
-                    Style="{ThemeResource TitleTextBlockStyle}"
-                    Text="{x:Bind ViewModel.Item.Name, Mode=OneWay}" />
-
-                <StackPanel x:Name="propertiesGroup1" RelativePanel.Below="itemHero">
-                    <StackPanel x:Name="statusGroup" Margin="{StaticResource SmallTopMargin}">
-                        <TextBlock Style="{ThemeResource SubtitleTextBlockStyle}" Text="Status" />
-                        <TextBlock Style="{ThemeResource BodyTextBlockStyle}" Text="{x:Bind ViewModel.Item.Prompt}" />
-                    </StackPanel>
-
-                    <StackPanel x:Name="orderDateGroup" Margin="{StaticResource SmallTopMargin}">
-                        <TextBlock Style="{ThemeResource SubtitleTextBlockStyle}" Text="Order date" />
-                        <TextBlock Style="{ThemeResource BodyTextBlockStyle}" Text="{x:Bind ViewModel.Item.Prompt}" />
-                    </StackPanel>
-                </StackPanel>
-
-                <StackPanel x:Name="propertiesGroup2" RelativePanel.Below="propertiesGroup1">
-                    <StackPanel x:Name="shipToGroup" Margin="{StaticResource SmallTopMargin}">
-                        <TextBlock Style="{ThemeResource SubtitleTextBlockStyle}" Text="Ship to" />
-                        <TextBlock Style="{ThemeResource BodyTextBlockStyle}" Text="{x:Bind ViewModel.Item.Prompt}" />
-                    </StackPanel>
-
-                    <StackPanel x:Name="orderTotalGroup" Margin="{StaticResource SmallTopMargin}">
-                        <TextBlock Style="{ThemeResource SubtitleTextBlockStyle}" Text="Order total" />
-                        <TextBlock Style="{ThemeResource BodyTextBlockStyle}" Text="{x:Bind ViewModel.Item.Prompt}" />
-                    </StackPanel>
-                </StackPanel>
-
-                <TextBlock
-                    Margin="{StaticResource SmallTopMargin}"
-                    Style="{ThemeResource SubtitleTextBlockStyle}"
-                    Text="Note 1" />
-                <TextBlock Style="{ThemeResource BodyTextBlockStyle}" Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis quis hendrerit nulla, vel molestie libero. In nec ultricies magna, ultricies molestie ipsum. Mauris non dignissim velit. Etiam malesuada blandit mauris eu maximus. Quisque ornare, felis nec scelerisque mollis, risus dolor posuere magna, in gravida quam mi id nisi. Nullam mattis consequat ex. Cras nulla neque, dictum ac urna et, vestibulum feugiat ex. Pellentesque malesuada accumsan ligula, vel fringilla lacus facilisis sit amet. Proin convallis tempor arcu, ac placerat libero pretium ut. Praesent hendrerit nisl at lobortis viverra. Fusce vitae velit odio. Nam ut tortor sed purus finibus sollicitudin quis at ante. Ut sodales dolor vel eros mollis suscipit. Donec eu nulla id urna ultricies consequat. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;" />
-
-                <TextBlock
-                    Margin="{StaticResource SmallTopMargin}"
-                    Style="{ThemeResource SubtitleTextBlockStyle}"
-                    Text="Note 2" />
-                <TextBlock
-                    Margin="{StaticResource MediumBottomMargin}"
-                    Style="{ThemeResource BodyTextBlockStyle}"
-                    Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis quis hendrerit nulla, vel molestie libero. In nec ultricies magna, ultricies molestie ipsum. Mauris non dignissim velit. Etiam malesuada blandit mauris eu maximus. Quisque ornare, felis nec scelerisque mollis, risus dolor posuere magna, in gravida quam mi id nisi. Nullam mattis consequat ex. Cras nulla neque, dictum ac urna et, vestibulum feugiat ex. Pellentesque malesuada accumsan ligula, vel fringilla lacus facilisis sit amet. Proin convallis tempor arcu, ac placerat libero pretium ut. Praesent hendrerit nisl at lobortis viverra. Fusce vitae velit odio. Nam ut tortor sed purus finibus sollicitudin quis at ante. Ut sodales dolor vel eros mollis suscipit. Donec eu nulla id urna ultricies consequat. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;" />
-            </StackPanel>-->
             <Grid x:Name="itemHero">
                 <!--  Gridの列定義  -->
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="2*" MaxWidth="240" />
                     <ColumnDefinition Width="3*" />
                 </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="50" />
+                </Grid.RowDefinitions>
 
                 <!--  左側の内容  -->
                 <StackPanel Grid.Column="0" Margin="10">
@@ -84,11 +27,7 @@
                         FontSize="24"
                         FontWeight="Bold"
                         Text="{x:Bind ViewModel.Item.Name}" />
-                    <Image
-                        Width="200"
-                        Height="200"
-                        Source="{x:Bind ViewModel.Item.FaceImagePath}"
-                        Stretch="Uniform" />
+                    <Image Source="{x:Bind ViewModel.Item.FaceImagePath}" Stretch="Uniform" />
                 </StackPanel>
 
                 <!--  右側の内容  -->
@@ -97,12 +36,45 @@
                         FontSize="18"
                         FontWeight="Bold"
                         Text="見出し・説明" />
-                    <TextBlock Margin="0,5,0,15" Text="{x:Bind ViewModel.Item.Description}" />
+                    <TextBlock
+                        Margin="0,5,0,15"
+                        Text="{x:Bind ViewModel.Item.Description}"
+                        TextWrapping="Wrap" />
                     <TextBlock
                         FontSize="18"
                         FontWeight="Bold"
                         Text="プロンプト" />
-                    <TextBlock Text="{x:Bind ViewModel.Item.Prompt}" />
+                    <TextBlock Text="{x:Bind ViewModel.Item.Prompt}" TextWrapping="Wrap" />
+                </StackPanel>
+                <!--  下側のボタン  -->
+                <StackPanel
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Margin="10"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Bottom"
+                    Orientation="Horizontal">
+                    <Button
+                        x:Uid="Btn_Back"
+                        Margin="0,0,10,0"
+                        Command="{x:Bind ViewModel.GoBackCommand}" />
+                </StackPanel>
+                <StackPanel
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Margin="10"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Bottom"
+                    Orientation="Horizontal">
+                    <Button
+                        x:Uid="Btn_Edit"
+                        Margin="0,0,10,0"
+                        Command="{x:Bind ViewModel.EditCommand}" />
+                    <Button
+                        x:Uid="Btn_Delete"
+                        Background="{ThemeResource SystemFillColorCriticalBackgroundBrush}"
+                        Command="{x:Bind ViewModel.DeleteCommand}"
+                        Foreground="{ThemeResource SystemFillColorCriticalBrush}" />
                 </StackPanel>
             </Grid>
         </ScrollViewer>

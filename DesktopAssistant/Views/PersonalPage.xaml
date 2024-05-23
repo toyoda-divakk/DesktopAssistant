@@ -71,7 +71,7 @@
                                 Command="{x:Bind SwitchCommand}"
                                 CommandParameter="{x:Bind Id}"
                                 IsChecked="{x:Bind IsSelected, Mode=TwoWay}">
-                                <FontIcon Glyph="{x:Bind IsSelected, Converter={StaticResource BoolToObjectConverter}, Mode=OneWay}" />
+                                <FontIcon Glyph="{x:Bind IsSelected, Converter={StaticResource BoolToObjectConverter}}" />
                             </ToggleButton>
                         </StackPanel>
                     </Grid>

@@ -12,23 +12,33 @@
             <ColumnDefinition Width="2*" />
             <ColumnDefinition Width="3*" />
         </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="50" />
+        </Grid.RowDefinitions>
 
         <!--  左側の内容  -->
-        <StackPanel Grid.Column="0" Margin="10">
+        <StackPanel
+            Grid.Row="0"
+            Grid.Column="0"
+            Margin="10">
             <TextBlock
                 FontSize="24"
                 FontWeight="Bold"
                 Text="名前" />
-            <TextBox FontSize="20" Text="{Binding Assistant.Name, Mode=TwoWay}" />
+            <TextBox FontSize="20" Text="{x:Bind ViewModel.Item.Name, Mode=TwoWay}" />
             <Image
                 Width="200"
                 Height="200"
-                Source="{Binding Assistant.FaceImagePath}"
+                Source="{x:Bind ViewModel.Item.FaceImagePath}"
                 Stretch="Uniform" />
         </StackPanel>
 
         <!--  右側の内容  -->
-        <StackPanel Grid.Column="1" Margin="10">
+        <StackPanel
+            Grid.Row="0"
+            Grid.Column="1"
+            Margin="10">
             <TextBlock
                 FontSize="18"
                 FontWeight="Bold"
@@ -37,23 +47,53 @@
                 Margin="0,5,0,15"
                 AcceptsReturn="True"
                 FontSize="16"
-                Text="{Binding Assistant.Description, Mode=TwoWay}"
-                TextWrapping="Wrap" />
+                Text="{x:Bind ViewModel.Item.Description, Mode=TwoWay}" />
             <TextBlock
                 FontSize="18"
                 FontWeight="Bold"
                 Text="プロンプト" />
-            <TextBox FontSize="16" Text="{Binding Assistant.Prompt, Mode=TwoWay}" />
+            <TextBox
+                FontSize="16"
+                Text="{x:Bind ViewModel.Item.Prompt, Mode=TwoWay}"
+                TextWrapping="Wrap" />
         </StackPanel>
 
-        <!--  更新ボタン  -->
-        <Button
-            Grid.ColumnSpan="2"
-            Width="100"
+        <!--  ボタン  -->
+        <StackPanel
+            Grid.Row="1"
+            Grid.Column="0"
+            Margin="10"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Bottom"
+            Orientation="Horizontal">
+            <Button
+                x:Uid="Btn_List"
+                Margin="0,0,10,0"
+                Command="{x:Bind ViewModel.BackToListCommand}" />
+            <Button
+                x:Uid="Btn_Back"
+                Margin="0,0,10,0"
+                Command="{x:Bind ViewModel.GoBackCommand}" />
+        </StackPanel>
+        <StackPanel
+            Grid.Row="1"
+            Grid.Column="1"
             Margin="10"
             HorizontalAlignment="Right"
             VerticalAlignment="Bottom"
-            Command="{Binding UpdateCommand}"
-            Content="更新" />
+            Orientation="Horizontal">
+            <Button
+                x:Uid="Btn_Update"
+                Margin="0,0,10,0"
+                Background="{ThemeResource SystemFillColorCautionBackgroundBrush}"
+                Command="{x:Bind ViewModel.UpdateCommand}"
+                Foreground="{ThemeResource SystemFillColorCautionBrush}" />
+            <Button
+                x:Uid="Btn_Delete"
+                Margin="0,0,10,0"
+                Background="{ThemeResource SystemFillColorCriticalBackgroundBrush}"
+                Command="{x:Bind ViewModel.DeleteCommand}"
+                Foreground="{ThemeResource SystemFillColorCriticalBrush}" />
+        </StackPanel>
     </Grid>
 </Page>

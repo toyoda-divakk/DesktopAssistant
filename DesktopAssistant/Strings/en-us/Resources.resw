@@ -344,4 +344,19 @@
   <data name="Shell_PersonalEdit.Content" xml:space="preserve">
     <value>PersonalEdit</value>
   </data>
+  <data name="Btn_Back.Content" xml:space="preserve">
+    <value>戻る</value>
+  </data>
+  <data name="Btn_Delete.Content" xml:space="preserve">
+    <value>削除</value>
+  </data>
+  <data name="Btn_Edit.Content" xml:space="preserve">
+    <value>編集</value>
+  </data>
+  <data name="Btn_List.Content" xml:space="preserve">
+    <value>一覧に戻る</value>
+  </data>
+  <data name="Btn_Update.Content" xml:space="preserve">
+    <value>更新</value>
+  </data>
 </root>

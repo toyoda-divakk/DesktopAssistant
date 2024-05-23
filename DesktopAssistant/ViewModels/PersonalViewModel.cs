@@ -10,6 +10,7 @@ using DesktopAssistant.Views.Popup;
 using Microsoft.UI.Xaml.Controls;
 
 namespace DesktopAssistant.ViewModels;
+// TODO:アシスタントの選択ボタンが、選択されている状態で押すと色が戻るのを修正すべき
 // TODO:アシスタントのコピー・追加・削除はテストしてないし、コピーと追加は同じような処理があるので共通化すべき
 
 /// <summary>
@@ -94,7 +95,7 @@ public partial class PersonalViewModel(INavigationService navigationService, ILi
     {
         assistant.EditCommand = new RelayCommand(() =>
         {
-            // TODO:編集ダイアログを表示する→遷移できるならそっちの方が良いなあ
+            // TODO:編集ページ遷移
         });
         assistant.CopyCommand = new RelayCommand(() =>
         {
