@@ -7,7 +7,12 @@
         TargetType="Button">
         <Setter Property="CornerRadius" Value="5" />
     </Style>
-    <!--  これだと何故か背景色が消えてしまうので使えない  -->
+    <!--
+        このプログラムではアイコン付きテキストボタンが多用されているが、指定のわりに記述量が多いので、Styleを作成した方がスマート。
+        だがそれは、ベースとなるButtonのソースを全て持ってきたうえで改変する必要がある。もう今回はやらない…。
+    -->
+
+    <!--  これだとControlTemplateを書き換えてしまうので背景色が消えてしまう。使えない  -->
     <!--<Style
         x:Key="IconTextButtonStyle"
         BasedOn="{StaticResource RoundedAccentButtonStyle}"
@@ -28,5 +33,34 @@
         </Setter>
     </Style>-->
 
+
+    <!--
+        結局、ControlTemplateを書き換えてしまうと色の設定などが消えてしまうので、AccentButtonStyleのソースを持ってきて全部書かなければならない。
+        https://github.com/microsoft/microsoft-ui-xaml/blob/winui3/release/1.5-stable/controls/dev/CommonStyles/Button_themeresources.xaml
+        以下はAccentButtonStyleのソースを持ってきて、Background, BorderBrush, BorderThicknessだけを引き継いだ書き方だが、他の挙動（マウスオーバー）などが引き継げていない。
+    -->
+    <!--  また、アイコン指定にTemplateBindingの"Tag"を使用しているが、本来のフィールドの用途とは違うため、カスタム添付プロパティ・カスタム依存プロパティをcsで定義して渡す方が柔軟である  -->
+    <!--<Style x:Key="OriginalButtonStyle" TargetType="Button" BasedOn="{StaticResource AccentButtonStyle}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid>
+                        <Border Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    CornerRadius="4">
+                            <Grid>
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Grid>
+                        </Border>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <FontIcon Glyph="{TemplateBinding Tag}" />
+                            <TextBlock x:Uid="Button_Save" Margin="5,0,0,0" />
+                        </StackPanel>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>-->
 
 </ResourceDictionary>

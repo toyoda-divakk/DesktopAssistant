@@ -25,13 +25,13 @@
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
-                        
-                        <TextBlock
+
+                        <!--<TextBlock
                             Grid.Row="0"
                             Margin="5"
                             Padding="10"
-                            Text="{Binding UserName}" />
-                        
+                            Text="{Binding UserName}" />-->
+
                         <Border
                             Grid.Row="1"
                             Margin="5"

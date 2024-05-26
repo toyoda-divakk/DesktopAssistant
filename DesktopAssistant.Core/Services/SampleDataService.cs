@@ -12,17 +12,17 @@ public class SampleDataService : ISampleDataService
 {
     public IEnumerable<Assistant> GetSampleAssistants()
     {
-        var characterId1 = 1;
-        var characterId2 = 2;
-        var characterId3 = 3;
-        var characterId4 = 4;
+        var assistantId1 = 1;
+        var assistantId2 = 2;
+        var assistantId3 = 3;
+        var assistantId4 = 4;
         return
         [
             new()
             {
                 IsSelected = true,
-                Id = characterId1,
-                Order = characterId1,
+                Id = assistantId1,
+                Order = assistantId1,
                 Name = "ドンペン",
                 Description = "厳しい口調で話します",
                 Prompt = "You are a programmer who is familiar with C#, WPF, WinUI3, and CommunityToolkit. You help people with their programming tasks.",
@@ -33,7 +33,7 @@ public class SampleDataService : ISampleDataService
                     new()
                     {
                         Id = 1,
-                        AssistantId = characterId1,
+                        AssistantId = assistantId1,
                         Subject = "朝の挨拶",
                         Messages =
                         [
@@ -72,7 +72,7 @@ public class SampleDataService : ISampleDataService
                     new()
                     {
                         Id = 2,
-                        AssistantId = characterId1,
+                        AssistantId = assistantId1,
                         Subject = "昼の挨拶",
                         Messages =
                         [
@@ -113,8 +113,8 @@ public class SampleDataService : ISampleDataService
             new()
             {
                 IsSelected = false,
-                Id = characterId2,
-                Order = characterId2,
+                Id = assistantId2,
+                Order = assistantId2,
                 Name = "プランク",
                 Description = "やんちゃな口調で話します",
                 Prompt = "種族未定",
@@ -125,7 +125,7 @@ public class SampleDataService : ISampleDataService
                     new()
                     {
                         Id = 3,
-                        AssistantId = characterId2,
+                        AssistantId = assistantId2,
                         Subject = "朝の挨拶",
                         Messages =
                         [
@@ -164,7 +164,7 @@ public class SampleDataService : ISampleDataService
                     new()
                     {
                         Id = 4,
-                        AssistantId = characterId2,
+                        AssistantId = assistantId2,
                         Subject = "昼の挨拶",
                         Messages =
                         [
@@ -205,8 +205,8 @@ public class SampleDataService : ISampleDataService
             new()
             {
                 IsSelected = false,
-                Id = characterId3,
-                Order = characterId3,
+                Id = assistantId3,
+                Order = assistantId3,
                 Name = "カルモン",
                 Description = "優しく話します",
                 Prompt = "にわとり",
@@ -217,7 +217,7 @@ public class SampleDataService : ISampleDataService
                     new()
                     {
                         Id = 5,
-                        AssistantId = characterId3,
+                        AssistantId = assistantId3,
                         Subject = "朝の挨拶",
                         Messages =
                         [
@@ -256,7 +256,7 @@ public class SampleDataService : ISampleDataService
                     new()
                     {
                         Id = 6,
-                        AssistantId = characterId3,
+                        AssistantId = assistantId3,
                         Subject = "昼の挨拶",
                         Messages =
                         [
@@ -297,8 +297,8 @@ public class SampleDataService : ISampleDataService
             new()
             {
                 IsSelected = false,
-                Id = characterId4,
-                Order = characterId4,
+                Id = assistantId4,
+                Order = assistantId4,
                 Name = "ツン子",
                 Description = "ツンデレです",
                 Prompt = "にんげん",
@@ -309,7 +309,7 @@ public class SampleDataService : ISampleDataService
                     new()
                     {
                         Id = 7,
-                        AssistantId = characterId4,
+                        AssistantId = assistantId4,
                         Subject = "朝の挨拶",
                         Messages =
                         [
@@ -348,7 +348,7 @@ public class SampleDataService : ISampleDataService
                     new()
                     {
                         Id = 8,
-                        AssistantId = characterId3,
+                        AssistantId = assistantId3,
                         Subject = "昼の挨拶",
                         Messages =
                         [

@@ -49,7 +49,7 @@ public partial class MainViewModel(IThemeSelectorService themeSelector, ILocalSe
             RequestedTheme = ThemeSelector.Theme
         };
         newWindow.Content = rootPage;
-        //rootPage.ViewModel.Initialize(newWindow);
+        rootPage.ViewModel.Initialize(newWindow);
         newWindow.Activate();
     }
 

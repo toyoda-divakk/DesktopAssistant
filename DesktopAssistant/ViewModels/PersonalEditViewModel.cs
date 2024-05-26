@@ -55,9 +55,9 @@ public partial class PersonalEditViewModel(INavigationService navigationService,
 
     public void OnNavigatedTo(object parameter)
     {
-        if (parameter is long characterId)
+        if (parameter is long assistantId)
         {
-            Item = _liteDbService.GetTable<Assistant>().First(x => x.Id == characterId);
+            Item = _liteDbService.GetAssistants().First(x => x.Id == assistantId);
         }
     }
 

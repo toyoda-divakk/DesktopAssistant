@@ -25,7 +25,7 @@ public class ActivationService(ActivationHandler<LaunchActivatedEventArgs> defau
     IThemeSelectorService themeSelectorService,
     IApiSettingService apiSettingService,
     IChatSettingService chatSettingService,
-    IAssistantSettingService characterSettingService,
+    IAssistantSettingService assistantSettingService,
     ILiteDbService liteDbService,
     ISampleDataService sampleDataService,
     ILocalSettingsService localSettingsService) : IActivationService
@@ -93,7 +93,7 @@ public class ActivationService(ActivationHandler<LaunchActivatedEventArgs> defau
         await themeSelectorService.InitializeAsync().ConfigureAwait(false);
         await apiSettingService.InitializeAsync().ConfigureAwait(false);
         await chatSettingService.InitializeAsync().ConfigureAwait(false);
-        await characterSettingService.InitializeAsync().ConfigureAwait(false);
+        await assistantSettingService.InitializeAsync().ConfigureAwait(false);
 
         // 初回起動限定タスクの実行
         if (!liteDbService.IsExistDatabase())

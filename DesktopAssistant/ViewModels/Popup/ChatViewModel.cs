@@ -8,6 +8,7 @@ using DesktopAssistant.Core.Contracts.Interfaces;
 using DesktopAssistant.Core.Enums;
 using DesktopAssistant.Core.Models;
 using DesktopAssistant.Services;
+using Microsoft.UI.Xaml;
 using Windows.ApplicationModel.Chat;
 
 namespace DesktopAssistant.ViewModels.Popup;
@@ -16,14 +17,34 @@ namespace DesktopAssistant.ViewModels.Popup;
 // →面倒なので設定反映ボタンを付けるとか、閉じちゃうとか。
 // →開きっぱなしでAI設定変更されたら流石にまずいので、チャット画面開いたまま変更画面の表示は出来ないようにする。
 
-public partial class ChatViewModel(IChatSettingService chatSettingService) : ObservableRecipient, IChatSetting
+public partial class ChatViewModel(IChatSettingService chatSettingService, ILiteDbService liteDbService) : ObservableRecipient, IChatSetting
 {
-    /// <summary>
-    /// チャット表示設定
-    /// </summary>
     private readonly IChatSettingService _chatSettingService = chatSettingService;
+    private readonly ILiteDbService _liteDbService = liteDbService;
 
-    // TODO:アシスタント設定を追加する。選択アシスタントは1人。まずはアシスタント編集画面を作る。デフォルトは開発補助のプロンプトを付けて効率UPしよう
+    private Window _window;         // サイアログのモーダル表示に必要なんだけど、要るかな？
+    private Assistant _assistant;
+
+    /// <summary>
+    /// 初期化
+    /// カテゴリのリストを読み込む
+    /// カテゴリ内のタスクを読み込む
+    /// </summary>
+    public void Initialize(Window window)
+    {
+        var taskCategories = _liteDbService.GetTable<Assistant>().FirstOrDefault(x => x.IsSelected);
+        //foreach (var category in taskCategories)
+        //{
+        //    SetupCategory(category);
+        //    category.TodoTasks = _liteDbService.GetTable<TodoTask>().Where(x => x.CategoryId == category.Id).ToList();
+        //    Categories.Add(category);
+        //}
+        //// LiteDBから現在選択中のアシスタントの情報を取得する
+        //var assistants = _liteDbService.GetAssistants();
+
+        //_assistant = assistant;
+        _window = window;
+    }
 
     [ObservableProperty]
     private string userMessage = string.Empty;

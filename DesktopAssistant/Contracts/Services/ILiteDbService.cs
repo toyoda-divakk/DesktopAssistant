@@ -3,8 +3,7 @@
 namespace DesktopAssistant.Contracts.Services;
 
 /// <summary>
-/// とりあえずLiteDBを使ってみる
-/// アプリ固有の操作はなるべく実装しないように
+/// LiteDBを使用する
 /// </summary>
 public interface ILiteDbService
 {
@@ -49,4 +48,13 @@ public interface ILiteDbService
     /// <typeparam name="T"></typeparam>
     /// <returns></returns>
     long GetLastId<T>();
+
+    /// <summary>
+    /// Assistantsを取得する
+    /// AssistantsにIsSelectedが1件も無ければ、最初のアシスタントを選択状態にする
+    /// AssistantsにIsSelectedが複数あれば、最初のアシスタントを選択状態にする
+    /// 0件だったらエラーにする
+    /// </summary>
+    /// <returns></returns>
+    IEnumerable<Assistant> GetAssistants();
 }

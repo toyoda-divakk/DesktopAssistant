@@ -7,20 +7,7 @@ using DesktopAssistant.Core.Models;
 
 namespace DesktopAssistant.ViewModels;
 
-// 編集用の画面を別に作成する→GPT4-oに作ってもらおうか。
-
 // この画面は、アシスタントの詳細を表示する画面
-// 要素
-// ・戻るボタン：前の画面に遷移
-// ・編集ボタン：編集画面(PersonalEdit)に遷移
-// ・削除ボタン：削除して前の画面に遷移
-// ・アシスタント名
-// ・アシスタントの画像
-// ・アシスタントの説明
-// ・アシスタントのプロンプト
-
-
-
 public partial class PersonalDetailViewModel(INavigationService navigationService, ILiteDbService liteDbService) : ObservableRecipient, INavigationAware
 {
     private readonly INavigationService _navigationService = navigationService;
@@ -33,7 +20,7 @@ public partial class PersonalDetailViewModel(INavigationService navigationServic
     {
         if (parameter is long assistantId)
         {
-            Item = _liteDbService.GetTable<Assistant>().First(x => x.Id == assistantId);
+            Item = _liteDbService.GetAssistants().First(x => x.Id == assistantId);
         }
     }
 
@@ -56,7 +43,8 @@ public partial class PersonalDetailViewModel(INavigationService navigationServic
     {
         // 削除して前の画面に遷移する処理を実装する
         // TODO: 削除確認ダイアログを表示する
-        _liteDbService.Delete<Assistant>(Item!);
+        // TODO: TopicsとMessagesも削除するので、専用メソッドを作る
+        _liteDbService.Delete(Item!);
         _navigationService.GoBack();
     }
 

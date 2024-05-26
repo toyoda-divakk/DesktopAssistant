@@ -33,13 +33,13 @@ public partial class PersonalViewModel(INavigationService navigationService, ILi
         // 設定に反映させる
         if (CurrentAssistantId != id)
         {
-            var beforeAssistant = _liteDbService.GetTable<Assistant>().First(x => x.Id == CurrentAssistantId);
+            var beforeAssistant = _liteDbService.GetAssistants().First(x => x.Id == CurrentAssistantId);
             Source.First(x => x.Id == CurrentAssistantId).IsSelected = false;
             beforeAssistant.IsSelected = false;
             var beforeSource = Source.First(x => x.Id == CurrentAssistantId);
             beforeSource.IsSelected = false;
 
-            var afterAssistant = _liteDbService.GetTable<Assistant>().First(x => x.Id == id);
+            var afterAssistant = _liteDbService.GetAssistants().First(x => x.Id == id);
             afterAssistant.IsSelected = true;
             var afterSource = Source.First(x => x.Id == id);
             afterSource.IsSelected = true;
@@ -59,31 +59,15 @@ public partial class PersonalViewModel(INavigationService navigationService, ILi
     public void OnNavigatedTo(object parameter)
     {
         // アシスタント一覧を取得して、現在選択中のアシスタントを設定する
-        var assistants = _liteDbService.GetTable<Assistant>();
-        if (!assistants.Any())
+        var assistants = _liteDbService.GetAssistants();
+        foreach (var assistant in assistants)
         {
-            return;
-        }
-        foreach (var character in assistants)
-        {
-            SetupCaracter(character);
-            character.Topics = _liteDbService.GetTable<Topic>().Where(x => x.AssistantId == character.Id).ToList();
-            Source.Add(character);
-        }
-        var selectedAssistant = assistants.FirstOrDefault(x => x.IsSelected);
-        if (selectedAssistant == null)
-        {
-            var chara = assistants.First();
-            chara.IsSelected = true;
-            _liteDbService.Upsert(chara);
-            Source.First(x => x.Id == chara.Id).IsSelected = true;
-            CurrentAssistantId = chara.Id;
-        }
-        else
-        {
-            CurrentAssistantId = selectedAssistant.Id;
+            SetupCaracter(assistant);
+            Source.Add(assistant);
         }
 
+        var selectedAssistant = assistants.First(x => x.IsSelected);
+        CurrentAssistantId = selectedAssistant.Id;
     }
 
     /// <summary>
@@ -115,7 +99,7 @@ public partial class PersonalViewModel(INavigationService navigationService, ILi
 
             // DB更新
             _liteDbService.Upsert(newAssistant);
-            newAssistant = _liteDbService.GetTable<Assistant>().Last(x => x.Order == newAssistant.Order);   // 採番したので取り直す
+            newAssistant = _liteDbService.GetAssistants().Last(x => x.Order == newAssistant.Order);   // 採番したので取り直す
 
             // 画像をコピー
             File.Copy(assistant.FaceImagePath, newAssistant.FaceImagePath);
@@ -198,7 +182,7 @@ public partial class PersonalViewModel(INavigationService navigationService, ILi
     [RelayCommand]
     private void AddNewAssistant()
     {
-        var firstAssistant = _liteDbService.GetTable<Assistant>().First();
+        var firstAssistant = _liteDbService.GetAssistants().First();
         var newId = (int)_liteDbService.GetLastId<Assistant>() + 1;    // 現在のID+1を取得する
 
         var newAssistant = new Assistant()
@@ -213,7 +197,7 @@ public partial class PersonalViewModel(INavigationService navigationService, ILi
             Order = newId
         };
         _liteDbService.Upsert(newAssistant);
-        newAssistant = _liteDbService.GetTable<Assistant>().Last(x => x.Order == newAssistant.Order);
+        newAssistant = _liteDbService.GetAssistants().Last(x => x.Order == newAssistant.Order);
         File.Copy(firstAssistant.FaceImagePath, newAssistant.FaceImagePath);
         Source.Add(newAssistant);
         SetupCaracter(newAssistant);
