@@ -40,6 +40,8 @@ public class ApiSettingService(ILocalSettingsService localSettingsService) : IAp
     /// </summary>
     public string AzureOpenAIEndpoint { get; set; } = string.Empty;
 
+    public IApiSetting GetSettings() => this;
+
     /// <summary>
     /// 初期化処理
     /// ActivationServiceに登録すること

@@ -72,4 +72,10 @@ public interface IApiSettingService
     /// </summary>
     /// <returns></returns>
     Task SetRequestedSettingAsync();
+
+    /// <summary>
+    /// このサービスの設定をIApiSetting形式で取得する
+    /// </summary>
+    /// <returns></returns>
+    IApiSetting GetSettings();
 }

@@ -26,6 +26,8 @@ public class SemanticService : ISemanticService
 {
     public async Task<string> TestAsync(IApiSetting settings) => await TestGenerativeAIAsync(settings, """Hello, world! と表示する C# のプログラムを書いてください。""");
 
+    private Kernel _kernel = null;
+
     /// <summary>
     /// APIキーからKernelを作成する
     /// </summary>
@@ -74,10 +76,52 @@ public class SemanticService : ISemanticService
         }
     }
 
+    /// <summary>
+    /// Kernelを現在の設定で初期化する。
+    /// </summary>
+    /// <param name="settings"></param>
+    private void Initialize(IApiSetting settings)
+    {
+        _kernel = Setup(settings);
+    }
+
+    /// <summary>
+    /// チャットを生成する
+    /// 履歴に追加する
+    /// </summary>
+    /// <param name="history">今までの会話</param>
+    /// <param name="userMessage">ユーザの発言</param>
+    /// <returns>返答</returns>
+    public async Task<string> GenerateChatAsync(ChatHistory history, string userMessage)
+    {
+        var chatService = _kernel.GetRequiredService<IChatCompletionService>();
+        history.AddUserMessage(userMessage);
+        var response = await chatService.GetChatMessageContentAsync(history);
+        if (response.Items.FirstOrDefault() is TextContent responseText)
+        {
+            history.AddAssistantMessage(responseText.Text);
+            return responseText.Text;
+        }
+        return "No response";
+    }
+
+    /// <summary>
+    /// 設定とプロンプトを指定してチャットを生成する
+    /// </summary>
+    /// <param name="settings"></param>
+    /// <param name="prompt"></param>
+    /// <returns></returns>
+    public ChatHistory InitializeChat(IApiSetting settings, string prompt)
+    {
+        Initialize(settings);
+        var chatHistory = new ChatHistory();
+        chatHistory.AddSystemMessage(prompt);
+        return chatHistory;
+    }
+
     #region チャットを作る例
     private static async Task<string> ChatTestAsync(IApiSetting settings)
     {
-        var kernel = Setup(settings);
 
         // Chat の履歴を作成
         var chatHistory = new ChatHistory();
@@ -117,6 +161,7 @@ public class SemanticService : ISemanticService
         chatHistory.AddUserMessage("与えられた数字が素数かどうか判定するプログラムを書いてください。");
 
         // IChatCompletionService を使って Chat Completion API を呼び出す
+        var kernel = Setup(settings);
         var chatService = kernel.GetRequiredService<IChatCompletionService>();
         var response = await chatService.GetChatMessageContentAsync(chatHistory);
         if (response.Items.FirstOrDefault() is TextContent responseText)
