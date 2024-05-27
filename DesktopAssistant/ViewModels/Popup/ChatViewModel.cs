@@ -68,14 +68,14 @@ public partial class ChatViewModel(IChatSettingService chatSettingService, ILite
         // ユーザメッセージをリストに追加  
         ChatMessages.Add(new ChatMessage { UserName = UserDisplayName, Message = UserMessage, HorizontalAlignment = UserPosition.ToString(), BackgroundColor = UserBackgroundColor });
 
+        // メッセージボックスをクリア  
+        UserMessage = string.Empty; // TODO:ちょっと待ってね的なものを表示したらいい
+
         // AIのレスポンスを生成する処理をここに追加  
         var answer = await semanticService.GenerateChatAsync(_chatHistory, UserMessage);    // ここでAIのレスポンスを取得する処理を書く
 
         // 画面に反映
         ChatMessages.Add(new ChatMessage { UserName = "AI", Message = answer, HorizontalAlignment = AIPosition.ToString(), BackgroundColor = "#FFA07A" });  // TODO:AIの設定を反映する
-
-        // メッセージボックスをクリア  
-        UserMessage = string.Empty;
     }
 
     [RelayCommand]
