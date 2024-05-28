@@ -128,6 +128,12 @@ public partial class SettingsViewModel : ObservableRecipient, IApiSetting, IChat
     private string _generateTestResult = string.Empty;
 
     /// <summary>
+    /// APIテスト済みか
+    /// </summary>
+    [ObservableProperty]
+    public bool _isApiTested = true;    // 面倒なのでtrueにしておく。後で実装するならfalseにする
+
+    /// <summary>
     /// テストボタンの有効化
     /// </summary>
     [ObservableProperty]

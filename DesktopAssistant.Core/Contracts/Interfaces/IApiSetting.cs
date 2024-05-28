@@ -50,4 +50,10 @@ public interface IApiSetting
     {
         get;
     }
+
+    /// <summary>
+    /// APIテストが済んでいるか
+    /// ※面倒なのでtrueにしておく。後で実装するならfalseにする
+    /// </summary>
+     bool IsApiTested { get; }
 }

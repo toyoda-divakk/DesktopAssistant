@@ -1,5 +1,6 @@
 ﻿using DesktopAssistant.Contracts.Services;
 using DesktopAssistant.Core.Contracts.Interfaces;
+using DesktopAssistant.Core.Contracts.Services;
 using DesktopAssistant.Core.Enums;
 using DesktopAssistant.Helpers;
 
@@ -8,7 +9,7 @@ namespace DesktopAssistant.Services;
 /// <summary>
 /// API設定を管理するサービスを表します。
 /// </summary>
-public class ApiSettingService(ILocalSettingsService localSettingsService) : IApiSettingService, IApiSetting
+public class ApiSettingService(ILocalSettingsService localSettingsService, IEnvironmentService environmentService) : IApiSettingService, IApiSetting
 {
     /// <summary>
     /// 生成AIサービス
@@ -39,6 +40,11 @@ public class ApiSettingService(ILocalSettingsService localSettingsService) : IAp
     /// AzureOpenAIのエンドポイント
     /// </summary>
     public string AzureOpenAIEndpoint { get; set; } = string.Empty;
+
+    /// <summary>
+    /// APIテストが済んでいるか
+    /// </summary>
+    public bool IsApiTested { get; set; } = true;           // やっぱ面倒なのでtrueにしておく。後で実装するならfalseにする
 
     public IApiSetting GetSettings() => this;
 
@@ -85,6 +91,7 @@ public class ApiSettingService(ILocalSettingsService localSettingsService) : IAp
     /// <returns></returns>
     private void ReLoadSettings()
     {
+
         var GenerativeAIString = localSettingsService.ReadSetting<string>(nameof(GenerativeAI));
         if (Enum.TryParse(GenerativeAIString, out GenerativeAI cacheValue))
         {
@@ -94,11 +101,22 @@ public class ApiSettingService(ILocalSettingsService localSettingsService) : IAp
         {
             GenerativeAI = GenerativeAI.OpenAI;
         }
+
+        // 開発効率化のため、環境変数に設定があれば読む
+        var tempKey = environmentService.GetEnvironmentVariable("AzureOpenAIKey") ?? string.Empty;
+        var tempModel = environmentService.GetEnvironmentVariable("AzureOpenAIModel") ?? string.Empty;
+        var tempEndpoint = environmentService.GetEnvironmentVariable("AzureOpenAIEndpoint") ?? string.Empty;
+        if (!string.IsNullOrWhiteSpace(tempKey))
+        {
+            GenerativeAI = GenerativeAI.AzureOpenAI;
+        }
+
         OpenAIKey = localSettingsService.ReadSetting<string>(nameof(OpenAIKey)) ?? string.Empty;
         OpenAIModel = localSettingsService.ReadSetting<string>(nameof(OpenAIModel)) ?? string.Empty;
-        AzureOpenAIKey = localSettingsService.ReadSetting<string>(nameof(AzureOpenAIKey)) ?? string.Empty;
-        AzureOpenAIModel = localSettingsService.ReadSetting<string>(nameof(AzureOpenAIModel)) ?? string.Empty;
-        AzureOpenAIEndpoint = localSettingsService.ReadSetting<string>(nameof(AzureOpenAIEndpoint)) ?? string.Empty;
+        AzureOpenAIKey = localSettingsService.ReadSetting<string>(nameof(AzureOpenAIKey)) ?? tempKey;
+        AzureOpenAIModel = localSettingsService.ReadSetting<string>(nameof(AzureOpenAIModel)) ?? tempModel;
+        AzureOpenAIEndpoint = localSettingsService.ReadSetting<string>(nameof(AzureOpenAIEndpoint)) ?? tempEndpoint;
+        IsApiTested = localSettingsService.ReadSetting<bool>(nameof(IsApiTested));
     }
 
     private void SaveSetting()
@@ -109,5 +127,6 @@ public class ApiSettingService(ILocalSettingsService localSettingsService) : IAp
         localSettingsService.SaveSetting(nameof(AzureOpenAIKey), AzureOpenAIKey);
         localSettingsService.SaveSetting(nameof(AzureOpenAIModel), AzureOpenAIModel);
         localSettingsService.SaveSetting(nameof(AzureOpenAIEndpoint), AzureOpenAIEndpoint);
+        localSettingsService.SaveSetting(nameof(IsApiTested), IsApiTested);
     }
 }

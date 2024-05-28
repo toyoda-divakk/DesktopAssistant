@@ -72,6 +72,7 @@ public partial class App : Application
             // Core Services
             services.AddSingleton<ISampleDataService, SampleDataService>();     // サンプルデータを提供する
             services.AddSingleton<IFileService, FileService>();                 // ファイルの読み書きを行う。MSIX非使用の場合のみ使用する。
+            services.AddSingleton<IEnvironmentService, EnvironmentService>();   // 環境変数読むだけ
             services.AddSingleton<ISemanticService, SemanticService>();         // SemanticKernel
             services.AddSingleton<ILiteDbService, LiteDbService>();         // データベースの操作を行う
 
