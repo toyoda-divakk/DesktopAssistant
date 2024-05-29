@@ -88,10 +88,11 @@ public class SemanticService : ISemanticService
     /// <summary>
     /// チャットを生成する
     /// 履歴に追加する
+    /// ※失敗した場合は空文字列を返すので呼び出し元で処理すること
     /// </summary>
     /// <param name="history">今までの会話</param>
     /// <param name="userMessage">ユーザの発言</param>
-    /// <returns>返答</returns>
+    /// <returns>返答、失敗した場合は空文字列</returns>
     public async Task<string> GenerateChatAsync(ChatHistory history, string userMessage)
     {
         var chatService = _kernel.GetRequiredService<IChatCompletionService>();
@@ -102,8 +103,35 @@ public class SemanticService : ISemanticService
             history.AddAssistantMessage(responseText.Text);
             return responseText.Text;
         }
-        return "No response";
+        // 失敗した場合最後を削除する
+        RemoveLastMessage(history);
+        return "";
     }
+#nullable enable
+    public object? RemoveLastMessage(ChatHistory history)
+    {
+        // historyが1件以下なら何もせずに終了
+        if (history.Count <= 1)
+        {
+            return null;
+        }
+
+        // historyの最後がUserMessageなら、それを削除する
+        var last = history.Last();
+        
+        if (last.Role == AuthorRole.Assistant) {
+            // 最後から2件を削除する、最後から2件目の内容を控える
+            var last2 = history[^2];
+            history.RemoveRange(history.Count - 2, 2);
+            return last2.InnerContent;
+        }
+        else if (last.Role == AuthorRole.User) {
+            history.Remove(last);
+        }
+        // AuthorRole.Toolの時は想定しない
+        return null;
+    }
+#nullable disable
 
     /// <summary>
     /// 設定とプロンプトを指定してチャットを生成する

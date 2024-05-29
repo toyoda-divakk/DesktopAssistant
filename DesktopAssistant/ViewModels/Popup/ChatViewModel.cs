@@ -41,6 +41,12 @@ public partial class ChatViewModel(IChatSettingService chatSettingService, ILite
     [ObservableProperty]
     private string userMessage = string.Empty;
 
+    /// <summary>
+    /// 送信可能
+    /// </summary>
+    [ObservableProperty]
+    private bool isEnableMessage = true;
+
     public ObservableCollection<ChatMessage> ChatMessages { get; } = [];
 
     #region チャット表示設定を反映するためのプロパティ
@@ -62,29 +68,58 @@ public partial class ChatViewModel(IChatSettingService chatSettingService, ILite
 
     #endregion
 
+    private string _lastInput = ""; // 最後の入力は取っておく。
+
+    /// <summary>
+    /// メッセージ送信して、チャットを進める
+    /// </summary>
     [RelayCommand]
     public async void SendMessage()
     {
         // ユーザメッセージをリストに追加  
-        ChatMessages.Add(new ChatMessage { UserName = UserDisplayName, Message = UserMessage, HorizontalAlignment = UserPosition.ToString(), BackgroundColor = UserBackgroundColor });
-
-        // メッセージボックスをクリア
-        var tempMessage = UserMessage;
-        UserMessage = string.Empty; // TODO:ちょっと待ってね的なものを表示したらいい
+        ChatMessages.Add(new ChatMessage { UserName = UserDisplayName, Message = UserMessage, HorizontalAlignment = UserPosition.ToString(), BackgroundColor = UserBackgroundColor, TextColor = UserTextColor });
+        IsEnableMessage = false;
+        _lastInput = UserMessage;
 
         // AIのレスポンスを生成する処理をここに追加  
-        var answer = await semanticService.GenerateChatAsync(_chatHistory, tempMessage);    // ここでAIのレスポンスを取得する処理を書く
+        var answer = await semanticService.GenerateChatAsync(_chatHistory, UserMessage);
+        if (string.IsNullOrWhiteSpace(answer))
+        {
+            // 失敗した場合、最後のユーザ入力を削除する
+            semanticService.RemoveLastMessage(_chatHistory);
+            ChatMessages.RemoveAt(ChatMessages.Count - 1);
+            return;
+        }
 
         // 画面に反映
-        ChatMessages.Add(new ChatMessage { UserName = "AI", Message = answer, HorizontalAlignment = AIPosition.ToString(), BackgroundColor = "#FFA07A" });  // TODO:AIの設定を反映する
+        ChatMessages.Add(new ChatMessage { UserName = _assistant.Name, Message = answer, HorizontalAlignment = AIPosition.ToString(), BackgroundColor = _assistant.BackColor, TextColor = _assistant.TextColor });
+
+        // 成功したらメッセージボックスをクリア
+        UserMessage = string.Empty;
+        IsEnableMessage = true;
+
     }
 
+    // リトライ：ChatMessagesと_chatHistoryの最後を削除する
     [RelayCommand]
     public void Retry()
     {
-        // メッセージリストをクリア  
-        ChatMessages.Clear();
+        // ChatMessagesが1件以下なら何もせずに終了
+        if (ChatMessages.Count <= 1)
+        {
+            return;
+        }
+
+        semanticService.RemoveLastMessage(_chatHistory);
+        ChatMessages.RemoveAt(ChatMessages.Count - 1);
+        if (ChatMessages.Last().UserName == UserDisplayName)
+        {
+            ChatMessages.RemoveAt(ChatMessages.Count - 1);
+            UserMessage = _lastInput;
+        }
     }
+
+    // TODO:最初からチャットをやり直すコマンドを追加する
 }
 
 public class ChatMessage
@@ -102,6 +137,10 @@ public class ChatMessage
         get; set;
     }
     public string? BackgroundColor
+    {
+        get; set;
+    }
+    public string? TextColor
     {
         get; set;
     }

@@ -26,12 +26,6 @@
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
 
-                        <!--<TextBlock
-                            Grid.Row="0"
-                            Margin="5"
-                            Padding="10"
-                            Text="{Binding UserName}" />-->
-
                         <Border
                             Grid.Row="1"
                             Margin="5"
@@ -42,6 +36,7 @@
                             Grid.Row="1"
                             Margin="5"
                             Padding="10"
+                            Foreground="{Binding TextColor}"
                             Text="{Binding Message}"
                             TextWrapping="Wrap" />
                     </Grid>
@@ -55,6 +50,7 @@
             Grid.Row="1"
             Margin="10"
             AcceptsReturn="True"
+            IsEnabled="{x:Bind ViewModel.IsEnableMessage, Mode=OneWay}"
             Text="{x:Bind ViewModel.UserMessage, Mode=TwoWay}" />
 
         <!--  送信ボタンとリトライボタン  -->
@@ -66,13 +62,15 @@
                 x:Name="SendButton"
                 Width="100"
                 Command="{x:Bind ViewModel.SendMessageCommand}"
-                Content="Send" />
+                Content="Send"
+                IsEnabled="{x:Bind ViewModel.IsEnableMessage, Mode=OneWay}" />
             <Button
                 x:Name="RetryButton"
                 Width="100"
                 Margin="10,0,0,0"
                 Command="{x:Bind ViewModel.RetryCommand}"
-                Content="Retry" />
+                Content="Retry"
+                IsEnabled="{x:Bind ViewModel.IsEnableMessage, Mode=OneWay}" />
         </StackPanel>
     </Grid>
 </Page>

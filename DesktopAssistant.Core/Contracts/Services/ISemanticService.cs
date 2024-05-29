@@ -38,10 +38,20 @@ public interface ISemanticService
     /// <summary>
     /// チャットを生成する
     /// 履歴に追加する
+    /// ※失敗した場合は空文字列を返すので呼び出し元で処理すること
     /// </summary>
     /// <param name="history">今までの会話</param>
     /// <param name="userMessage">ユーザの発言</param>
-    /// <returns>返答</returns>
+    /// <returns>返答、失敗した場合は空文字列</returns>
     public Task<string> GenerateChatAsync(ChatHistory history, string userMessage);
 
+#nullable enable
+    /// <summary>
+    /// 最後のやり取りを削除して、ユーザが入力したものを返す
+    /// ユーザが入力したものを削除しなかったらnull
+    /// </summary>
+    /// <param name="history"></param>
+    /// <returns></returns>
+    public object? RemoveLastMessage(ChatHistory history);
+#nullable disable
 }
