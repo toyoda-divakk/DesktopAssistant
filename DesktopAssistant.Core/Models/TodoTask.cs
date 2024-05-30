@@ -110,4 +110,9 @@ public record TodoTask : IIdentifiable
     {
         get; set;
     }
+    [BsonIgnore]
+    public bool IsEditMode
+    {
+        get; set;
+    }
 }

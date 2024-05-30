@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="using:CommunityToolkit.WinUI.UI.Controls"
     xmlns:controls2="using:CommunityToolkit.WinUI.Controls"
+    xmlns:converters="using:CommunityToolkit.WinUI.UI.Converters"
     xmlns:core="using:Microsoft.Xaml.Interactions.Core"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
@@ -11,6 +12,11 @@
     xmlns:model="using:DesktopAssistant.Core.Models"
     mc:Ignorable="d">
     <Page.Resources>
+        <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+        <converters:BoolToVisibilityConverter
+            x:Key="BoolToVisibilityInvertConverter"
+            FalseValue="Visible"
+            TrueValue="Collapsed" />
         <!--  データの型を指定して、表示テンプレートを定義  -->
         <!--  カテゴリ  -->
         <DataTemplate x:Key="TaskCategoryTemplate" x:DataType="model:TaskCategory">
@@ -47,10 +53,54 @@
                 ExpandDirection="Down"
                 Header="{x:Bind Title}"
                 IsExpanded="False">
-                <TextBlock
-                    HorizontalAlignment="Left"
-                    Text="{x:Bind Title}"
-                    TextWrapping="Wrap" />
+                <Grid>
+                    <StackPanel Orientation="Vertical" Visibility="{x:Bind IsEditMode, Converter={StaticResource BoolToVisibilityInvertConverter}, Mode=OneWay}">
+                        <!--  明細 TODO:編集ボタンを置くこと  -->
+                        <TextBlock
+                            HorizontalAlignment="Left"
+                            Text="{x:Bind Content}"
+                            TextWrapping="Wrap" />
+                        <TextBlock
+                            HorizontalAlignment="Left"
+                            Text="{x:Bind Progress}"
+                            TextWrapping="Wrap" />
+                        <TextBlock
+                            HorizontalAlignment="Left"
+                            Text="{x:Bind CreatedAt}"
+                            TextWrapping="Wrap" />
+                        <TextBlock
+                            HorizontalAlignment="Left"
+                            Text="{x:Bind UpdatedAt}"
+                            TextWrapping="Wrap" />
+                        <TextBlock
+                            HorizontalAlignment="Left"
+                            Text="{x:Bind Deadline}"
+                            TextWrapping="Wrap" />
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical" Visibility="{x:Bind IsEditMode, Converter={StaticResource BoolToVisibilityConverter}, Mode=OneWay}">
+                        <!--  編集  -->
+                        <TextBlock
+                            HorizontalAlignment="Left"
+                            Text="{x:Bind Content}"
+                            TextWrapping="Wrap" />
+                        <TextBlock
+                            HorizontalAlignment="Left"
+                            Text="{x:Bind Progress}"
+                            TextWrapping="Wrap" />
+                        <TextBlock
+                            HorizontalAlignment="Left"
+                            Text="{x:Bind CreatedAt}"
+                            TextWrapping="Wrap" />
+                        <TextBlock
+                            HorizontalAlignment="Left"
+                            Text="{x:Bind UpdatedAt}"
+                            TextWrapping="Wrap" />
+                        <TextBlock
+                            HorizontalAlignment="Left"
+                            Text="{x:Bind Deadline}"
+                            TextWrapping="Wrap" />
+                    </StackPanel>
+                </Grid>
             </Expander>
         </DataTemplate>
     </Page.Resources>
