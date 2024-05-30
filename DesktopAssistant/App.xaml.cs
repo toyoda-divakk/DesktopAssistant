@@ -64,6 +64,7 @@ public partial class App : Application
             services.AddSingleton<IChatSettingService, ChatSettingService>();         // Chat表示の変更と保存
             services.AddSingleton<IAssistantSettingService, AssistantSettingService>();         // アシスタントの変更と保存
             services.AddTransient<INavigationViewService, NavigationViewService>(); // NavigationViewの操作を補助する
+            services.AddSingleton<IDateUtilService, DateUtilService>();         // 時刻に関する処理を行う
 
             services.AddSingleton<IActivationService, ActivationService>();     // アプリケーション起動時の処理を行う
             services.AddSingleton<IPageService, PageService>();                 // ★画面追加すると、ここも更新されるみたい

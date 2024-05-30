@@ -77,7 +77,7 @@ public partial class ChatViewModel(IChatSettingService chatSettingService, ILite
     public async void SendMessage()
     {
         // ユーザメッセージをリストに追加  
-        ChatMessages.Add(new ChatMessage { UserName = UserDisplayName, Message = UserMessage, HorizontalAlignment = UserPosition.ToString(), BackgroundColor = UserBackgroundColor, TextColor = UserTextColor });
+        ChatMessages.Add(new ChatMessage { IsUser = true, UserName = UserDisplayName, Message = UserMessage, HorizontalAlignment = UserPosition.ToString(), BackgroundColor = UserBackgroundColor, TextColor = UserTextColor });
         IsEnableMessage = false;
         _lastInput = UserMessage;
 
@@ -92,7 +92,7 @@ public partial class ChatViewModel(IChatSettingService chatSettingService, ILite
         }
 
         // 画面に反映
-        ChatMessages.Add(new ChatMessage { UserName = _assistant.Name, Message = answer, HorizontalAlignment = AIPosition.ToString(), BackgroundColor = _assistant.BackColor, TextColor = _assistant.TextColor });
+        ChatMessages.Add(new ChatMessage { IsUser = false, UserName = _assistant.Name, Message = answer, HorizontalAlignment = AIPosition.ToString(), BackgroundColor = _assistant.BackColor, TextColor = _assistant.TextColor, FaceImagePath = _assistant.FaceImagePath });
 
         // 成功したらメッセージボックスをクリア
         UserMessage = string.Empty;
@@ -124,6 +124,10 @@ public partial class ChatViewModel(IChatSettingService chatSettingService, ILite
 
 public class ChatMessage
 {
+    public bool IsUser
+    {
+        get; set;
+    }
     public string? UserName
     {
         get; set;
@@ -141,6 +145,10 @@ public class ChatMessage
         get; set;
     }
     public string? TextColor
+    {
+        get; set;
+    }
+    public string? FaceImagePath
     {
         get; set;
     }

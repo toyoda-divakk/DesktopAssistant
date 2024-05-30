@@ -28,7 +28,7 @@ namespace DesktopAssistant.ViewModels.Popup;
 
 // WinUI3 GalleryのListViewを参考に実装する
 
-public partial class ToDoListViewModel(ILiteDbService liteDbService) : ObservableRecipient
+public partial class ToDoListViewModel(ILiteDbService liteDbService, IDateUtilService dateUtilService) : ObservableRecipient
 {
     private readonly ILiteDbService _liteDbService = liteDbService;
 

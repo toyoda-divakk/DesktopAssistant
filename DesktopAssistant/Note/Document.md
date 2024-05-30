@@ -22,8 +22,9 @@
 →色は、WinUI3 GalleryのColorsのDisabledを参照
 
 - 優先度の表示  
-TODOに優先度(高:Critical/中:Caution/低:Attention/極低:Success/普通:なし)を設定できるようにする  
-優先度によってTODOの表示順を変更したり、色分けするなどして視覚的に区別する
+TODOに優先度(高:Critical/中:Caution/低:Success/極低:Attention/普通:なし)を設定できるようにする  
+優先度によってTODOの表示順を変更したり、色分けするなどして視覚的に区別する  
+完了タスクの色はNeutralを表示する。
 →色は、WinUI3 GalleryのColorsのSignalを参照。
 
 - 期限の表示  
