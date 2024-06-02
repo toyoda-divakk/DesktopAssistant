@@ -49,64 +49,124 @@
         <!--  タスク  -->
         <DataTemplate x:Key="TodoTaskTemplate" x:DataType="model:TodoTask">
             <Expander
+                x:Name="MyExpander"
                 HorizontalAlignment="Stretch"
                 ExpandDirection="Down"
-                Header="{Binding Title}"
                 IsExpanded="False">
+                <Expander.Header>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock
+                            Grid.Column="0"
+                            VerticalAlignment="Center"
+                            Text="{Binding Title}" />
+                        <Button
+                            Grid.Column="1"
+                            Command="{x:Bind EditCommand}"
+                            Content="編集" />
+                    </Grid>
+                    <!--  TODO:あと何日か表示する  -->
+                </Expander.Header>
+                <Expander.Resources>
+                    <!--  色の変え方が分からない場合は、https://github.com/microsoft/microsoft-ui-xaml/blob/winui3/release/1.5-stable/controls/dev/Expander/Expander_themeresources.xamlを見る  -->
+                    <SolidColorBrush x:Key="ExpanderHeaderBackground" Color="pink" />
+                </Expander.Resources>
                 <Grid>
-                    <StackPanel Orientation="Vertical" Visibility="{Binding IsEditMode, Converter={StaticResource BoolToVisibilityInvertConverter}, Mode=OneWay}">
-                        <!--  明細 TODO:編集ボタンを置くこと  -->
+                    <!--  Widthの指定が上手く行かないので、画面開いた時と画面サイズ変更時に右側のListViewのActualWidthを取って、それを使って幅を設定するしかなさそう  -->
+                    <StackPanel
+                        Width="{Binding ElementName=MyTaskList, Path=ActualWidth}"
+                        Orientation="Vertical"
+                        Visibility="{Binding IsEditMode, Converter={StaticResource BoolToVisibilityInvertConverter}, Mode=OneWay}">
+                        <!--  明細 TODO:ボタン処理…よりも、右クリックメニューの方がいいかなあ？どこが右クリック可能かユーザーに分からないのが問題。  -->
+                        <Button>編集</Button>
+                        <Button>コピー？</Button>
+                        <Button>完了</Button>
+                        <Button>削除</Button>
+                        <TextBlock
+                            FontSize="18"
+                            FontWeight="Bold"
+                            Text="内容" />
                         <TextBlock
                             HorizontalAlignment="Left"
                             Text="{Binding Content}"
                             TextWrapping="Wrap" />
                         <TextBlock
+                            FontSize="18"
+                            FontWeight="Bold"
+                            Text="進捗メモ" />
+                        <TextBlock
                             HorizontalAlignment="Left"
                             Text="{Binding Progress}"
                             TextWrapping="Wrap" />
+                        <TextBlock
+                            FontSize="18"
+                            FontWeight="Bold"
+                            Text="作成日" />
                         <TextBlock
                             HorizontalAlignment="Left"
                             Text="{Binding CreatedAt}"
                             TextWrapping="Wrap" />
                         <TextBlock
+                            FontSize="18"
+                            FontWeight="Bold"
+                            Text="更新日" />
+                        <TextBlock
                             HorizontalAlignment="Left"
                             Text="{Binding UpdatedAt}"
                             TextWrapping="Wrap" />
                         <TextBlock
+                            FontSize="18"
+                            FontWeight="Bold"
+                            Text="期限" />
+                        <TextBlock
                             HorizontalAlignment="Left"
                             Text="{Binding Deadline}"
                             TextWrapping="Wrap" />
+                        <!--  TODO:優先度  -->
                     </StackPanel>
                     <StackPanel Orientation="Vertical" Visibility="{Binding IsEditMode, Converter={StaticResource BoolToVisibilityConverter}, Mode=OneWay}">
                         <!--  編集  -->
-                        <!--<TextBlock
+                        <TextBlock
                             FontSize="18"
                             FontWeight="Bold"
-                            Text="見出し・説明" />
-                                    <TextBox
+                            Text="タイトル" />
+                        <TextBox
                             Margin="0,5,0,15"
                             FontSize="16"
-                            Text="{Binding Content, Mode=TwoWay}" />-->
-                        <TextBlock
-                            HorizontalAlignment="Left"
-                            Text="{Binding Content}"
+                            Text="{Binding Title, Mode=TwoWay}"
                             TextWrapping="Wrap" />
                         <TextBlock
-                            HorizontalAlignment="Left"
-                            Text="{Binding Progress}"
+                            FontSize="18"
+                            FontWeight="Bold"
+                            Text="内容" />
+                        <TextBox
+                            Margin="0,5,0,15"
+                            AcceptsReturn="True"
+                            FontSize="16"
+                            Text="{Binding Content, Mode=TwoWay}"
                             TextWrapping="Wrap" />
                         <TextBlock
-                            HorizontalAlignment="Left"
-                            Text="{Binding CreatedAt}"
+                            FontSize="18"
+                            FontWeight="Bold"
+                            Text="進捗メモ" />
+                        <TextBox
+                            Margin="0,5,0,15"
+                            AcceptsReturn="True"
+                            FontSize="16"
+                            Text="{Binding Progress, Mode=TwoWay}"
                             TextWrapping="Wrap" />
                         <TextBlock
-                            HorizontalAlignment="Left"
-                            Text="{Binding UpdatedAt}"
-                            TextWrapping="Wrap" />
+                            FontSize="18"
+                            FontWeight="Bold"
+                            Text="期限" />
                         <TextBlock
                             HorizontalAlignment="Left"
                             Text="{Binding Deadline}"
                             TextWrapping="Wrap" />
+                        <!--  TODO:優先度  -->
                     </StackPanel>
                 </Grid>
             </Expander>
@@ -171,6 +231,7 @@
 
         <!--  タスク表示  -->
         <ListView
+            x:Name="MyTaskList"
             Grid.Column="1"
             AllowDrop="True"
             CanDragItems="False"
