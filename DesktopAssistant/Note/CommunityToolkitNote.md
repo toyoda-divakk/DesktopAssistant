@@ -17,18 +17,28 @@ private string? name;
 ```
 
 変更時の処理を追加する
+※実行順は以下の通り。そして、引数はこの通りに書かなければいけない。
 ```
 [ObservableProperty]
 private string? name;
 
-partial void OnNameChanging(string? value)
+partial void OnNameChanging(string value)
 {
-    Console.WriteLine($"Name is about to change to {value}");
+    Console.WriteLine($"Nameプロパティが{value}に変更されようとしてます");
+}
+partial void OnNameChanging(string? oldValue, string newValue)
+{
+    Console.WriteLine($"{oldValue}が{newValue}に変更されようとしてます");
 }
 
-partial void OnNameChanged(string? value)
+partial void OnNameChanged(string value)
 {
-    Console.WriteLine($"Name has changed to {value}");
+    Console.WriteLine($"Nameプロパティが{value}に変更されました");
+}
+
+partial void OnNameChanged(string? oldValue, string newValue)
+{
+    Console.WriteLine($"{oldValue}が{newValue}に変更されました");
 }
 ```
 
