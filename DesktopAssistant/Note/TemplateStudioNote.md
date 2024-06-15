@@ -4,10 +4,17 @@
 そうすると、MSTestがめっちゃエラー出してきてダルいので削除してしまう。
 
 ## RuntimeIdentifiersを消してみたが、良かったのだろうか？
+メインプロジェクトと、Properties\PublishProfiles\win10-x64.pubxmlを変更する。
 ```
+before
 <RuntimeIdentifiers>win10-x86;win10-x64;win10-arm64</RuntimeIdentifiers>
+
+after
 <RuntimeIdentifiers>win-x86;win-x64;win-arm64</RuntimeIdentifiers>
+
+x64 しか使わないのであればwin-x64だけでよい。
 ```
+※一方で、Win2D を使用したアプリは実行時にエラーとなる。
 
 ## PublishProfileが警告を出してくる。
 'Properties\PublishProfiles\win10-x64.pubxml' という名前の発行プロファイルがプロジェクトに見つかりませんでした。
