@@ -49,7 +49,7 @@ partial void OnNameChanged(string? oldValue, string newValue)
 private string? name;
 ```
 
-プロパティが変更されるたびに、コマンドの実行状態を無効にして計算し直す必要がある場合。
+プロパティが変更されるたびに、コマンドの実行状態を無効にして計算し直す必要がある場合。（これ使うか？それよりも後述のCanExecuteの方が直感的に使うかも）
 ```csharp
 [ObservableProperty]
 [NotifyCanExecuteChangedFor(nameof(MyCommand))]
@@ -97,6 +97,7 @@ private async Task GreetUserAsync(CancellationToken token)
 
 実行可否を制御する
 AllowConcurrentExecutionsで同時実行を許可する。false:デフォルト。コマンド実行は無効になる。true:コマンド実行がキューイングされる？（要検証）
+CanExecuteでもボタンの有効無効を制御できる。この例ではCanGreetUserがtrueのときのみ実行可能。引数は合わせる必要があり、CommandParameterでバインドする。
 ```csharp
 [RelayCommand(CanExecute = nameof(CanGreetUser), AllowConcurrentExecutions = false)]
 private void GreetUser(User? user)
@@ -108,6 +109,11 @@ private bool CanGreetUser(User? user)
 {
     return user is not null;
 }
+
+<Button
+    Content="Greet user"
+    Command="{Binding GreetUserCommand}"
+    CommandParameter="{Binding SelectedUser}"/>
 ```
 
 非同期例外の処理
